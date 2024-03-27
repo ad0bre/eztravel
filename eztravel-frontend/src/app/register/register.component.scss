@@ -1,0 +1,116 @@
+.main_container {
+    height: 100%;
+    width: 100%;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgb(186,255,252);
+    background: linear-gradient(90deg, rgba(186,255,252,1) 0%, rgba(140,210,252,1) 49%, rgba(87,200,255,1) 100%);
+}
+
+.container_wrapper{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.small_containers {
+    width: 80%;
+    height: 90%;
+}
+
+.media_container {
+    padding: 0.5rem;
+    margin-right: 1rem;
+}
+
+.register_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    margin-left: 1rem;
+}
+
+.logo_container{
+    width: 70%;
+    height: 15%;
+    padding: 2rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.register_fields {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    align-items: center;
+    height: 350px;
+    padding: 0.5rem;
+}
+
+.text_fields {
+    width: 200px;
+    height: 25px;
+    background: linear-gradient(90deg, rgba(179,230,252,1) 0%, rgba(157,226,252,1) 49%, rgba(111,213,255,1) 75%, rgba(142,182,254,1) 100%);
+    color: black;
+    border-radius: 5px;
+}
+
+.register_buttons {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    width: 150px;
+    height: 45px;
+    margin: 0.5rem;
+    background: linear-gradient(90deg, rgba(179,230,252,1) 0%, rgba(157,226,252,1) 49%, rgba(111,213,255,1) 75%, rgba(142,182,254,1) 100%);
+    font-size: larger;
+    font-weight: 600;
+}
+
+.login_button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+}
+
+.logo{
+    height: 100px;
+    width: 100px;
+}
+.logo:hover{
+    cursor: pointer;
+}
+
+.acc_type_selector{
+    width: 150px;
+    height: 25px;
+    background: linear-gradient(90deg, rgba(179,230,252,1) 0%, rgba(157,226,252,1) 49%, rgba(111,213,255,1) 75%, rgba(142,182,254,1) 100%);
+}
+
+.acc_type_selector:after {
+    position: absolute;
+    content: "";
+    top: 14px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #fff transparent transparent transparent;
+  }

@@ -1,0 +1,35 @@
+<div class="main_container">
+    <div class="container_wrapper">
+        <div class="media_container small_containers">
+            <app-image-slider [slides]="slides"></app-image-slider>
+        </div>
+        <div class="login_container small_containers">
+            <div class="logo_container">
+                <img class="logo" src='../assets/logo.png' alt="logo" (click)="navigateToLanding()">
+                <h1>Travel anywhere, anytime!</h1>
+            </div>
+            <h1>Welcome back!</h1>
+            <div class="login_fields">
+                <label>Email</label>
+                <input class="text_fields">
+                <label>Password</label>
+                <input class="text_fields">
+                <select class="acc_type_selector" name="acc_type">
+                    <option value="0">Select your role</option>
+                    <option value="1">Traveler</option>
+                    <option value="2">Vendor</option>
+                </select>
+            </div>
+            <div class="login_buttons">
+                <button class="button">
+                    <fa-icon [icon]="faRightToBracket"></fa-icon>
+                    Login
+                </button>
+                <button class="button register_button" (click)="navigateToRegister()">
+                    <fa-icon [icon]="faUserPlus"></fa-icon>
+                    <p>Go to Register</p>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

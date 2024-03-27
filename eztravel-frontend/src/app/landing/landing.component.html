@@ -1,0 +1,27 @@
+<div class="main_container">
+    <div class="container_wrapper">
+        <div class="media_container small_containers">
+            <app-image-slider [slides]="slides"></app-image-slider>
+        </div>
+        <div class="info_container small_containers">
+            <div class="logo_container">
+                <img class="logo" src='../assets/logo.png' alt="logo" (click)="navigateToLanding()">
+                <h1>Travel anywhere, anytime!</h1>
+            </div>
+            <div class="text_container">
+                <h1>Welcome to Eztravel!</h1>
+                <h2>Eztravel is a user-friendly web application designed to simplify trip planning for users with minimal details. Whether you're planning a weekend getaway or a month-long adventure, Eztravel makes it easy to discover the best travel options, accommodations, and activities tailored to your preferences and budget.</h2>
+            </div>
+            <div class="login_buttons">
+                <button class="button" (click)="navigateToLogin()">
+                    <fa-icon [icon]="faRightToBracket"></fa-icon>
+                    Login
+                </button>
+                <button class="button register_button" (click)="navigateToRegister()">
+                    <fa-icon [icon]="faUserPlus"></fa-icon>
+                    <p>Go to Register</p>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
