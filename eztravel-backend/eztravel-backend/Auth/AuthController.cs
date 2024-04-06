@@ -14,12 +14,12 @@ public class AuthController : ControllerBase
 {
     private readonly IConfiguration _configuration;
     private readonly RoleManager<Role> _roleManager;
-    private readonly UserManager<User> _userModel;
+    private readonly UserManager<User> _userManager;
 
-    public AuthController(UserManager<User> userModel, RoleManager<Role> roleManager,
+    public AuthController(UserManager<User> userManager, RoleManager<Role> roleManager,
         IConfiguration configuration)
     {
-        _userModel = userModel;
+        _userManager = userManager;
         _roleManager = roleManager;
         _configuration = configuration;
     }
@@ -29,18 +29,18 @@ public class AuthController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<TokenDto>> Login(LoginDto request)
     {
-        var user = await _userModel.FindByNameAsync(request.Username);
+        var user = await _userManager.FindByNameAsync(request.Username);
         if (user is null)
         {
             return NotFound();
         }
-        var wrongPassword = !await _userModel.CheckPasswordAsync(user, request.Password);
+        var wrongPassword = !await _userManager.CheckPasswordAsync(user, request.Password);
         if (wrongPassword)
         {
             return Unauthorized();
         }
 
-        var userRoles = await _userModel.GetRolesAsync(user);
+        var userRoles = await _userManager.GetRolesAsync(user);
 
         var authClaims = new List<Claim>
         {
@@ -74,7 +74,7 @@ public class AuthController : ControllerBase
     public async Task<ActionResult<UserDto>> Register(RegisterDto request)
     {
         var rolesDoesNotExist = !await _roleManager.RoleExistsAsync("admin");
-        var admins = await _userModel.GetUsersInRoleAsync("admin");
+        var admins = await _userManager.GetUsersInRoleAsync("admin");
 
         if (rolesDoesNotExist || admins.Count == 0)
         {
@@ -82,8 +82,8 @@ public class AuthController : ControllerBase
             return await AddUser(request, true);
         }
 
-        var userWithSameName = await _userModel.FindByNameAsync(request.Username);
-        var userWithSameEmail = await _userModel.FindByEmailAsync(request.Email);
+        var userWithSameName = await _userManager.FindByNameAsync(request.Username);
+        var userWithSameEmail = await _userManager.FindByEmailAsync(request.Email);
         var userExists = userWithSameEmail is not null || userWithSameName is not null;
         if (userExists)
         {
@@ -107,17 +107,17 @@ public class AuthController : ControllerBase
     {
         var puser = new User { UserName = model.Username, Email = model.Email };
 
-        var result = await _userModel.CreateAsync(puser, model.Password);
+        var result = await _userManager.CreateAsync(puser, model.Password);
         if (!result.Succeeded)
         {
             var errors = result.Errors.Select(error => error.Description);
             return new UserDto { Errors = errors };
         }
 
-        var user = await _userModel.FindByNameAsync(puser.UserName);
+        var user = await _userManager.FindByNameAsync(puser.UserName);
         if (makeAdmin)
         {
-            await _userModel.AddToRoleAsync(user, "admin");
+            await _userManager.AddToRoleAsync(user, "admin");
         }
 
         return Created("", new UserDto { Id = user.Id, Email = user.Email, UserName = user.UserName });
