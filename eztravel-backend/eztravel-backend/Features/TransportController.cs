@@ -29,7 +29,8 @@ public class TransportController : ControllerBase
             ArrivalTime = request.ArrivalTime,
             Price = request.Price,
             Capacity = request.Capacity,
-            Type = request.Type
+            Type = request.Type,
+            UserId = request.UserId
         };
 
         var result =await _dbContext.Transports.AddAsync(transport);
@@ -37,6 +38,7 @@ public class TransportController : ControllerBase
 
         return Created($"transports/{result.Entity.Id}", new TransportView
         {
+            Id = result.Entity.Id,
             Name = result.Entity.Name,
             Description = result.Entity.Description,
             DepartureLocation = result.Entity.DepartureLocation,
@@ -44,7 +46,8 @@ public class TransportController : ControllerBase
             ArrivalLocation = result.Entity.ArrivalLocation,
             ArrivalTime = result.Entity.ArrivalTime,
             Price = result.Entity.Price,
-            Capacity = result.Entity.Capacity
+            Capacity = result.Entity.Capacity,
+            UserId = result.Entity.UserId
         });
     }
 
@@ -54,6 +57,7 @@ public class TransportController : ControllerBase
         return Ok(await _dbContext.Transports.Select(
             t => new TransportView
             {
+                Id = t.Id,
                 Name = t.Name,
                 Description = t.Description,
                 DepartureLocation = t.DepartureLocation,
@@ -61,7 +65,8 @@ public class TransportController : ControllerBase
                 ArrivalLocation = t.ArrivalLocation,
                 ArrivalTime = t.ArrivalTime,
                 Price = t.Price,
-                Capacity = t.Capacity
+                Capacity = t.Capacity,
+                UserId = t.UserId
             })
             .ToListAsync());
     }
@@ -78,6 +83,7 @@ public class TransportController : ControllerBase
 
         return Ok(new TransportView
         {
+            Id = transport.Id,
             Name = transport.Name,
             Description = transport.Description,
             DepartureLocation = transport.DepartureLocation,
@@ -85,7 +91,8 @@ public class TransportController : ControllerBase
             ArrivalLocation = transport.ArrivalLocation,
             ArrivalTime = transport.ArrivalTime,
             Price = transport.Price,
-            Capacity = transport.Capacity
+            Capacity = transport.Capacity,
+            UserId = transport.UserId
         });
     }
 
