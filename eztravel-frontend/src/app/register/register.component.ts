@@ -51,4 +51,7 @@ export class RegisterComponent {
   navigateToLanding(){
     this.router.navigate(['']);
   }
+  navigateToHome(){
+    this.router.navigate(['home']);
+  }
 }
