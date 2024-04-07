@@ -6,11 +6,13 @@
     flex-direction: column;
     align-items: center;
     gap: 3rem;
-    margin-top: 5rem;
+    padding-top: 1rem;
+
+    background-color: #fecc56;
 }
 
 .trip_info{
-    border: solid 1px red;
+    border: solid 1px black;
     width: 60%;
     height: 40px;
 }
