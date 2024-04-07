@@ -19,6 +19,6 @@ export class HeaderComponent {
     this.router.navigate(['home']);
   }
   goToProfile(){
-    this.router.navigate(['profile']);
+    this.router.navigate(['vendor-profile']);
   }
 }

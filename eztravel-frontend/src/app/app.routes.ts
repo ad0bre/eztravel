@@ -5,6 +5,8 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { ProfileComponent } from './profile/profile.component';
+import { VendorHomeComponent } from './vendor-home/vendor-home.component';
+import { VendorProfileComponent } from './vendor-profile/vendor-profile.component';
 
 export const routes: Routes = [
     {
@@ -30,5 +32,13 @@ export const routes: Routes = [
     {
         path: 'profile',
         component: ProfileComponent
+    },
+    {
+        path: 'vendor-home',
+        component: VendorHomeComponent
+    },
+    {
+        path: 'vendor-profile',
+        component: VendorProfileComponent
     }
 ];
