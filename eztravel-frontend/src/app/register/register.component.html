@@ -12,12 +12,16 @@
             <div class="register_fields">
                 <label>Email</label>
                 <input class="text_fields">
+                <label>First Name</label>
+                <input class="text_fields">
+                <label>Last Name</label>
+                <input class="text_fields">
                 <label>Password</label>
                 <input class="text_fields">
                 <label>Phone number</label>
                 <input class="text_fields">
                 <label>Date of birth</label>
-                <input class="text_fields">
+                <input type="date" class="text_fields">
                 <select class="acc_type_selector" name="acc_type">
                     <option value="0">Select your role</option>
                     <option value="1">Traveler</option>
@@ -25,7 +29,7 @@
                 </select>
             </div>
             <div class="register_buttons">
-                <button class="button">
+                <button class="button" (click)="navigateToHome()">
                     <fa-icon [icon]="faUserPlus"></fa-icon>
                     Register
                 </button>

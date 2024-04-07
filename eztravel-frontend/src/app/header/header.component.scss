@@ -1,0 +1,52 @@
+.main_container{
+    width: 100%;
+    height: 8%;
+
+    display: block;
+
+    background: linear-gradient(90deg, rgba(241,207,156,1) 0%, rgba(251,217,89,1) 49%, rgba(253,199,71,1) 75%, rgba(255,158,0,1) 100%, rgba(142,182,254,1) 100%);
+}
+
+.logo_container{
+    float: left;
+    margin-left: 1rem;
+
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: center;
+
+    height: 100%;
+    width: 10%;
+}
+
+.logo_container image{
+    width: 25%;
+    height: 100%;
+}
+
+.logo_container h3{
+    font-size: larger;
+    font-weight: 700;
+}
+
+.logo:hover{
+    cursor: pointer;
+}
+.logo_text:hover{
+    cursor: pointer;
+}
+
+.profile_container{
+    float: right;
+    margin-right: 1rem;
+
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+    width: 10%;
+}

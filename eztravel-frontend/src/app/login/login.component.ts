@@ -45,13 +45,13 @@ export class LoginComponent {
 
   constructor(private router: Router){}
 
-  navigateToLogin() {
-    this.router.navigate(['/login']);
-  }
   navigateToRegister(){
     this.router.navigate(['/register']);
   }
   navigateToLanding(){
     this.router.navigate(['']);
+  }
+  navigateToHome(){
+    this.router.navigate(['/home']);
   }
 }
