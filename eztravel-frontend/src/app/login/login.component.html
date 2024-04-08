@@ -18,11 +18,11 @@
                 <label *ngIf="incorrectPass" class="error">Wrong password!</label>
             </div>
             <div class="login_buttons">
-                <button class="button" (click)="login()">
+                <button type="button" class="button" (click)="login()">
                     <fa-icon [icon]="faRightToBracket"></fa-icon>
                     Login
                 </button>
-                <button class="button register_button" (click)="navigateToRegister()">
+                <button type="button" class="button register_button" (click)="navigateToRegister()">
                     <fa-icon [icon]="faUserPlus"></fa-icon>
                     <p>Go to Register</p>
                 </button>
