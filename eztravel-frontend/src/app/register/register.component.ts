@@ -84,14 +84,23 @@ export class RegisterComponent{
 
   checkErrorType(){
     if(this.email == ''){
+      this.resetChecks();
       this.emptyEmail = true;
     }
     if(this.username == ''){
+      this.resetChecks();
       this.emptyUser = true;
     }
     if(this.password == ''){
+      this.resetChecks();
       this.emptyPass = true;
     }
+  }
+
+  resetChecks(){
+    this.emptyEmail = false;
+    this.emptyPass = false;
+    this.emptyUser = false;
   }
 
   navigateToLogin() {
