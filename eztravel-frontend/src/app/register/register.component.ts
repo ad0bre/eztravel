@@ -6,7 +6,7 @@ import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { Router, RouterOutlet } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
@@ -20,8 +20,13 @@ import { CommonModule } from '@angular/common';
 export class RegisterComponent{
   faRightToBracket = faRightToBracket;
   faUserPlus = faUserPlus;
-  isValidEmail: boolean = true;
-  isShortPass: boolean = false;
+
+  receivedError: HttpErrorResponse | undefined;
+  errorMessage: string = '';
+  
+  emptyEmail: boolean = false;
+  emptyUser: boolean = false;
+  emptyPass: boolean = false;
 
   email: string = '';
   username: string = '';
@@ -64,19 +69,29 @@ export class RegisterComponent{
     };
 
     try{
-      await lastValueFrom(this.authService.register(user));5
-          this.isValidEmail = true;
+      await lastValueFrom(this.authService.register(user));
           console.log("successfull!");
           this.navigateToHome();
         } catch (error) {
-          if(this.email.length < 8){
-            this.isValidEmail = false;
+          if(error instanceof HttpErrorResponse){
+            this.receivedError = error;
+            console.log(this.receivedError);
+            this.checkErrorType();
           }
-          if(this.password.length < 8){
-            this.isShortPass = true;
-          }
-          console.log("error!", error);
+          console.log(this.errorMessage, error);
         }
+  }
+
+  checkErrorType(){
+    if(this.email == ''){
+      this.emptyEmail = true;
+    }
+    if(this.username == ''){
+      this.emptyUser = true;
+    }
+    if(this.password == ''){
+      this.emptyPass = true;
+    }
   }
 
   navigateToLogin() {
