@@ -28,6 +28,7 @@
 }
 
 .register_container {
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -53,7 +54,7 @@
     flex-direction: column;
     row-gap: 0.5rem;
     align-items: center;
-    height: 350px;
+    height: 50%;
     padding: 0.5rem;
 }
 
@@ -66,7 +67,6 @@
 }
 
 .register_buttons {
-    margin-top: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -112,4 +112,9 @@
     height: 0;
     border: 6px solid transparent;
     border-color: #fff transparent transparent transparent;
+  }
+
+  .error{
+    font-size: smaller;
+    color: red;
   }

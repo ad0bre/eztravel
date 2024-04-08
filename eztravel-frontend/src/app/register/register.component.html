@@ -11,13 +11,15 @@
             <h1>Start traveling today!</h1>
             <div class="register_fields">
                 <label>Email</label>
-                <input class="text_fields">
+                <input class="text_fields" [(ngModel)]="email" required>
+                <label *ngIf="!isValidEmail" class="error">Invalid email!</label>
                 <label>First Name</label>
-                <input class="text_fields">
+                <input class="text_fields" [(ngModel)]="username" required>
                 <label>Last Name</label>
                 <input class="text_fields">
                 <label>Password</label>
-                <input class="text_fields">
+                <input class="text_fields" type="password" [(ngModel)]="password" required>
+                <label *ngIf="isShortPass" class="error">Password must be at least 8 characters!</label>
                 <label>Phone number</label>
                 <input class="text_fields">
                 <label>Date of birth</label>
@@ -29,11 +31,11 @@
                 </select>
             </div>
             <div class="register_buttons">
-                <button class="button" (click)="navigateToHome()">
+                <button type="button" class="button" (click)="register()">
                     <fa-icon [icon]="faUserPlus"></fa-icon>
                     Register
                 </button>
-                <button class="button login_button" (click)="navigateToLogin()">
+                <button type="button" class="button login_button" (click)="navigateToLogin()">
                     <fa-icon [icon]="faRightToBracket"></fa-icon>
                     <p>Go to Login</p>
                 </button>

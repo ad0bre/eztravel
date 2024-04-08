@@ -1,0 +1,27 @@
+<div class="modal-wrapper">
+    <div class="modal-header">
+        <h3 class="modal-title">Add new transport option</h3>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modalRef.close()"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="info_fields">
+                <input type="text" name="id" placeholder="ID" [(ngModel)]="id"/>            
+                <input type="text" name="name" placeholder="Name" [(ngModel)]="name" />             
+                <input type="text" name="description" placeholder="Description..." [(ngModel)]="description" />             
+                <input type="text" name="departureLocation" placeholder="Departure location" [(ngModel)]="departureLocation" />              
+                <input type="text" name="arrivalLocation" placeholder="Arrival location" [(ngModel)]="arrivalLocation" />               
+                <input type="date" name="departureTime" placeholder="Departure time" [(ngModel)]="departureTime" />               
+                <input type="date" name="arrivalTime" placeholder="Arrival time" [(ngModel)]="arrivalTime" />                
+                <input type="number" name="price" placeholder="Price" [(ngModel)]="price" />              
+                <input type="text" name="type" placeholder="Type" [(ngModel)]="type" />
+                <input type="number" name="capacity" placeholder="Capacity" [(ngModel)]="capacity" />
+                <input type="text" name="userId" placeholder="UserID" [(ngModel)]="userId"/>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="button" (click)="modalRef.close()">Close</button>
+        <button type="button" class="button" (click)="createTransport()" (click)="modalRef.close()">Save changes</button>
+    </div>
+</div>

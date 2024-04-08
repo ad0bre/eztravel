@@ -10,17 +10,19 @@
             </div>
             <h1>Welcome back!</h1>
             <div class="login_fields">
-                <label>Email</label>
-                <input class="text_fields">
+                <label>Username</label>
+                <input class="text_fields" [(ngModel)]="username" required>
+                <label *ngIf="userNotFound" class="error">User not found!</label>
                 <label>Password</label>
-                <input class="text_fields">
+                <input class="text_fields" type="password" [(ngModel)]="password" required>
+                <label *ngIf="incorrectPass" class="error">Wrong password!</label>
             </div>
             <div class="login_buttons">
-                <button class="button" (click)="navigateToHome()">
+                <button type="button" class="button" (click)="login()">
                     <fa-icon [icon]="faRightToBracket"></fa-icon>
                     Login
                 </button>
-                <button class="button register_button" (click)="navigateToRegister()">
+                <button type="button" class="button register_button" (click)="navigateToRegister()">
                     <fa-icon [icon]="faUserPlus"></fa-icon>
                     <p>Go to Register</p>
                 </button>
