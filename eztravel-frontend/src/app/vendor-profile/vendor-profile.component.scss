@@ -61,7 +61,7 @@
 }
 
 .description_field{
-    width: 400px;
+    width: 175%;
     height: 100px;
     background: linear-gradient(90deg, rgba(179,230,252,1) 0%, rgba(157,226,252,1) 49%, rgba(111,213,255,1) 75%, rgba(142,182,254,1) 100%);
     color: black;
@@ -88,6 +88,15 @@
     height: 45px;
     margin-right: 0.5rem;
     background: linear-gradient(90deg, rgba(179,230,252,1) 0%, rgba(157,226,252,1) 49%, rgba(111,213,255,1) 75%, rgba(142,182,254,1) 100%);
+    font-size: larger;
+    font-weight: 600;
+}
+
+.sign_out_button{
+    width: 150px;
+    height: 45px;
+    margin-right: 0.5rem;
+    background: linear-gradient(90deg, rgba(255,87,87,1) 0%, rgba(252,48,48,1) 49%, rgba(252,38,38,1) 75%, rgba(255,30,30,1) 89%, rgba(255,0,0,1) 100%);
     font-size: larger;
     font-weight: 600;
 }
