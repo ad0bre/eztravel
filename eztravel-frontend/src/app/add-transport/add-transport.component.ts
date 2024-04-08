@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 
 @Component({
   selector: 'app-add-transport',
@@ -9,5 +8,5 @@ import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
   styleUrl: './add-transport.component.scss'
 })
 export class AddTransportComponent {
-  constructor(public modalRef: MdbModalRef<ModalCom)
+  
 }

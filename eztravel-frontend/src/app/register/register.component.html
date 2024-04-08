@@ -12,14 +12,15 @@
             <div class="register_fields">
                 <label>Email</label>
                 <input class="text_fields" [(ngModel)]="email" required>
-                <label *ngIf="!isValidEmail" class="error">Invalid email!</label>
+                <label *ngIf="emptyEmail" class="error">Email cannot be empty!</label>
                 <label>First Name</label>
                 <input class="text_fields" [(ngModel)]="username" required>
+                <label *ngIf="emptyUser" class="error">Username cannot be empty!</label>
                 <label>Last Name</label>
                 <input class="text_fields">
                 <label>Password</label>
                 <input class="text_fields" type="password" [(ngModel)]="password" required>
-                <label *ngIf="isShortPass" class="error">Password must be at least 8 characters!</label>
+                <label *ngIf="emptyPass" class="error">Password cannot be empty!</label>
                 <label>Phone number</label>
                 <input class="text_fields">
                 <label>Date of birth</label>
