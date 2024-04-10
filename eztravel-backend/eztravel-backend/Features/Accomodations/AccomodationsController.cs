@@ -96,6 +96,8 @@ public class AccomodationsController : ControllerBase
 
         var result = _dBContext.Accomodations.Remove(accomodation);
 
+        await _dBContext.SaveChangesAsync();
+
         return Ok(result.Entity);
     }
 }
