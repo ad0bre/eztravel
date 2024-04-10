@@ -15,4 +15,6 @@ public class AccomodationRequest
     public int People { get; set; }
     
     public int Priority { get; set; }
+    
+    public string? UserId { get; set; }
 }

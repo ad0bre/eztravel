@@ -17,7 +17,7 @@ public class TransportController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<TransportView>> Add(TransportRequest request)
+    public async Task<ActionResult<TransportView>> Add([FromBody]TransportRequest request)
     {
         var transport = new TransportSelection
         {
