@@ -1,8 +1,9 @@
-namespace eztravel_backend.Features.Views;
+using eztravel_backend.Base;
 
-public class TransportRequest
+namespace eztravel_backend.Features.Transports;
+
+public class TransportSelection : ModelBase
 {
-    public string Id { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
     public string DepartureLocation { get; set; }
@@ -13,4 +14,5 @@ public class TransportRequest
     public string Type { get; set; }
     public int Capacity { get; set; }
     public string? UserId { get; set; }
+    public int Priority { get; set; }
 }
