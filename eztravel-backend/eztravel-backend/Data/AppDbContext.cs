@@ -3,7 +3,6 @@ using eztravel_backend.Features;
 using eztravel_backend.Features.Accomodations;
 using eztravel_backend.Features.Activities;
 using eztravel_backend.Features.Transports;
-using eztravel_backend.Migrations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

@@ -17,4 +17,6 @@ public class AccomodationModel : ModelBase
     public int People { get; set; }
     
     public int Priority { get; set; }
+    
+    public string? UserId { get; set; }
 }
