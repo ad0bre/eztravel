@@ -1,9 +1,9 @@
 using eztravel_backend.Data;
-using eztravel_backend.Features.Views;
+using eztravel_backend.Features.Transports.Views;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace eztravel_backend.Features;
+namespace eztravel_backend.Features.Transports;
 
 [ApiController]
 [Route("api/transport")]

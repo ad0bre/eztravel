@@ -1,6 +1,6 @@
-namespace eztravel_backend.Features.Views;
+namespace eztravel_backend.Features.Transports.Views;
 
-public class TransportView
+public class TransportRequest
 {
     public string Id { get; set; }
     public string Name { get; set; }
@@ -13,4 +13,6 @@ public class TransportView
     public string Type { get; set; }
     public int Capacity { get; set; }
     public string? UserId { get; set; }
+    
+    public int Priority { get; set; }
 }
