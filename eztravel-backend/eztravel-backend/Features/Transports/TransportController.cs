@@ -108,6 +108,8 @@ public class TransportController : ControllerBase
 
         var result = _dbContext.Transports.Remove(transport);
 
+        await _dbContext.SaveChangesAsync();
+
         return Ok(result.Entity);
     }
 }
