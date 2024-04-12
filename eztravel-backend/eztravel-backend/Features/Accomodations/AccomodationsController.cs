@@ -7,17 +7,10 @@ namespace eztravel_backend.Features.Accomodations;
 
 [ApiController]
 [Route("api/accomodations")]
-public class AccomodationsController : ControllerBase
+public class AccomodationsController(AppDbContext dBContext) : ControllerBase
 {
-    private readonly AppDbContext _dBContext;
-
-    public AccomodationsController([FromBody]AppDbContext dBContext)
-    {
-        _dBContext = dBContext;
-    }
-
     [HttpPost]
-    public async Task<ActionResult<AccomodationDto>> Add(AccomodationRequest request)
+    public async Task<ActionResult<AccomodationDto>> Add([FromBody]AccomodationRequest request)
     {
         var accomodation = new AccomodationModel
         {
@@ -31,9 +24,9 @@ public class AccomodationsController : ControllerBase
             UserId = request.UserId
         };
 
-        var result = await _dBContext.Accomodations.AddAsync(accomodation);
+        var result = await dBContext.Accomodations.AddAsync(accomodation);
 
-        await _dBContext.SaveChangesAsync();
+        await dBContext.SaveChangesAsync();
 
         return Created($"transports/{result.Entity.Id}", new AccomodationDto
         {
@@ -51,7 +44,7 @@ public class AccomodationsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<AccomodationDto>>> Get()
     {
-        return Ok(await _dBContext.Accomodations.Select(
+        return Ok(await dBContext.Accomodations.Select(
             accomodation => new AccomodationDto
             {
                 Id = accomodation.Id,
@@ -68,7 +61,7 @@ public class AccomodationsController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<AccomodationDto>> Get([FromRoute] string id)
     {
-        var accomodation = await _dBContext.Accomodations.FirstOrDefaultAsync(e => e.Id == id);
+        var accomodation = await dBContext.Accomodations.FirstOrDefaultAsync(e => e.Id == id);
 
         if (accomodation is null)
         {
@@ -91,16 +84,16 @@ public class AccomodationsController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult<AccomodationModel>> Delete([FromRoute] string id)
     {
-        var accomodation = await _dBContext.Accomodations.FirstOrDefaultAsync(e => e.Id == id);
+        var accomodation = await dBContext.Accomodations.FirstOrDefaultAsync(e => e.Id == id);
 
         if (accomodation is null)
         {
             return NotFound();
         }
 
-        var result = _dBContext.Accomodations.Remove(accomodation);
+        var result = dBContext.Accomodations.Remove(accomodation);
 
-        await _dBContext.SaveChangesAsync();
+        await dBContext.SaveChangesAsync();
 
         return Ok(result.Entity);
     }
