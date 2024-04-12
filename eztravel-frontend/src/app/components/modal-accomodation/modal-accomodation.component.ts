@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MdbModalModule, MdbModalRef} from 'mdb-angular-ui-kit/modal';
+import { MdbModalRef} from 'mdb-angular-ui-kit/modal';
 import { lastValueFrom } from 'rxjs';
-import { TransportService } from '../../services/transport.service';
-import { MdbRippleModule } from 'mdb-angular-ui-kit/ripple';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
