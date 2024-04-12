@@ -9,28 +9,29 @@ import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ImageSliderComponent, FontAwesomeModule, RouterOutlet, FormsModule, HttpClientModule, CommonModule],
+  imports: [ImageSliderComponent, FontAwesomeModule, RouterOutlet, FormsModule, HttpClientModule, CommonModule, MdbFormsModule, MdbValidationModule, ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent{
+  validationForm: FormGroup;
   faRightToBracket = faRightToBracket;
   faUserPlus = faUserPlus;
 
+  alreadyExists: boolean = false;
+  invalidEmail: boolean = false;
+
   receivedError: HttpErrorResponse | undefined;
   errorMessage: string = '';
-  
-  emptyEmail: boolean = false;
-  emptyUser: boolean = false;
-  emptyPass: boolean = false;
-
-  email: string = '';
-  username: string = '';
-  password: string = '';
+  errorBody: any;
 
   slides: any[] = [
     {
@@ -59,13 +60,19 @@ export class RegisterComponent{
     },
   ];
 
-  constructor(private router: Router, private authService: AuthService){}
+  constructor(private router: Router, private authService: AuthService){
+    this.validationForm = new FormGroup({
+      email: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
+      username: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
+      password: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
+    });
+  }
 
   async register(){
     const user = {
-      email: this.email,
-      username: this.username,
-      password: this.password
+      email: this.validationForm.get('email')?.value,
+      username: this.validationForm.get('username')?.value,
+      password: this.validationForm.get('password')?.value
     };
 
     try{
@@ -75,32 +82,27 @@ export class RegisterComponent{
         } catch (error) {
           if(error instanceof HttpErrorResponse){
             this.receivedError = error;
+            this.checkError(error);
             console.log(this.receivedError);
-            this.checkErrorType();
           }
           console.log(this.errorMessage, error);
         }
   }
 
-  checkErrorType(){
-    if(this.email == ''){
+  checkError(error: HttpErrorResponse){
+    if(error.error == 'Email or username already in use'){
       this.resetChecks();
-      this.emptyEmail = true;
+      this.alreadyExists = true;
     }
-    if(this.username == ''){
+    if(error.error.errors && error.error.errors.Email && error.error.errors.Email.length > 0){
       this.resetChecks();
-      this.emptyUser = true;
-    }
-    if(this.password == ''){
-      this.resetChecks();
-      this.emptyPass = true;
+      this.invalidEmail = true;
     }
   }
 
   resetChecks(){
-    this.emptyEmail = false;
-    this.emptyPass = false;
-    this.emptyUser = false;
+    this.alreadyExists = false;
+    this.invalidEmail = false;
   }
 
   navigateToLogin() {
@@ -111,5 +113,24 @@ export class RegisterComponent{
   }
   navigateToHome(){
     this.router.navigate(['/home']);
+  }
+
+  get email(): AbstractControl {
+    return this.validationForm.get('email')!;
+  }
+
+  get username(): AbstractControl {
+    return this.validationForm.get('username')!;
+  }
+
+  get password(): AbstractControl {
+    return this.validationForm.get('password')!;
+  }
+
+  onSubmit(): void {
+    this.validationForm.markAllAsTouched();
+    if (this.validationForm.valid) {
+      this.register();
+    }
   }
 }

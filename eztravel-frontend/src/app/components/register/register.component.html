@@ -9,38 +9,54 @@
                 <h1>Travel anywhere, anytime!</h1>
             </div>
             <h1>Start traveling today!</h1>
-            <div class="register_fields">
-                <label>Email</label>
-                <input class="text_fields" [(ngModel)]="email" required>
-                <label *ngIf="emptyEmail" class="error">Email cannot be empty!</label>
-                <label>First Name</label>
-                <input class="text_fields" [(ngModel)]="username" required>
-                <label *ngIf="emptyUser" class="error">Username cannot be empty!</label>
-                <label>Last Name</label>
-                <input class="text_fields">
-                <label>Password</label>
-                <input class="text_fields" type="password" [(ngModel)]="password" required>
-                <label *ngIf="emptyPass" class="error">Password cannot be empty!</label>
-                <label>Phone number</label>
-                <input class="text_fields">
-                <label>Date of birth</label>
-                <input type="date" class="text_fields">
-                <select class="acc_type_selector" name="acc_type">
-                    <option value="0">Select your role</option>
-                    <option value="1">Traveler</option>
-                    <option value="2">Vendor</option>
-                </select>
-            </div>
-            <div class="register_buttons">
-                <button type="button" class="button" (click)="register()">
-                    <fa-icon [icon]="faUserPlus"></fa-icon>
-                    Register
-                </button>
-                <button type="button" class="button login_button" (click)="navigateToLogin()">
-                    <fa-icon [icon]="faRightToBracket"></fa-icon>
-                    <p>Go to Login</p>
-                </button>
-            </div>
+            <form [formGroup]="validationForm" (ngSubmit)="onSubmit()">
+                <div class="column" style="align-items: center; justify-content: center;">
+                    <div>
+                        <mdb-form-control>
+                          <input mdbValidate mdbInput type="text" id="form1" class="form-control longer-input" formControlName="email" required/>
+                          <label mdbLabel class="form-label" for="form1">Email</label>
+                          <mdb-error *ngIf="validationForm.get('email')?.errors?.['required'] && validationForm.get('email')?.touched">
+                            Email is required
+                          </mdb-error>
+                          <mdb-error *ngIf="invalidEmail">
+                            Invalid email
+                          </mdb-error>
+                        </mdb-form-control>
+                    </div>
+                  <div style="margin-top: 30px; margin-bottom: 30px;">
+                    <mdb-form-control>
+                      <input mdbValidate mdbInput type="text" id="form2" class="form-control longer-input" formControlName="username" required/>
+                      <label mdbLabel class="form-label" for="form2">Username</label>
+                      <mdb-error *ngIf="validationForm.get('username')?.errors?.['required'] && validationForm.get('username')?.touched">
+                        Username is required
+                      </mdb-error>
+                    </mdb-form-control>
+                  </div>
+                  
+                  <div style="margin-top: 30px; margin-bottom: 30px;">
+                    <mdb-form-control>
+                      <input mdbValidate mdbInput type="password" id="form3" class="form-control longer-input" formControlName="password" required/>
+                      <label mdbLabel class="form-label" for="form3">Password</label>
+                      <mdb-error *ngIf="validationForm.get('password')?.errors?.['required'] && validationForm.get('password')?.touched">
+                        Password is required
+                      </mdb-error>
+                      <mdb-error *ngIf="alreadyExists">
+                        User already exists
+                      </mdb-error>
+                    </mdb-form-control>
+                  </div>
+                </div>
+                <div class="login_buttons" style="display: flex; flex-direction: row; gap: 15px; margin-bottom: 10px;">
+                  <button type="submit" class="btn btn-primary btn-lg" mdbRipple>
+                      <fa-icon [icon]="faRightToBracket"></fa-icon>
+                      Register
+                  </button>
+                  <button type="button" class="btn btn-primary btn-lg" mdbRipple (click)="navigateToLogin()">
+                      <fa-icon [icon]="faUserPlus"></fa-icon>
+                      To Login
+                  </button>
+              </div>
+              </form>
         </div>
     </div>
 </div>
