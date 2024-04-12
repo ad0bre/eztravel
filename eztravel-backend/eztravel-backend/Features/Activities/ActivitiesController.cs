@@ -7,15 +7,8 @@ namespace eztravel_backend.Features.Activities;
 
 [ApiController]
 [Route("api/activities")]
-public class ActivitiesController : ControllerBase
+public class ActivitiesController(AppDbContext dbContext) : ControllerBase
 {
-    private readonly AppDbContext _dbContext;
-
-    public ActivitiesController(AppDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
     [HttpPost]
     public async Task<ActionResult<ActivityDto>> Add([FromBody]ActivityRequest request)
     {
@@ -29,9 +22,9 @@ public class ActivitiesController : ControllerBase
             UserId = request.UserId
         };
 
-        var result = await _dbContext.Activities.AddAsync(activity);
+        var result = await dbContext.Activities.AddAsync(activity);
 
-        await _dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync();
 
         return Created($"activities/{result.Entity.Id}", new ActivityDto
         {
@@ -47,7 +40,7 @@ public class ActivitiesController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ActivityDto>>> Get()
     {
-        return Ok(await _dbContext.Activities.Select(
+        return Ok(await dbContext.Activities.Select(
             activity => new ActivityDto
             {
                 Id = activity.Id,
@@ -62,7 +55,7 @@ public class ActivitiesController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<ActivityDto>> Get([FromRoute] string id)
     {
-        var activity = await _dbContext.Activities.FirstOrDefaultAsync(e => e.Id == id);
+        var activity = await dbContext.Activities.FirstOrDefaultAsync(e => e.Id == id);
 
         if (activity is null)
         {
@@ -83,16 +76,16 @@ public class ActivitiesController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult<ActivityModel>> Delete([FromRoute] string id)
     {
-        var activity = await _dbContext.Activities.FirstOrDefaultAsync(e => e.Id == id);
+        var activity = await dbContext.Activities.FirstOrDefaultAsync(e => e.Id == id);
 
         if (activity is null)
         {
             return NotFound();
         }
 
-        var result = _dbContext.Activities.Remove(activity);
+        var result = dbContext.Activities.Remove(activity);
 
-        await _dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync();
 
         return Ok(result.Entity);
     }

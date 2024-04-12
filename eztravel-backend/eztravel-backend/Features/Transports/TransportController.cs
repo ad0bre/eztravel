@@ -7,15 +7,8 @@ namespace eztravel_backend.Features.Transports;
 
 [ApiController]
 [Route("api/transport")]
-public class TransportController : ControllerBase
+public class TransportController(AppDbContext dbContext) : ControllerBase
 {
-    private readonly AppDbContext _dbContext;
-
-    public TransportController(AppDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
     [HttpPost]
     public async Task<ActionResult<TransportView>> Add([FromBody]TransportRequest request)
     {
@@ -33,8 +26,8 @@ public class TransportController : ControllerBase
             UserId = request.UserId
         };
 
-        var result =await _dbContext.Transports.AddAsync(transport);
-        await _dbContext.SaveChangesAsync();
+        var result =await dbContext.Transports.AddAsync(transport);
+        await dbContext.SaveChangesAsync();
 
         return Created($"transports/{result.Entity.Id}", new TransportView
         {
@@ -54,7 +47,7 @@ public class TransportController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<TransportView>>> Get()
     {
-        return Ok(await _dbContext.Transports.Select(
+        return Ok(await dbContext.Transports.Select(
             t => new TransportView
             {
                 Id = t.Id,
@@ -74,7 +67,7 @@ public class TransportController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<TransportView>> Get([FromRoute] string id)
     {
-        var transport = await _dbContext.Transports.FirstOrDefaultAsync(e => e.Id == id);
+        var transport = await dbContext.Transports.FirstOrDefaultAsync(e => e.Id == id);
 
         if (transport is null)
         {
@@ -99,16 +92,16 @@ public class TransportController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult<TransportSelection>> Delete([FromRoute] string id)
     {
-        var transport = await _dbContext.Transports.FirstOrDefaultAsync(e => e.Id == id);
+        var transport = await dbContext.Transports.FirstOrDefaultAsync(e => e.Id == id);
 
         if (transport is null)
         {
             return NotFound();
         }
 
-        var result = _dbContext.Transports.Remove(transport);
+        var result = dbContext.Transports.Remove(transport);
 
-        await _dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync();
 
         return Ok(result.Entity);
     }
