@@ -13,13 +13,13 @@
                 <h2>Eztravel is a user-friendly web application designed to simplify trip planning for users with minimal details. Whether you're planning a weekend getaway or a month-long adventure, Eztravel makes it easy to discover the best travel options, accommodations, and activities tailored to your preferences and budget.</h2>
             </div>
             <div class="login_buttons">
-                <button class="button" (click)="navigateToLogin()">
+                <button type="button" class="btn btn-primary btn-lg" mdbRipple (click)="navigateToLogin()">
                     <fa-icon [icon]="faRightToBracket"></fa-icon>
                     Login
                 </button>
-                <button class="button register_button" (click)="navigateToRegister()">
+                <button type="button" class="btn btn-primary btn-lg" mdbRipple (click)="navigateToRegister()">
                     <fa-icon [icon]="faUserPlus"></fa-icon>
-                    <p>Go to Register</p>
+                    Register
                 </button>
             </div>
         </div>

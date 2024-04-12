@@ -1,0 +1,49 @@
+<div class="main_container">
+  <div class="container_wrapper">
+      <div class="media_container small_containers">
+          <app-image-slider [slides]="slides"></app-image-slider>
+      </div>
+      <div class="login_container small_containers">
+          <div class="logo_container">
+              <img class="logo" src='../assets/logo.png' alt="logo" (click)="navigateToLanding()">
+              <h1>Travel anywhere, anytime!</h1>
+          </div>
+          <h1>Welcome back!</h1>
+          <form [formGroup]="validationForm" (ngSubmit)="onSubmit()">
+              <div class="column" style="align-items: center; justify-content: center;">
+                <div>
+                  <mdb-form-control>
+                    <input mdbValidate mdbInput type="text" id="form1" class="form-control longer-input" formControlName="username" required/>
+                    <label mdbLabel class="form-label" for="form1">Username</label>
+                    <mdb-error *ngIf="validationForm.get('username')?.errors?.['required'] && validationForm.get('username')?.touched">
+                      Username is required
+                    </mdb-error>
+                  </mdb-form-control>
+                </div>
+                
+                <!-- Password field -->
+                <div style="margin-top: 30px; margin-bottom: 30px;">
+                  <mdb-form-control>
+                    <input mdbValidate mdbInput type="password" id="form2" class="form-control longer-input" formControlName="password" required/>
+                    <label mdbLabel class="form-label" for="form2">Password</label>
+                    <mdb-error *ngIf="validationForm.get('password')?.errors?.['required'] && validationForm.get('password')?.touched">
+                      Password is required
+                    </mdb-error>
+                    <mdb-error *ngIf="userNotFound" style="margin-top: 30px;">Incorrect username or password</mdb-error>
+                  </mdb-form-control>
+                </div>
+              </div>
+              <div class="login_buttons">
+                <button type="submit" class="btn btn-primary btn-lg" mdbRipple (click)="login()">
+                    <fa-icon [icon]="faRightToBracket"></fa-icon>
+                    Login
+                </button>
+                <button type="button" class="btn btn-primary btn-lg" mdbRipple (click)="navigateToRegister()">
+                    <fa-icon [icon]="faUserPlus"></fa-icon>
+                    To Register
+                </button>
+            </div>
+            </form>
+      </div>
+  </div>
+</div>

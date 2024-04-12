@@ -1,0 +1,62 @@
+<div class="main_container">
+    <div class="container_wrapper">
+        <div class="media_container small_containers">
+            <app-image-slider [slides]="slides"></app-image-slider>
+        </div>
+        <div class="register_container small_containers">
+            <div class="logo_container">
+                <img class="logo" src='../assets/logo.png' alt="logo" (click)="navigateToLanding()">
+                <h1>Travel anywhere, anytime!</h1>
+            </div>
+            <h1>Start traveling today!</h1>
+            <form [formGroup]="validationForm" (ngSubmit)="onSubmit()">
+                <div class="column" style="align-items: center; justify-content: center;">
+                    <div>
+                        <mdb-form-control>
+                          <input mdbValidate mdbInput type="text" id="form1" class="form-control longer-input" formControlName="email" required/>
+                          <label mdbLabel class="form-label" for="form1">Email</label>
+                          <mdb-error *ngIf="validationForm.get('email')?.errors?.['required'] && validationForm.get('email')?.touched">
+                            Email is required
+                          </mdb-error>
+                          <mdb-error *ngIf="invalidEmail">
+                            Invalid email
+                          </mdb-error>
+                        </mdb-form-control>
+                    </div>
+                  <div style="margin-top: 30px; margin-bottom: 30px;">
+                    <mdb-form-control>
+                      <input mdbValidate mdbInput type="text" id="form2" class="form-control longer-input" formControlName="username" required/>
+                      <label mdbLabel class="form-label" for="form2">Username</label>
+                      <mdb-error *ngIf="validationForm.get('username')?.errors?.['required'] && validationForm.get('username')?.touched">
+                        Username is required
+                      </mdb-error>
+                    </mdb-form-control>
+                  </div>
+                  
+                  <div style="margin-top: 30px; margin-bottom: 30px;">
+                    <mdb-form-control>
+                      <input mdbValidate mdbInput type="password" id="form3" class="form-control longer-input" formControlName="password" required/>
+                      <label mdbLabel class="form-label" for="form3">Password</label>
+                      <mdb-error *ngIf="validationForm.get('password')?.errors?.['required'] && validationForm.get('password')?.touched">
+                        Password is required
+                      </mdb-error>
+                      <mdb-error *ngIf="alreadyExists">
+                        User already exists
+                      </mdb-error>
+                    </mdb-form-control>
+                  </div>
+                </div>
+                <div class="login_buttons" style="display: flex; flex-direction: row; gap: 15px; margin-bottom: 10px;">
+                  <button type="submit" class="btn btn-primary btn-lg" mdbRipple>
+                      <fa-icon [icon]="faRightToBracket"></fa-icon>
+                      Register
+                  </button>
+                  <button type="button" class="btn btn-primary btn-lg" mdbRipple (click)="navigateToLogin()">
+                      <fa-icon [icon]="faUserPlus"></fa-icon>
+                      To Login
+                  </button>
+              </div>
+              </form>
+        </div>
+    </div>
+</div>

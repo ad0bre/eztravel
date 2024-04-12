@@ -5,24 +5,26 @@ import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { Router, RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
 import { lastValueFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
+import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ImageSliderComponent, FontAwesomeModule, RouterOutlet, FormsModule, CommonModule],
+  imports: [ImageSliderComponent, FontAwesomeModule, RouterOutlet, FormsModule, CommonModule, MdbFormsModule, MdbValidationModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  validationForm: FormGroup;
   faRightToBracket = faRightToBracket;
   faUserPlus = faUserPlus;
-
-  username: string = '';
-  password: string = '';
 
   errorMessage: string = '';
 
@@ -56,35 +58,35 @@ export class LoginComponent {
     },
   ];
 
-  constructor(private router: Router, private authService: AuthService){}
+  constructor(private router: Router, private authService: AuthService){
+    this.validationForm = new FormGroup({
+      username: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
+      password: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
+    });
+  }
 
   async login(){
     const user = {
-      username: this.username,
-      password: this.password
+      username: this.validationForm.get('username')?.value,
+      password: this.validationForm.get('password')?.value
     };
-
+  
     try{
       await lastValueFrom(this.authService.login(user));
-          console.log("successfull!");
-          this.navigateToHome();
-        } catch (error) {
-          if(error instanceof HttpErrorResponse){
-            this.errorMessage = error.statusText;
-            this.checkErrorType(this.errorMessage);
-            this.errorMessage = '';
-          }
-          console.log(this.errorMessage, error);
-        }
-  }
+      console.log("Successful login!");
+      this.navigateToHome();
+    } catch (error) {
+      if(error instanceof HttpErrorResponse){
+        this.checkErrorType(error.status);
+      }
+      console.error("Login error:", error);
+    }
+  }  
 
-  checkErrorType(error: string){
-    if(error == 'Not Found'){
+  checkErrorType(status: number){
+    if(status == 400 || status == 401){
       this.resetChecks();
       this.userNotFound = true;
-    } else if(error == 'Unauthorized'){
-      this.resetChecks();
-      this.incorrectPass = true;
     }
   }
 
@@ -101,5 +103,17 @@ export class LoginComponent {
   }
   navigateToHome(){
     this.router.navigate(['/vendor-home']);
+  }
+
+  get username(): AbstractControl {
+    return this.validationForm.get('username')!;
+  }
+
+  get password(): AbstractControl {
+    return this.validationForm.get('password')!;
+  }
+
+  onSubmit(): void {
+    this.validationForm.markAllAsTouched();
   }
 }

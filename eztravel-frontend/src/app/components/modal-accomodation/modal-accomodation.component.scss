@@ -1,16 +1,18 @@
 .modal-wrapper {
+    $modal-fade-transform: scale(.8);
     background: rgba(255, 255, 255, 0.14);
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(4.7px);
     -webkit-backdrop-filter: blur(4.7px);
-
-    height: 550px;
-    width: 300px;
+  
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    max-width: 80%; /* Adjust the width as needed */
+    max-height: 80vh; /* Adjust the height as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
     padding: 20px;
     z-index: 1000;
   }
@@ -27,8 +29,8 @@
   .modal-body {
     /* Add styles for modal body if needed */
   }
-
-  .info_fields{
+  
+  .info_fields {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -38,17 +40,7 @@
   .modal-footer {
     display: flex;
     justify-content: center;
-    gap: 10px;
     margin-top: 10px;
-  }
-
-  .button{
-    width: 100px;
-    height: 35px;
-    margin: 0.5rem;
-    background: linear-gradient(90deg, rgba(179,230,252,1) 0%, rgba(157,226,252,1) 49%, rgba(111,213,255,1) 75%, rgba(142,182,254,1) 100%);
-    font-size: small;
-    font-weight: 700;
   }
   
   .btn-close {
