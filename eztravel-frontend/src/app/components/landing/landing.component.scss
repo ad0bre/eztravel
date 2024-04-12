@@ -6,6 +6,7 @@
     justify-content: center;
     align-items: center;
 
+    background: rgb(186,255,252);
     background: linear-gradient(90deg, rgba(241,207,156,1) 0%, rgba(251,217,89,1) 49%, rgba(254,204,86,1) 75%, rgba(255,158,0,1) 100%, rgba(142,182,254,1) 100%);
 }
 
@@ -24,16 +25,26 @@
 
 .media_container {
     padding: 0.5rem;
-    margin-right: 1rem;
+    margin-right: 0.5rem;
 }
 
-.login_container {
+.info_container {
+    width: 80%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 0.5rem;
     margin-left: 1rem;
+}
+
+.text_container{
+    width: 60%;
+    margin-top: 1rem;
+}
+
+h2{
+    font-size: larger;
 }
 
 .logo_container{
@@ -69,6 +80,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 1rem;
 }
 
 .button {
@@ -76,7 +88,7 @@
     height: 45px;
     margin: 0.5rem;
     background: linear-gradient(90deg, rgba(179,230,252,1) 0%, rgba(157,226,252,1) 49%, rgba(111,213,255,1) 75%, rgba(142,182,254,1) 100%);
-    font-size: larger;
+    font-size: large;
     font-weight: 600;
 }
 
@@ -85,7 +97,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    font-size: large;
+    font-size: medium;
 }
 
 .logo{
@@ -98,19 +110,17 @@
 
 .acc_type_selector{
     width: 150px;
-    padding: 8px;
-    border-radius: 5px;
-    background: linear-gradient(90deg, rgba(179, 230, 252, 1) 0%, rgba(157, 226, 252, 1) 49%, rgba(111, 213, 255, 1) 75%, rgba(142, 182, 254, 1) 100%);
-    color: black;
-    border: none;
-    cursor: pointer;
-}
-
-.acc_type_selector option {
+    height: 25px;
     background: linear-gradient(90deg, rgba(179,230,252,1) 0%, rgba(157,226,252,1) 49%, rgba(111,213,255,1) 75%, rgba(142,182,254,1) 100%);
 }
 
-.error{
-    font-size: smaller;
-    color: red;
-}
+.acc_type_selector:after {
+    position: absolute;
+    content: "";
+    top: 14px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #fff transparent transparent transparent;
+  }

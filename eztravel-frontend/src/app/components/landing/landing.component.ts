@@ -4,11 +4,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { Router, RouterOutlet } from '@angular/router';
+import { MdbRippleModule } from 'mdb-angular-ui-kit/ripple';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [RouterOutlet, ImageSliderComponent, FontAwesomeModule],
+  imports: [RouterOutlet, ImageSliderComponent, FontAwesomeModule, MdbRippleModule],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss'
 })

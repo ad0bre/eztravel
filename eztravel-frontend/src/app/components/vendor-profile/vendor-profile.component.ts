@@ -3,7 +3,6 @@ import { HeaderComponent } from '../header/header.component';
 import { Router } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { ModalComponent } from '../modal/modal.component';
-import { TransportService } from '../services/transport.service';
 
 @Component({
   selector: 'app-vendor-profile',
@@ -19,7 +18,7 @@ export class VendorProfileComponent {
 
   openModal(){
     this.modalRef = this.modalService.open(ModalComponent, {
-      modalClass: 'modal-dialog-centered'
+      modalClass: 'modal-dialog-scrollable'
     })
   }
 

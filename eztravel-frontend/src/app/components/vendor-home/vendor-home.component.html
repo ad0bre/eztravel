@@ -1,0 +1,28 @@
+<app-header></app-header>
+<div class="main_container">
+    <div class="info_container">
+        <table>
+            <tr>
+                <th>Your transport offers</th>
+                <th>Your accomodation offers</th>
+                <th>Your activities offers</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <div style="margin-top: 1rem; width: 100%; display: flex; flex-direction: row;">
+            <div style="width: 33%;">
+                <button type="button" class="btn btn-primary btn-lg" mdbRipple (click)="openTransportModal()">Add transport</button>
+            </div>
+            <div style="width: 33%;">
+                <button type="button" class="btn btn-primary btn-lg" mdbRipple (click)="openAccomodationModal()">Add accomodation</button>
+            </div>
+            <div style="width: 33%;">
+                <button type="button" class="btn btn-primary btn-lg" mdbRipple>Add Activities</button>
+            </div>
+        </div>
+    </div>
+</div>

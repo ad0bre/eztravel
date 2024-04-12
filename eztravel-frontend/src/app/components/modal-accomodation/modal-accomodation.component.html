@@ -1,0 +1,104 @@
+<div class="modal-wrapper">
+    <div class="modal-header">
+        <h3 class="modal-title" style="font-weight: 700; color: black;">Add new transport option</h3>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modalRef.close()"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="validationForm" (ngSubmit)="onSubmit()">
+            <div>
+                <mdb-form-control>
+                  <input mdbValidate mdbInput type="text" id="form1" class="form-control" formControlName="id" required/>
+                  <label mdbLabel class="form-label" for="form1">ID</label>
+                  <mdb-error *ngIf="validationForm.get('id')?.errors?.['required'] && validationForm.get('id')?.touched">
+                    ID is required
+                  </mdb-error>
+                </mdb-form-control>
+            </div>
+              
+            <div style="margin-top: 30px; margin-bottom: 20px;">
+                <mdb-form-control>
+                  <input mdbValidate mdbInput type="text" id="form2" class="form-control" formControlName="name"/>
+                  <label mdbLabel class="form-label" for="form2">Name</label>
+                  <mdb-error *ngIf="validationForm.get('name')?.errors?.['required'] && validationForm.get('name')?.touched">
+                    Name is required
+                    </mdb-error>
+                </mdb-form-control>
+            </div>
+
+            <div style="margin-top: 30px; margin-bottom: 20px;">
+                <mdb-form-control>
+                  <input mdbValidate mdbInput type="text" id="form3" class="form-control" formControlName="description" required/>
+                  <label mdbLabel class="form-label" for="form3">Description</label>
+                  <mdb-error *ngIf="validationForm.get('description')?.errors?.['required'] && validationForm.get('description')?.touched">
+                    Description is required
+                  </mdb-error>
+                </mdb-form-control>
+            </div>
+
+            <div style="margin-top: 30px; margin-bottom: 20px;">
+                <mdb-form-control>
+                  <input mdbValidate mdbInput type="text" id="form4" class="form-control" formControlName="location" required/>
+                  <label mdbLabel class="form-label" for="form4">Location</label>
+                  <mdb-error *ngIf="validationForm.get('location')?.errors?.['required'] && validationForm.get('location')?.touched">
+                    Location is required
+                  </mdb-error>
+                </mdb-form-control>
+            </div>
+
+            <div style="margin-top: 30px; margin-bottom: 20px;">
+                <mdb-form-control>
+                  <input mdbValidate mdbInput type="date" id="form5" class="form-control" formControlName="checkIn" required/>
+                  <label mdbLabel class="form-label" for="form5">Check in</label>
+                  <mdb-error *ngIf="validationForm.get('checkIn')?.errors?.['required'] && validationForm.get('checkIn')?.touched">
+                    Check in is required
+                  </mdb-error>
+                </mdb-form-control>
+            </div>
+
+            <div style="margin-top: 30px; margin-bottom: 20px;">
+                <mdb-form-control>
+                  <input mdbValidate mdbInput type="date" id="form6" class="form-control" formControlName="checkOut" required/>
+                  <label mdbLabel class="form-label" for="form6">Check out</label>
+                  <mdb-error *ngIf="validationForm.get('checkOut')?.errors?.['required'] && validationForm.get('checkOut')?.touched">
+                    Check out is required
+                  </mdb-error>
+                </mdb-form-control>
+            </div>
+
+            <div style="margin-top: 30px; margin-bottom: 20px;">
+                <mdb-form-control>
+                  <input mdbValidate mdbInput type="number" id="form7" class="form-control" formControlName="people" required/>
+                  <label mdbLabel class="form-label" for="form7">People</label>
+                  <mdb-error *ngIf="validationForm.get('people')?.errors?.['required'] && validationForm.get('people')?.touched">
+                    Number of people is required
+                  </mdb-error>
+                </mdb-form-control>
+            </div>
+
+            <div style="margin-top: 30px; margin-bottom: 20px;">
+                <mdb-form-control>
+                  <input mdbValidate mdbInput type="number" id="form8" class="form-control" formControlName="priority" required/>
+                  <label mdbLabel class="form-label" for="form8">Priority</label>
+                  <mdb-error *ngIf="validationForm.get('priority')?.errors?.['required'] && validationForm.get('priority')?.touched">
+                    Priority is required
+                  </mdb-error>
+                </mdb-form-control>
+            </div>
+
+            <div style="margin-top: 30px; margin-bottom: 20px;">
+                <mdb-form-control>
+                  <input mdbValidate mdbInput type="text" id="form9" class="form-control" formControlName="userId" required/>
+                  <label mdbLabel class="form-label" for="form9">UserID</label>
+                  <mdb-error *ngIf="validationForm.get('userId')?.errors?.['required'] && validationForm.get('userId')?.touched">
+                    UserID is required
+                  </mdb-error>
+                </mdb-form-control>
+            </div>
+
+            <div class="login_buttons" style="display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: center; margin-top: 20px;">
+                <button type="button" class="btn btn-primary btn-lg" mdbRipple (click)="modalRef.close()">Close</button>
+                <button type="submit" class="btn btn-primary btn-lg" mdbRipple (click)="createAccomodation()">Add</button>
+            </div>
+        </form>
+    </div>
+</div>

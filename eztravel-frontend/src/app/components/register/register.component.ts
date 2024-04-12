@@ -1,33 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ImageSliderComponent } from '../image-slider/image-slider.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { Router, RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
+import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   standalone: true,
-  imports: [ImageSliderComponent, FontAwesomeModule, RouterOutlet, FormsModule, CommonModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  imports: [ImageSliderComponent, FontAwesomeModule, RouterOutlet, FormsModule, HttpClientModule, CommonModule],
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.scss'
 })
-export class LoginComponent {
+export class RegisterComponent{
   faRightToBracket = faRightToBracket;
   faUserPlus = faUserPlus;
 
+  receivedError: HttpErrorResponse | undefined;
+  errorMessage: string = '';
+  
+  emptyEmail: boolean = false;
+  emptyUser: boolean = false;
+  emptyPass: boolean = false;
+
+  email: string = '';
   username: string = '';
   password: string = '';
-
-  errorMessage: string = '';
-
-  userNotFound: boolean = false;
-  incorrectPass: boolean = false;
 
   slides: any[] = [
     {
@@ -58,48 +61,55 @@ export class LoginComponent {
 
   constructor(private router: Router, private authService: AuthService){}
 
-  async login(){
+  async register(){
     const user = {
+      email: this.email,
       username: this.username,
       password: this.password
     };
 
     try{
-      await lastValueFrom(this.authService.login(user));
+      await lastValueFrom(this.authService.register(user));
           console.log("successfull!");
           this.navigateToHome();
         } catch (error) {
           if(error instanceof HttpErrorResponse){
-            this.errorMessage = error.statusText;
-            this.checkErrorType(this.errorMessage);
-            this.errorMessage = '';
+            this.receivedError = error;
+            console.log(this.receivedError);
+            this.checkErrorType();
           }
           console.log(this.errorMessage, error);
         }
   }
 
-  checkErrorType(error: string){
-    if(error == 'Not Found'){
+  checkErrorType(){
+    if(this.email == ''){
       this.resetChecks();
-      this.userNotFound = true;
-    } else if(error == 'Unauthorized'){
+      this.emptyEmail = true;
+    }
+    if(this.username == ''){
       this.resetChecks();
-      this.incorrectPass = true;
+      this.emptyUser = true;
+    }
+    if(this.password == ''){
+      this.resetChecks();
+      this.emptyPass = true;
     }
   }
 
   resetChecks(){
-    this.userNotFound = false;
-    this.incorrectPass = false
+    this.emptyEmail = false;
+    this.emptyPass = false;
+    this.emptyUser = false;
   }
 
-  navigateToRegister(){
-    this.router.navigate(['/register']);
+  navigateToLogin() {
+    this.router.navigate(['/login']);
   }
   navigateToLanding(){
     this.router.navigate(['']);
   }
   navigateToHome(){
-    this.router.navigate(['/vendor-home']);
+    this.router.navigate(['/home']);
   }
 }
