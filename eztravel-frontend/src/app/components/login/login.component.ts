@@ -4,7 +4,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { Router, RouterOutlet } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule } from '@angular/forms';
 import { lastValueFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -58,29 +58,36 @@ export class LoginComponent {
     },
   ];
 
-  constructor(private router: Router, private authService: AuthService){
-    this.validationForm = new FormGroup({
-      username: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
-      password: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
+  constructor(private router: Router, private authService: AuthService, private formBuilder: FormBuilder) {
+    this.validationForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 
   async login(){
-    const user = {
-      username: this.validationForm.get('username')?.value,
-      password: this.validationForm.get('password')?.value
-    };
+    if(this.validationForm.valid){
+      const user = {
+        username: this.validationForm.value.username,
+        password: this.validationForm.value.password
+      };
   
-    try{
-      await lastValueFrom(this.authService.login(user));
-      console.log("Successful login!");
-      this.navigateToHome();
-    } catch (error) {
-      if(error instanceof HttpErrorResponse){
-        this.checkErrorType(error.status);
+      this.resetChecks();
+    
+      try{
+        console.log(user.username, user.password);
+        await this.authService.login(user).toPromise();
+        console.log("Successful login!");
+        localStorage.setItem('username', user.username);
+        this.navigateToHome();
+      } catch (error) {
+        if(error instanceof HttpErrorResponse){
+          this.checkErrorType(error.status);
+        }
+        console.error("Login error:", error);
       }
-      console.error("Login error:", error);
     }
+    
   }  
 
   checkErrorType(status: number){
@@ -103,14 +110,6 @@ export class LoginComponent {
   }
   navigateToHome(){
     this.router.navigate(['/vendor-home']);
-  }
-
-  get username(): AbstractControl {
-    return this.validationForm.get('username')!;
-  }
-
-  get password(): AbstractControl {
-    return this.validationForm.get('password')!;
   }
 
   onSubmit(): void {

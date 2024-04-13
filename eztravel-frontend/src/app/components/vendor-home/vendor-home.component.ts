@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { ModalAccomodationComponent } from '../modal-accomodation/modal-accomodation.component';
@@ -12,13 +12,20 @@ import { ModalActivityComponent } from '../modal-activity/modal-activity.compone
   templateUrl: './vendor-home.component.html',
   styleUrl: './vendor-home.component.scss'
 })
-export class VendorHomeComponent {
+export class VendorHomeComponent implements OnInit{
+  username: string | null;
 
   modalRefTransport: MdbModalRef<ModalComponent> | null = null;
   modalRefAccomodation: MdbModalRef<ModalAccomodationComponent> | null = null;
   modalRefActivity: MdbModalRef<ModalActivityComponent> | null = null;
 
-  constructor(private modalService: MdbModalService) {}
+  constructor(private modalService: MdbModalService) {
+    this.username = null;
+  }
+
+  ngOnInit(): void {
+      this.username = localStorage.getItem('username');
+  }
 
   openTransportModal(){
     this.modalRefTransport = this.modalService.open(ModalComponent, {

@@ -77,6 +77,7 @@ export class RegisterComponent{
 
     try{
       await lastValueFrom(this.authService.register(user));
+          console.log(user.email, user.username, user.password);
           console.log("successfull!");
           this.navigateToHome();
         } catch (error) {
