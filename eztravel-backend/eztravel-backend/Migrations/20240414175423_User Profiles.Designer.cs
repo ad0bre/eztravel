@@ -12,7 +12,7 @@ using eztravel_backend.Data;
 namespace eztravel_backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240414172306_UserProfiles")]
+    [Migration("20240414175423_User Profiles")]
     partial class UserProfiles
     {
         /// <inheritdoc />

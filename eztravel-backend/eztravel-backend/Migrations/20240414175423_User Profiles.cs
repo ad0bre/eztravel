@@ -16,15 +16,17 @@ namespace eztravel_backend.Migrations
                 table: "Transports",
                 newName: "ProfileId");
 
-            migrationBuilder.RenameColumn(
-                name: "UserId",
+            migrationBuilder.AddColumn<string>(
+                name: "ProfileId",
                 table: "Activities",
-                newName: "ProfileId");
+                type: "text",
+                nullable: true);
 
-            migrationBuilder.RenameColumn(
-                name: "UserId",
+            migrationBuilder.AddColumn<string>(
+                name: "ProfileId",
                 table: "Accomodations",
-                newName: "ProfileId");
+                type: "text",
+                nullable: true);
 
             migrationBuilder.CreateTable(
                 name: "UserProfiles",
@@ -52,19 +54,17 @@ namespace eztravel_backend.Migrations
             migrationBuilder.DropTable(
                 name: "UserProfiles");
 
+            migrationBuilder.DropColumn(
+                name: "ProfileId",
+                table: "Activities");
+
+            migrationBuilder.DropColumn(
+                name: "ProfileId",
+                table: "Accomodations");
+
             migrationBuilder.RenameColumn(
                 name: "ProfileId",
                 table: "Transports",
-                newName: "UserId");
-
-            migrationBuilder.RenameColumn(
-                name: "ProfileId",
-                table: "Activities",
-                newName: "UserId");
-
-            migrationBuilder.RenameColumn(
-                name: "ProfileId",
-                table: "Accomodations",
                 newName: "UserId");
         }
     }
