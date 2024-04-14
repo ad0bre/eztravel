@@ -16,5 +16,5 @@ public class AccomodationDto
     
     public int People { get; set; }
     
-    public string? UserId { get; set; }
+    public string? ProfileId { get; set; }
 }
