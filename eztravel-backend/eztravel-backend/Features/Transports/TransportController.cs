@@ -23,7 +23,7 @@ public class TransportController(AppDbContext dbContext) : ControllerBase
             Price = request.Price,
             Capacity = request.Capacity,
             Type = request.Type,
-            UserId = request.UserId
+            ProfileId = request.ProfileId
         };
 
         var result =await dbContext.Transports.AddAsync(transport);
@@ -40,7 +40,7 @@ public class TransportController(AppDbContext dbContext) : ControllerBase
             ArrivalTime = result.Entity.ArrivalTime,
             Price = result.Entity.Price,
             Capacity = result.Entity.Capacity,
-            UserId = result.Entity.UserId
+            ProfileId = result.Entity.ProfileId
         });
     }
 
@@ -59,7 +59,7 @@ public class TransportController(AppDbContext dbContext) : ControllerBase
                 ArrivalTime = t.ArrivalTime,
                 Price = t.Price,
                 Capacity = t.Capacity,
-                UserId = t.UserId
+                ProfileId = t.ProfileId
             })
             .ToListAsync());
     }
@@ -85,7 +85,7 @@ public class TransportController(AppDbContext dbContext) : ControllerBase
             ArrivalTime = transport.ArrivalTime,
             Price = transport.Price,
             Capacity = transport.Capacity,
-            UserId = transport.UserId
+            ProfileId = transport.ProfileId
         });
     }
 

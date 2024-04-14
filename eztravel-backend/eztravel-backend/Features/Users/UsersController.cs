@@ -15,6 +15,8 @@ public class UsersController : ControllerBase
     public UsersController(UserManager<User> userManager)
     {
         _userManager = userManager;
+
+        var user = new User();
     }
 
     [HttpGet]

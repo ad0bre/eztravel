@@ -19,7 +19,7 @@ public class ActivitiesController(AppDbContext dbContext) : ControllerBase
             Type = request.Type,
             Address = request.Address,
             Priority = request.Priority,
-            UserId = request.UserId
+            ProfileId = request.ProfileId
         };
 
         var result = await dbContext.Activities.AddAsync(activity);
@@ -33,7 +33,7 @@ public class ActivitiesController(AppDbContext dbContext) : ControllerBase
             Description = result.Entity.Description,
             Type = result.Entity.Type,
             Address = result.Entity.Address,
-            UserId = result.Entity.UserId
+            ProfileId = result.Entity.ProfileId
         });
     }
 
@@ -48,7 +48,7 @@ public class ActivitiesController(AppDbContext dbContext) : ControllerBase
                 Description = activity.Description,
                 Type = activity.Type,
                 Address = activity.Address,
-                UserId = activity.UserId
+                ProfileId = activity.ProfileId
             }).ToListAsync());
     }
 
@@ -69,7 +69,7 @@ public class ActivitiesController(AppDbContext dbContext) : ControllerBase
             Description = activity.Description,
             Type = activity.Type,
             Address = activity.Address,
-            UserId = activity.UserId
+            ProfileId = activity.ProfileId
         });
     }
 
