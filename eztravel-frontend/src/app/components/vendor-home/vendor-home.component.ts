@@ -14,6 +14,7 @@ import { ModalActivityComponent } from '../modal-activity/modal-activity.compone
 })
 export class VendorHomeComponent implements OnInit{
   username: string | null;
+  id: string | null;
 
   modalRefTransport: MdbModalRef<ModalComponent> | null = null;
   modalRefAccomodation: MdbModalRef<ModalAccomodationComponent> | null = null;
@@ -21,10 +22,12 @@ export class VendorHomeComponent implements OnInit{
 
   constructor(private modalService: MdbModalService) {
     this.username = null;
+    this.id = null;
   }
 
   ngOnInit(): void {
       this.username = localStorage.getItem('username');
+      this.id = localStorage.getItem('userID');
   }
 
   openTransportModal(){

@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { UserGet } from '../../interfaces/user-get';
+import { UserProfile } from '../../interfaces/user-profile';
+import { UserService } from '../../services/user.service';
+import { UserProfileService } from '../../services/user-profile.service';
 
 @Component({
   selector: 'app-header',
@@ -11,14 +15,49 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  constructor(private router: Router) { }
+  userRole: number;
+
+  constructor(private router: Router, private userService: UserService, private userProfileService: UserProfileService) { 
+    this.userRole = 0;
+  }
 
   faUser = faUser;
 
+  findUserProfile(username: string){
+    this.userService.getUsers().subscribe((users: UserGet[]) => {
+      const foundUser = users.find(user => user.userName === username);
+      if(foundUser){
+        const userID = foundUser.id;
+        this.userProfileService.getUserProfiles().subscribe((userProfiles: UserProfile[]) => {
+          const foundUserProfile = userProfiles.find(userProfile => userProfile.userId === userID);
+          if(foundUserProfile){
+            this.userRole = foundUserProfile.type;
+          } else {
+            console.log('User profile not found!');
+          }
+        })
+        localStorage.setItem('userID', foundUser.id);
+      } else {
+        console.log("User not found");
+      }
+    }, (error) => {
+      console.log(error);
+    }
+  );
+  }
+
   goToHome(){
-    this.router.navigate(['home']);
+    if(this.userRole == 1){
+      this.router.navigate(['home']);
+    } else {
+      this.router.navigate(['vendor-home']);
+    }
   }
   goToProfile(){
-    this.router.navigate(['vendor-profile']);
+    if(this.userRole == 1){
+      this.router.navigate(['profile']);
+    } else {
+      this.router.navigate(['vendor-profile']);
+    }
   }
 }
