@@ -13,6 +13,10 @@ import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserService } from '../../services/user.service';
+import { UserGet } from '../../interfaces/user-get';
+import { UserProfileService } from '../../services/user-profile.service';
+import { UserProfile } from '../../interfaces/user-profile';
 
 @Component({
   selector: 'app-register',
@@ -26,7 +30,8 @@ export class RegisterComponent{
   faRightToBracket = faRightToBracket;
   faUserPlus = faUserPlus;
 
-  alreadyExists: boolean = false;
+  emailAlreadyExists: boolean = false;
+  userAlreadyExists: boolean = false;
   invalidEmail: boolean = false;
 
   receivedError: HttpErrorResponse | undefined;
@@ -60,7 +65,7 @@ export class RegisterComponent{
     },
   ];
 
-  constructor(private router: Router, private authService: AuthService){
+  constructor(private router: Router, private authService: AuthService, private userService: UserService, private userProfileService: UserProfileService){
     this.validationForm = new FormGroup({
       email: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
       username: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
@@ -79,6 +84,9 @@ export class RegisterComponent{
       await lastValueFrom(this.authService.register(user));
           console.log(user.email, user.username, user.password);
           console.log("successfull!");
+          localStorage.setItem('username', user.username);
+          localStorage.setItem('email', user.email);
+          this.findUserProfile(user.username);
           this.navigateToHome();
         } catch (error) {
           if(error instanceof HttpErrorResponse){
@@ -90,10 +98,38 @@ export class RegisterComponent{
         }
   }
 
+  findUserProfile(username: string){
+    this.userService.getUsers().subscribe((users: UserGet[]) => {
+      const foundUser = users.find(user => user.userName === username);
+      if(foundUser){
+        console.log('User found:', foundUser);
+        const userID = foundUser.id;
+        this.userProfileService.getUserProfiles().subscribe((userProfiles: UserProfile[]) => {
+          const foundUserProfile = userProfiles.find(userProfile => userProfile.userId === userID);
+          if(foundUserProfile){
+            console.log('User Profile:', foundUserProfile);
+          } else {
+            console.log('User profile not found!');
+          }
+        })
+        localStorage.setItem('userID', foundUser.id);
+      } else {
+        console.log("User not found");
+      }
+    }, (error) => {
+      console.log(error);
+    }
+  );
+  }
+
   checkError(error: HttpErrorResponse){
     if(error.error == 'Email or username already in use'){
       this.resetChecks();
-      this.alreadyExists = true;
+      this.emailAlreadyExists = true;
+    }
+    if(error.error == 'User already exists, please login'){
+      this.resetChecks();
+      this.userAlreadyExists = true;
     }
     if(error.error.errors && error.error.errors.Email && error.error.errors.Email.length > 0){
       this.resetChecks();
@@ -102,7 +138,8 @@ export class RegisterComponent{
   }
 
   resetChecks(){
-    this.alreadyExists = false;
+    this.emailAlreadyExists = false;
+    this.userAlreadyExists = false;
     this.invalidEmail = false;
   }
 

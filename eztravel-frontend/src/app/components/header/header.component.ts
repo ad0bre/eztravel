@@ -19,42 +19,52 @@ export class HeaderComponent {
 
   constructor(private router: Router, private userService: UserService, private userProfileService: UserProfileService) { 
     this.userRole = 0;
+    this.findUserProfile(localStorage.getItem('username') || '');
   }
 
   faUser = faUser;
 
-  findUserProfile(username: string){
-    this.userService.getUsers().subscribe((users: UserGet[]) => {
-      const foundUser = users.find(user => user.userName === username);
-      if(foundUser){
-        const userID = foundUser.id;
-        this.userProfileService.getUserProfiles().subscribe((userProfiles: UserProfile[]) => {
-          const foundUserProfile = userProfiles.find(userProfile => userProfile.userId === userID);
-          if(foundUserProfile){
-            this.userRole = foundUserProfile.type;
+  async findUserProfile(username: string): Promise<void> {
+    try {
+      const users = await this.userService.getUsers().toPromise();
+      if (users) {
+        const foundUser = users.find(user => user.userName === username);
+        if (foundUser) {
+          const userID = foundUser.id;
+          const userProfiles = await this.userProfileService.getUserProfiles().toPromise();
+          if (userProfiles) {
+            const foundUserProfile = userProfiles.find(userProfile => userProfile.userId === userID);
+            if (foundUserProfile) {
+              this.userRole = foundUserProfile.type;
+            } else {
+              console.log('User profile not found!');
+            }
+            localStorage.setItem('userID', foundUser.id);
           } else {
-            console.log('User profile not found!');
+            console.log('User profiles not found!');
           }
-        })
-        localStorage.setItem('userID', foundUser.id);
+        } else {
+          console.log("User not found");
+        }
       } else {
-        console.log("User not found");
+        console.log('Users not found!');
       }
-    }, (error) => {
+    } catch (error) {
       console.log(error);
     }
-  );
   }
 
-  goToHome(){
-    if(this.userRole == 1){
+  async goToHome(){
+    await this.findUserProfile(localStorage.getItem('username') || '');
+    if(this.userRole == 0){
       this.router.navigate(['home']);
     } else {
       this.router.navigate(['vendor-home']);
     }
   }
-  goToProfile(){
-    if(this.userRole == 1){
+  async goToProfile(){
+    await this.findUserProfile(localStorage.getItem('username') || '');
+    if(this.userRole == 0){
       this.router.navigate(['profile']);
     } else {
       this.router.navigate(['vendor-profile']);

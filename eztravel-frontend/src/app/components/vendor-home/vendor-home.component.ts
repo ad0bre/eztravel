@@ -4,6 +4,7 @@ import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { ModalAccomodationComponent } from '../modal-accomodation/modal-accomodation.component';
 import { ModalComponent } from '../modal/modal.component';
 import { ModalActivityComponent } from '../modal-activity/modal-activity.component';
+import { TransportService } from '../../services/transport.service';
 
 @Component({
   selector: 'app-vendor-home',
@@ -20,7 +21,7 @@ export class VendorHomeComponent implements OnInit{
   modalRefAccomodation: MdbModalRef<ModalAccomodationComponent> | null = null;
   modalRefActivity: MdbModalRef<ModalActivityComponent> | null = null;
 
-  constructor(private modalService: MdbModalService) {
+  constructor(private modalService: MdbModalService, private transportService: TransportService) {
     this.username = null;
     this.id = null;
   }

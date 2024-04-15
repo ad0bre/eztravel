@@ -40,8 +40,11 @@
                       <mdb-error *ngIf="validationForm.get('password')?.errors?.['required'] && validationForm.get('password')?.touched">
                         Password is required
                       </mdb-error>
-                      <mdb-error *ngIf="alreadyExists">
-                        User already exists
+                      <mdb-error *ngIf="userAlreadyExists">
+                        Username already in use
+                      </mdb-error>
+                      <mdb-error *ngIf="emailAlreadyExists">
+                        Email already in use
                       </mdb-error>
                     </mdb-form-control>
                   </div>

@@ -83,7 +83,7 @@ export class LoginComponent {
       try{
         await this.authService.login(user).toPromise();
         console.log("Successful login!");
-        this.findUserProfile(user.username);
+        await this.findUserProfile(user.username);
         localStorage.setItem('username', user.username);
         this.navigateToHome();
       } catch (error) {
@@ -96,33 +96,39 @@ export class LoginComponent {
     
   }
   
-  findUserProfile(username: string){
-    this.userService.getUsers().subscribe((users: UserGet[]) => {
-      const foundUser = users.find(user => user.userName === username);
-      if(foundUser){
-        console.log('User found:', foundUser);
-        const userID = foundUser.id;
-        this.userProfileService.getUserProfiles().subscribe((userProfiles: UserProfile[]) => {
-          const foundUserProfile = userProfiles.find(userProfile => userProfile.userId === userID);
-          if(foundUserProfile){
-            console.log('User Profile:', foundUserProfile);
-            this.userRole = foundUserProfile.type;
-          } else {
-            console.log('User profile not found!');
-          }
-        })
-        localStorage.setItem('userID', foundUser.id);
-      } else {
-        console.log("User not found");
-      }
-    }, (error) => {
-      console.log(error);
-    }
-  );
-  }
+  findUserProfile(username: string): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+        this.userService.getUsers().subscribe((users: UserGet[]) => {
+            const foundUser = users.find(user => user.userName === username);
+            if (foundUser) {
+                console.log('User found:', foundUser);
+                const userID = foundUser.id;
+                this.userProfileService.getUserProfiles().subscribe((userProfiles: UserProfile[]) => {
+                    const foundUserProfile = userProfiles.find(userProfile => userProfile.userId === userID);
+                    if (foundUserProfile) {
+                        console.log('User Profile:', foundUserProfile);
+                        this.userRole = foundUserProfile.type;
+                    } else {
+                        console.log('User profile not found!');
+                    }
+                    resolve(); // Resolve the promise when profile data is fetched
+                }, (error) => {
+                    reject(error); // Reject the promise if there's an error fetching profile data
+                });
+                localStorage.setItem('userID', foundUser.id);
+            } else {
+                console.log("User not found");
+                resolve(); // Resolve the promise even if user is not found
+            }
+        }, (error) => {
+            console.log(error);
+            reject(error); // Reject the promise if there's an error fetching user data
+        });
+    });
+}
 
   checkErrorType(status: number){
-    if(status == 400 || status == 401){
+    if(status == 400 || status == 401 || 404){
       this.resetChecks();
       this.userNotFound = true;
     }

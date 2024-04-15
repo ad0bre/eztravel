@@ -1,5 +1,4 @@
 export interface Transport {
-    id: string,
     name: string,
     description: string,
     departureLocation: string,
@@ -9,5 +8,6 @@ export interface Transport {
     price: number,
     type: string,
     capacity: number,
-    userId: string
+    profileId: string | null,
+    priority: number,
 }

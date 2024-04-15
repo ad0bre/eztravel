@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MdbModalRef} from 'mdb-angular-ui-kit/modal';
 import { lastValueFrom } from 'rxjs';
@@ -8,6 +8,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { UserService } from '../../services/user.service';
+import { UserGet } from '../../interfaces/user-get';
+import { UserProfile } from '../../interfaces/user-profile';
+import { UserProfileService } from '../../services/user-profile.service';
+import { GetUserProfile } from '../../interfaces/get-user-profile';
 
 @Component({
   selector: 'app-modal',
@@ -16,12 +21,13 @@ import { CommonModule } from '@angular/common';
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.scss'
 })
-export class ModalComponent {
+export class ModalComponent implements OnInit{
   validationForm: FormGroup;
 
-  constructor(public modalRef: MdbModalRef<ModalComponent>, private transportService: TransportService){
+  profileId: string;
+
+  constructor(public modalRef: MdbModalRef<ModalComponent>, private transportService: TransportService, private userService: UserService, private userProfileService: UserProfileService){
     this.validationForm = new FormGroup({
-      id: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
       name: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
       description: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
       departureLocation: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
@@ -31,39 +37,46 @@ export class ModalComponent {
       price: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
       type: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
       capacity: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
-      userId: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
+      profileId: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
+      priority: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
     });
+    this.profileId = '';
+  }
+  async ngOnInit(): Promise<void> {
+    const username = localStorage.getItem('username')
+    await this.findUserProfile(username);
   }
 
   async createTransport() {
+    console.log("createTransport() method called");
     if (this.validationForm.valid) {
-      const transport = {
-        id: this.validationForm.get('id')?.value,
-        name: this.validationForm.get('name')?.value,
-        description: this.validationForm.get('description')?.value,
-        departureLocation: this.validationForm.get('departureLocation')?.value,
-        arrivalLocation: this.validationForm.get('arrivalLocation')?.value,
-        departureTime: new Date(this.departureTime.value),
-        arrivalTime: new Date(this.arrivalTime.value),
-        price: this.validationForm.get('price')?.value,
-        type: this.validationForm.get('type')?.value,
-        capacity: this.validationForm.get('capacity')?.value,
-        userId: this.validationForm.get('userId')?.value,
-      };
-  
+      const username = localStorage.getItem('username');
       try {
+        await this.findUserProfile(username);
+        const transport = {
+          name: this.validationForm.get('name')?.value,
+          description: this.validationForm.get('description')?.value,
+          departureLocation: this.validationForm.get('departureLocation')?.value,
+          arrivalLocation: this.validationForm.get('arrivalLocation')?.value,
+          departureTime: new Date(this.validationForm.get('departureTime')?.value),
+          arrivalTime: new Date(this.validationForm.get('arrivalTime')?.value),
+          price: this.validationForm.get('price')?.value,
+          type: this.validationForm.get('type')?.value,
+          capacity: this.validationForm.get('capacity')?.value,
+          profileId: this.profileId,
+          priority: this.validationForm.get('priority')?.value,
+        };
+        console.log("Transport object:", transport);
         await lastValueFrom(this.transportService.createTransport(transport));
         console.log("successful!");
+        this.modalRef.close();
       } catch (error) {
         console.log("error", error);
       }
-  
-      this.modalRef.close();
+    } else {
+      console.log("Form errors:", this.validationForm.errors);
+      console.log("Form is invalid");
     }
-  }
-
-  get id(): AbstractControl {
-    return this.validationForm.get('id')!;
   }
 
   get name(): AbstractControl {
@@ -103,10 +116,45 @@ export class ModalComponent {
   }
 
   get userId(): AbstractControl {
-    return this.validationForm.get('userId')!;
+    return this.validationForm.get('profileId')!;
+  }
+
+  get priority(): AbstractControl {
+    return this.validationForm.get('priority')!;
   }
 
   onSubmit(): void {
     this.validationForm.markAllAsTouched();
   }
+
+  findUserProfile(username: string | null): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+        this.userService.getUsers().subscribe((users: UserGet[]) => {
+            const foundUser = users.find(user => user.userName === username);
+            if (foundUser) {
+                console.log('User found:', foundUser);
+                const userID = foundUser.id;
+                this.userProfileService.getUserProfiles().subscribe((userProfiles: GetUserProfile[]) => {
+                    const foundUserProfile = userProfiles.find(userProfile => userProfile.userId === userID);
+                    if (foundUserProfile) {
+                        this.profileId = foundUserProfile.id;
+                        console.log('User Profile:', foundUserProfile);
+                    } else {
+                        console.log('User profile not found!');
+                    }
+                    resolve();
+                }, (error) => {
+                    reject(error);
+                });
+                localStorage.setItem('userID', foundUser.id);
+            } else {
+                console.log("User not found");
+                resolve();
+            }
+        }, (error) => {
+            console.log(error);
+            reject(error);
+        });
+    });
+}
 }
