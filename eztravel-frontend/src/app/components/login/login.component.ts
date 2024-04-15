@@ -111,18 +111,18 @@ export class LoginComponent {
                     } else {
                         console.log('User profile not found!');
                     }
-                    resolve(); // Resolve the promise when profile data is fetched
+                    resolve();
                 }, (error) => {
-                    reject(error); // Reject the promise if there's an error fetching profile data
+                    reject(error);
                 });
                 localStorage.setItem('userID', foundUser.id);
             } else {
                 console.log("User not found");
-                resolve(); // Resolve the promise even if user is not found
+                resolve();
             }
         }, (error) => {
             console.log(error);
-            reject(error); // Reject the promise if there's an error fetching user data
+            reject(error);
         });
     });
 }

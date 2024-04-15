@@ -10,8 +10,8 @@
                 <th>Your accomodation offers</th>
                 <th>Your activities offers</th>
             </tr>
-            <tr>
-                <td></td>
+            <tr *ngFor="let transport of transports" >
+                <td>{{ transport.name }} - {{transport.description}} ( {{transport.departureLocation}} - {{transport.arrivalLocation}})</td>
                 <td></td>
                 <td></td>
             </tr>

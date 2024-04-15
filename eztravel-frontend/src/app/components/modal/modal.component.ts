@@ -10,7 +10,6 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import { UserGet } from '../../interfaces/user-get';
-import { UserProfile } from '../../interfaces/user-profile';
 import { UserProfileService } from '../../services/user-profile.service';
 import { GetUserProfile } from '../../interfaces/get-user-profile';
 
@@ -37,7 +36,7 @@ export class ModalComponent implements OnInit{
       price: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
       type: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
       capacity: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
-      profileId: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
+      profileId: new FormControl(null),
       priority: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
     });
     this.profileId = '';
@@ -49,10 +48,10 @@ export class ModalComponent implements OnInit{
 
   async createTransport() {
     console.log("createTransport() method called");
-    if (this.validationForm.valid) {
-      const username = localStorage.getItem('username');
-      try {
-        await this.findUserProfile(username);
+    const username = localStorage.getItem('username');
+    try {
+      await this.findUserProfile(username);
+      if (this.validationForm.valid) {
         const transport = {
           name: this.validationForm.get('name')?.value,
           description: this.validationForm.get('description')?.value,
@@ -70,12 +69,11 @@ export class ModalComponent implements OnInit{
         await lastValueFrom(this.transportService.createTransport(transport));
         console.log("successful!");
         this.modalRef.close();
-      } catch (error) {
-        console.log("error", error);
+      } else {
+        console.log("Form is invalid");
       }
-    } else {
-      console.log("Form errors:", this.validationForm.errors);
-      console.log("Form is invalid");
+    } catch (error) {
+      console.log("error", error);
     }
   }
 
@@ -113,10 +111,6 @@ export class ModalComponent implements OnInit{
 
   get capacity(): AbstractControl {
     return this.validationForm.get('capacity')!;
-  }
-
-  get userId(): AbstractControl {
-    return this.validationForm.get('profileId')!;
   }
 
   get priority(): AbstractControl {
