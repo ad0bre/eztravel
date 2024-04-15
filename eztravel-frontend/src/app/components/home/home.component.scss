@@ -3,10 +3,23 @@
     height: 92%;
 
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 
     background-color: #fecc56;
+}
+
+.dialog_container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    align-items: baseline;
+    justify-content: center;
+
+    color: black;
+    font-size: larger;
 }
 
 .search_container{

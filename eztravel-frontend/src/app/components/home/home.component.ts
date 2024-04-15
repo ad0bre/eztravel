@@ -13,6 +13,7 @@ export class HomeComponent {
   constructor(private router: Router) { }
 
   minDate = Date.now()
+  username = localStorage.getItem('username');
 
   navigateToResult(){
     this.router.navigate(['search_results']);

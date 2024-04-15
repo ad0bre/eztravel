@@ -2,23 +2,46 @@
 <div class="main_container">
     <div class="account_info_container">
         <p>Account information</p>
-        <div class="account_fields">
-            <label>First Name</label>
-            <input class="text_fields">
-            <label>Last Name</label>
-            <input class="text_fields">
-            <label>Email</label>
-            <input class="text_fields">
-            <label>Phone number</label>
-            <input class="text_fields">
-            <label>Date of birth</label>
-            <input type="date" class="text_fields">
-            <img alt="profile_picture">
-            <button class="upload_btn">Upload</button>
-        </div>
-        <div class="button_container">
-            <button type="button" class="button">Save Changes</button>
-            <button type="button" class="sign_out_button" (click)="signOut()" >Sign Out</button>
-        </div>
+        <form [formGroup]="validationForm" (ngSubmit)="onSubmit()">
+            <div class="column" style="align-items: center; justify-content: center;">
+                <div>
+                    <mdb-form-control>
+                      <input mdbValidate mdbInput type="text" id="form1" class="form-control longer-input" formControlName="name"/>
+                      <label mdbLabel class="form-label" for="form1">Name</label>
+                    </mdb-form-control>
+                </div>
+              <div style="margin-top: 30px; margin-bottom: 30px;">
+                <mdb-form-control>
+                  <input mdbValidate mdbInput type="email" id="form2" class="form-control longer-input" formControlName="email" required/>
+                  <label mdbLabel class="form-label" for="form2">Email</label>
+                  <mdb-error *ngIf="validationForm.get('email')?.errors?.['required'] && validationForm.get('email')?.touched">
+                    Email is required
+                  </mdb-error>
+                </mdb-form-control>
+              </div>
+              
+              <div style="margin-top: 30px; margin-bottom: 30px;">
+                <mdb-form-control>
+                  <input mdbValidate mdbInput type="tel" id="form3" class="form-control longer-input" formControlName="phone" required/>
+                  <label mdbLabel class="form-label" for="form3">Phone number</label>
+                </mdb-form-control>
+              </div>
+
+              <div style="margin-bottom: 30px;">
+                <label for="roleSelect">Select your role:</label>
+                <select id="roleSelect" formControlName="role" class="custom-select" [(ngModel)]="selectedRole">
+                    <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+                </select>
+            </div>
+            </div>
+            <div class="button_container" style="display: flex; flex-direction: row; gap: 15px; margin-bottom: 10px;">
+              <button type="submit" class="btn btn-primary btn-lg" mdbRipple>
+                  Save Changes
+              </button>
+              <button type="button" class="btn btn-danger btn-lg" mdbRipple (click)="signOut()">
+                  Sign Out
+              </button>
+          </div>
+          </form>
     </div>
 </div>

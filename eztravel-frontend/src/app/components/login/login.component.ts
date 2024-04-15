@@ -5,7 +5,6 @@ import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { Router, RouterOutlet } from '@angular/router';
 import { FormBuilder, FormsModule } from '@angular/forms';
-import { lastValueFrom } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
@@ -13,6 +12,10 @@ import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserService } from '../../services/user.service';
+import { UserGet } from '../../interfaces/user-get';
+import { UserProfileService } from '../../services/user-profile.service';
+import { UserProfile } from '../../interfaces/user-profile';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +33,8 @@ export class LoginComponent {
 
   userNotFound: boolean = false;
   incorrectPass: boolean = false;
+
+  userRole: number;
 
   slides: any[] = [
     {
@@ -58,11 +63,12 @@ export class LoginComponent {
     },
   ];
 
-  constructor(private router: Router, private authService: AuthService, private formBuilder: FormBuilder) {
+  constructor(private router: Router, private authService: AuthService, private formBuilder: FormBuilder, private userService: UserService, private userProfileService: UserProfileService) {
     this.validationForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
+    this.userRole = 0;
   }
 
   async login(){
@@ -75,9 +81,9 @@ export class LoginComponent {
       this.resetChecks();
     
       try{
-        console.log(user.username, user.password);
         await this.authService.login(user).toPromise();
         console.log("Successful login!");
+        await this.findUserProfile(user.username);
         localStorage.setItem('username', user.username);
         this.navigateToHome();
       } catch (error) {
@@ -88,10 +94,41 @@ export class LoginComponent {
       }
     }
     
-  }  
+  }
+  
+  findUserProfile(username: string): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+        this.userService.getUsers().subscribe((users: UserGet[]) => {
+            const foundUser = users.find(user => user.userName === username);
+            if (foundUser) {
+                console.log('User found:', foundUser);
+                const userID = foundUser.id;
+                this.userProfileService.getUserProfiles().subscribe((userProfiles: UserProfile[]) => {
+                    const foundUserProfile = userProfiles.find(userProfile => userProfile.userId === userID);
+                    if (foundUserProfile) {
+                        console.log('User Profile:', foundUserProfile);
+                        this.userRole = foundUserProfile.type;
+                    } else {
+                        console.log('User profile not found!');
+                    }
+                    resolve();
+                }, (error) => {
+                    reject(error);
+                });
+                localStorage.setItem('userID', foundUser.id);
+            } else {
+                console.log("User not found");
+                resolve();
+            }
+        }, (error) => {
+            console.log(error);
+            reject(error);
+        });
+    });
+}
 
   checkErrorType(status: number){
-    if(status == 400 || status == 401){
+    if(status == 400 || status == 401 || 404){
       this.resetChecks();
       this.userNotFound = true;
     }
@@ -109,7 +146,11 @@ export class LoginComponent {
     this.router.navigate(['']);
   }
   navigateToHome(){
-    this.router.navigate(['/vendor-home']);
+    if(this.userRole == 0){
+      this.router.navigate(['/home']);
+    } else{
+      this.router.navigate(['/vendor-home']);
+    }
   }
 
   onSubmit(): void {

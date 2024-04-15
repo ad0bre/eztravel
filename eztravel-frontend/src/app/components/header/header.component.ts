@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { UserGet } from '../../interfaces/user-get';
+import { UserProfile } from '../../interfaces/user-profile';
+import { UserService } from '../../services/user.service';
+import { UserProfileService } from '../../services/user-profile.service';
 
 @Component({
   selector: 'app-header',
@@ -11,14 +15,59 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  constructor(private router: Router) { }
+  userRole: number;
+
+  constructor(private router: Router, private userService: UserService, private userProfileService: UserProfileService) { 
+    this.userRole = 0;
+    this.findUserProfile(localStorage.getItem('username') || '');
+  }
 
   faUser = faUser;
 
-  goToHome(){
-    this.router.navigate(['home']);
+  async findUserProfile(username: string): Promise<void> {
+    try {
+      const users = await this.userService.getUsers().toPromise();
+      if (users) {
+        const foundUser = users.find(user => user.userName === username);
+        if (foundUser) {
+          const userID = foundUser.id;
+          const userProfiles = await this.userProfileService.getUserProfiles().toPromise();
+          if (userProfiles) {
+            const foundUserProfile = userProfiles.find(userProfile => userProfile.userId === userID);
+            if (foundUserProfile) {
+              this.userRole = foundUserProfile.type;
+            } else {
+              console.log('User profile not found!');
+            }
+            localStorage.setItem('userID', foundUser.id);
+          } else {
+            console.log('User profiles not found!');
+          }
+        } else {
+          console.log("User not found");
+        }
+      } else {
+        console.log('Users not found!');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
-  goToProfile(){
-    this.router.navigate(['vendor-profile']);
+
+  async goToHome(){
+    await this.findUserProfile(localStorage.getItem('username') || '');
+    if(this.userRole == 0){
+      this.router.navigate(['home']);
+    } else {
+      this.router.navigate(['vendor-home']);
+    }
+  }
+  async goToProfile(){
+    await this.findUserProfile(localStorage.getItem('username') || '');
+    if(this.userRole == 0){
+      this.router.navigate(['profile']);
+    } else {
+      this.router.navigate(['vendor-profile']);
+    }
   }
 }
