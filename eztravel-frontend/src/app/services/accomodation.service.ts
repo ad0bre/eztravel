@@ -12,7 +12,11 @@ export class AccomodationService {
 
   constructor(private http: HttpClient) { }
 
-  createTransport(accomodation: Accomodation): Observable<any>{
+  createAccomodation(accomodation: Accomodation): Observable<any>{
     return this.http.post<any>(`${this.apiUrl}`, accomodation);
+  }
+
+  getAccomodations(): Observable<Accomodation[]>{
+    return this.http.get<Accomodation[]>(`${this.apiUrl}`);
   }
 }

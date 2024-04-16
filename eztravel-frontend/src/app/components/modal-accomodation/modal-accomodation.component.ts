@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MdbModalRef} from 'mdb-angular-ui-kit/modal';
 import { lastValueFrom } from 'rxjs';
@@ -16,39 +16,42 @@ import { AccomodationService } from '../../services/accomodation.service';
   templateUrl: './modal-accomodation.component.html',
   styleUrl: './modal-accomodation.component.scss'
 })
-export class ModalAccomodationComponent {
+export class ModalAccomodationComponent{
   validationForm: FormGroup;
+
+  profileId: string | null;
 
   constructor(public modalRef: MdbModalRef<ModalAccomodationComponent>, private accomodationService: AccomodationService){
     this.validationForm = new FormGroup({
-      id: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
-      name: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
-      description: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
-      location: new FormControl(null, { validators: Validators.required, updateOn: 'submit'}),
-      checkIn: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
-      checkOut: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
-      people: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
-      priority: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
-      userId: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
+      name: new FormControl(null, { validators: Validators.required }),
+      description: new FormControl(null, { validators: Validators.required }),
+      location: new FormControl(null, { validators: Validators.required }),
+      checkIn: new FormControl(null, { validators: Validators.required }),
+      checkOut: new FormControl(null, { validators: Validators.required }),
+      people: new FormControl(null, { validators: Validators.required }),
+      priority: new FormControl(null, { validators: Validators.required }),
+      profileId: new FormControl(null),
     });
+    this.profileId = localStorage.getItem('profileID');
   }
-
+  
   async createAccomodation() {
+    this.validationForm.markAllAsTouched();
+
     if (this.validationForm.valid) {
-      const accomodation = {
-        id: this.validationForm.get('id')?.value,
-        name: this.validationForm.get('name')?.value,
-        description: this.validationForm.get('description')?.value,
-        location: this.validationForm.get('location')?.value,
+      const accommodation = {
+        name: this.name.value,
+        description: this.description.value,
+        location: this.location.value,
         checkIn: new Date(this.checkIn.value),
         checkOut: new Date(this.checkOut.value),
-        people: this.validationForm.get('people')?.value,
-        priority: this.validationForm.get('priority')?.value,
-        userId: this.validationForm.get('userId')?.value,
+        people: this.people.value,
+        priority: this.priority.value,
+        profileId: this.profileId,
       };
   
       try {
-        await lastValueFrom(this.accomodationService.createTransport(accomodation));
+        await lastValueFrom(this.accomodationService.createAccomodation(accommodation));
         console.log("successful!");
       } catch (error) {
         console.log("error", error);
@@ -58,40 +61,32 @@ export class ModalAccomodationComponent {
     }
   }
 
-  get id(): AbstractControl {
-    return this.validationForm.get('id')!;
+  get name(): FormControl {
+    return this.validationForm.get('name') as FormControl;
   }
 
-  get name(): AbstractControl {
-    return this.validationForm.get('name')!;
+  get description(): FormControl {
+    return this.validationForm.get('description') as FormControl;
   }
 
-  get description(): AbstractControl {
-    return this.validationForm.get('description')!;
+  get location(): FormControl {
+    return this.validationForm.get('location') as FormControl;
   }
 
-  get location(): AbstractControl {
-    return this.validationForm.get('location')!;
+  get checkIn(): FormControl {
+    return this.validationForm.get('checkIn') as FormControl;
   }
 
-  get checkIn(): AbstractControl {
-    return this.validationForm.get('checkIn')!;
+  get checkOut(): FormControl {
+    return this.validationForm.get('checkOut') as FormControl;
   }
 
-  get checkOut(): AbstractControl {
-    return this.validationForm.get('checkOut')!;
+  get people(): FormControl {
+    return this.validationForm.get('people') as FormControl;
   }
 
-  get people(): AbstractControl {
-    return this.validationForm.get('people')!;
-  }
-
-  get priority(): AbstractControl {
-    return this.validationForm.get('priority')!;
-  }
-
-  get userId(): AbstractControl {
-    return this.validationForm.get('userId')!;
+  get priority(): FormControl {
+    return this.validationForm.get('priority') as FormControl;
   }
 
   onSubmit(): void {

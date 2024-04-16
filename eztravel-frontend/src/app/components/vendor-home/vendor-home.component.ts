@@ -10,6 +10,8 @@ import { UserService } from '../../services/user.service';
 import { UserProfileService } from '../../services/user-profile.service';
 import { GetUserProfile } from '../../interfaces/get-user-profile';
 import { CommonModule } from '@angular/common';
+import { Accomodation } from '../../interfaces/accomodation';
+import { AccomodationService } from '../../services/accomodation.service';
 
 @Component({
   selector: 'app-vendor-home',
@@ -22,13 +24,15 @@ export class VendorHomeComponent implements OnInit{
   username: string | null;
   id: string | null;
   profileId: string = '';
+
   transports: Transport[] = [];
+  accomodations: Accomodation[] = [];
 
   modalRefTransport: MdbModalRef<ModalComponent> | null = null;
   modalRefAccomodation: MdbModalRef<ModalAccomodationComponent> | null = null;
   modalRefActivity: MdbModalRef<ModalActivityComponent> | null = null;
 
-  constructor(private modalService: MdbModalService, private transportService: TransportService, private userService: UserService, private userProfileService: UserProfileService) {
+  constructor(private modalService: MdbModalService, private transportService: TransportService, private accomodationService: AccomodationService, private userProfileService: UserProfileService) {
     this.username = null;
     this.id = null;
   }
@@ -50,6 +54,14 @@ export class VendorHomeComponent implements OnInit{
       }
     )
   }
+  /*
+  listAccomodations(){
+    this.accomodationService.getAccomodations().subscribe(
+      (accomodations: Accomodation[]) => {
+        this.accomodations = accomodations.filter(accomodation => accomodation.)
+      }
+    )
+  }*/
 
   findUserProfile(id: string | null): void {
     this.userProfileService.getUserProfiles().subscribe(

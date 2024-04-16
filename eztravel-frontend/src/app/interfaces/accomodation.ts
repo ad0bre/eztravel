@@ -1,5 +1,4 @@
 export interface Accomodation {
-    id: string,
     name: string,
     description: string,
     location: string,
@@ -7,5 +6,5 @@ export interface Accomodation {
     checkOut: Date,
     people: number,
     priority: number,
-    userId: string
+    profileId: string | null,
 }
