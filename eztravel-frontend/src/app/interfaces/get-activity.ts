@@ -1,8 +1,8 @@
-export interface Activity {
+export interface GetActivity {
+    id: string,
     name: string,
     description: string,
     type: string,
     address: string,
-    priority: number,
     profileId: string | null,
 }

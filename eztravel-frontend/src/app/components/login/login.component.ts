@@ -9,13 +9,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { UserGet } from '../../interfaces/user-get';
 import { UserProfileService } from '../../services/user-profile.service';
-import { UserProfile } from '../../interfaces/user-profile';
 import { GetUserProfile } from '../../interfaces/get-user-profile';
 
 @Component({

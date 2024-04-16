@@ -42,7 +42,6 @@
     flex: 1;
     min-width: 0;
     padding: 15px;
-    border: 1px solid black;
 
     display: flex;
     flex-direction: column;
@@ -62,7 +61,7 @@
     border-radius: 20px;
 
     background: linear-gradient(90deg, rgba(99,184,247,1) 0%, rgba(44,169,235,1) 48%, rgba(12,144,214,1) 100%);
-    box-shadow: 6px 4px 4px #2ca9eb;
+    box-shadow: 8px 4px 4px #2ca9eb;
 
     font-size: medium;
     font-weight: 700;
