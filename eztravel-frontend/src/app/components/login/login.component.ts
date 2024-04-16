@@ -9,13 +9,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { UserGet } from '../../interfaces/user-get';
 import { UserProfileService } from '../../services/user-profile.service';
-import { UserProfile } from '../../interfaces/user-profile';
+import { GetUserProfile } from '../../interfaces/get-user-profile';
 
 @Component({
   selector: 'app-login',
@@ -103,11 +103,12 @@ export class LoginComponent {
             if (foundUser) {
                 console.log('User found:', foundUser);
                 const userID = foundUser.id;
-                this.userProfileService.getUserProfiles().subscribe((userProfiles: UserProfile[]) => {
+                this.userProfileService.getUserProfiles().subscribe((userProfiles: GetUserProfile[]) => {
                     const foundUserProfile = userProfiles.find(userProfile => userProfile.userId === userID);
                     if (foundUserProfile) {
                         console.log('User Profile:', foundUserProfile);
                         this.userRole = foundUserProfile.type;
+                        localStorage.setItem('profileID', foundUserProfile.id);
                     } else {
                         console.log('User profile not found!');
                     }

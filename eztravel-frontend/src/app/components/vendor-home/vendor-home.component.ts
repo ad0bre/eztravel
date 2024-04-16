@@ -6,29 +6,41 @@ import { ModalComponent } from '../modal/modal.component';
 import { ModalActivityComponent } from '../modal-activity/modal-activity.component';
 import { TransportService } from '../../services/transport.service';
 import { Transport } from '../../interfaces/transport';
-import { UserService } from '../../services/user.service';
 import { UserProfileService } from '../../services/user-profile.service';
 import { GetUserProfile } from '../../interfaces/get-user-profile';
 import { CommonModule } from '@angular/common';
+import { AccomodationService } from '../../services/accomodation.service';
+import { GetAccomodation } from '../../interfaces/get-accomodation';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faPlaneDeparture, faHotel, faCameraRetro, faC } from '@fortawesome/free-solid-svg-icons';
+import { GetActivity } from '../../interfaces/get-activity';
+import { ActivityService } from '../../services/activity.service';
 
 @Component({
   selector: 'app-vendor-home',
   standalone: true,
-  imports: [HeaderComponent, CommonModule],
+  imports: [HeaderComponent, CommonModule, FontAwesomeModule],
   templateUrl: './vendor-home.component.html',
   styleUrl: './vendor-home.component.scss'
 })
 export class VendorHomeComponent implements OnInit{
+  faPlaneDeparture = faPlaneDeparture;
+  faHotel = faHotel;
+  faCameraRetro = faCameraRetro;
+
   username: string | null;
   id: string | null;
   profileId: string = '';
+
   transports: Transport[] = [];
+  accomodations: GetAccomodation[] = [];
+  activities: GetActivity[] = [];
 
   modalRefTransport: MdbModalRef<ModalComponent> | null = null;
   modalRefAccomodation: MdbModalRef<ModalAccomodationComponent> | null = null;
   modalRefActivity: MdbModalRef<ModalActivityComponent> | null = null;
 
-  constructor(private modalService: MdbModalService, private transportService: TransportService, private userService: UserService, private userProfileService: UserProfileService) {
+  constructor(private modalService: MdbModalService, private transportService: TransportService, private accomodationService: AccomodationService, private activityService: ActivityService, private userProfileService: UserProfileService) {
     this.username = null;
     this.id = null;
   }
@@ -43,9 +55,31 @@ export class VendorHomeComponent implements OnInit{
     this.transportService.getTransports().subscribe(
       (transports: Transport[]) => {
         this.transports = transports.filter(transport => transport.profileId === this.profileId);
-        console.log(this.transports);
       },
       (error) =>{
+        console.log(error);
+      }
+    )
+  }
+  
+  listAccomodations(){
+    this.accomodationService.getAccomodations().subscribe(
+      (accomodations: GetAccomodation[]) => {
+        this.accomodations = accomodations.filter(accomodation => accomodation.profileId === this.profileId);
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+  }
+
+  listActivities(){
+    this.activityService.getActivities().subscribe(
+      (activities: GetActivity[]) => {
+        this.activities = activities.filter(activity => activity.profileId === this.profileId);
+        console.log(this.activities);
+      },
+      (error) => {
         console.log(error);
       }
     )
@@ -59,6 +93,8 @@ export class VendorHomeComponent implements OnInit{
           console.log('User Profile:', foundUserProfile);
           this.profileId = foundUserProfile.id;
           this.listTransports();
+          this.listAccomodations();
+          this.listActivities();
         } else {
           console.log('User profile not found!');
         }

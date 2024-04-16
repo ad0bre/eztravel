@@ -4,18 +4,29 @@
         Welcome, {{username}} !
     </div>
     <div class="info_container">
-        <table>
-            <tr>
-                <th>Your transport offers</th>
-                <th>Your accomodation offers</th>
-                <th>Your activities offers</th>
-            </tr>
-            <tr *ngFor="let transport of transports" >
-                <td>{{ transport.name }} - {{transport.description}} ( {{transport.departureLocation}} - {{transport.arrivalLocation}})</td>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>
+        <div class="offers_container">
+            <div class="transport_container">
+                <h2>Your transport offers</h2>
+                <div *ngFor="let transport of transports" class="transport">
+                    <fa-icon [icon]="faPlaneDeparture"></fa-icon>
+                    {{ transport.name }} - {{transport.description}} ({{transport.departureLocation}} - {{transport.arrivalLocation}})
+                </div>
+            </div>
+            <div class="accomodation_container">
+                <h2>Your accomodation offers</h2>
+                <div *ngFor="let accomodation of accomodations" class="transport">
+                    <fa-icon [icon]="faHotel"></fa-icon>
+                    {{ accomodation.name }} - {{accomodation.description}} ({{accomodation.location}})
+                </div>
+            </div>
+            <div class="activity_container">
+                <h2>Your activity offers</h2>
+                <div *ngFor="let activity of activities" class="transport">
+                    <fa-icon [icon]="faHotel"></fa-icon>
+                    {{ activity.name }} - {{activity.description}} ({{activity.address}})
+                </div>
+            </div>
+        </div>
         <div style="margin-top: 1rem; width: 100%; display: flex; flex-direction: row;">
             <div style="width: 33%;">
                 <button type="button" class="btn btn-primary btn-lg" mdbRipple (click)="openTransportModal()">Add transport</button>

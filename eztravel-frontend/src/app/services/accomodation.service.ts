@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Accomodation } from '../interfaces/accomodation';
 import { Observable } from 'rxjs';
+import { GetAccomodation } from '../interfaces/get-accomodation';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,11 @@ export class AccomodationService {
 
   constructor(private http: HttpClient) { }
 
-  createTransport(accomodation: Accomodation): Observable<any>{
+  createAccomodation(accomodation: Accomodation): Observable<any>{
     return this.http.post<any>(`${this.apiUrl}`, accomodation);
+  }
+
+  getAccomodations(): Observable<GetAccomodation[]>{
+    return this.http.get<GetAccomodation[]>(`${this.apiUrl}`);
   }
 }

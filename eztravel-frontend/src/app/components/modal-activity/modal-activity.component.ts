@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Form, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -18,28 +18,31 @@ import { lastValueFrom } from 'rxjs';
 export class ModalActivityComponent {
   validationForm: FormGroup;
 
+  profileId: string | null;
+
   constructor(public modalRef: MdbModalRef<ModalActivityComponent>, private activityService: ActivityService){
     this.validationForm = new FormGroup({
-      id: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
-      name: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
-      description: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
-      type: new FormControl(null, { validators: Validators.required, updateOn: 'submit'}),
-      address: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
-      priority: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
-      userId: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
+      name: new FormControl(null, { validators: Validators.required}),
+      description: new FormControl(null, { validators: Validators.required}),
+      type: new FormControl(null, { validators: Validators.required}),
+      address: new FormControl(null, { validators: Validators.required}),
+      priority: new FormControl(null, { validators: Validators.required}),
+      profileId: new FormControl(null),
     });
+    this.profileId = localStorage.getItem('profileID');
   }
 
   async createActivity(){
+    this.validationForm.markAllAsTouched();
+
     if(this.validationForm.valid){
       const activity = {
-        id: this.validationForm.get('id')?.value,
-        name: this.validationForm.get('name')?.value,
-        description: this.validationForm.get('description')?.value,
-        type: this.validationForm.get('type')?.value,
-        address: this.validationForm.get('address')?.value,
-        priority: this.validationForm.get('priority')?.value,
-        userId: this.validationForm.get('userId')?.value,
+        name: this.name.value,
+        description: this.description.value,
+        type: this.type.value,
+        address: this.address.value,
+        priority: this.priority.value,
+        profileId: this.profileId,
       };
 
       try{
@@ -53,26 +56,20 @@ export class ModalActivityComponent {
     }
   }
 
-  get id(): AbstractControl {
-    return this.validationForm.get('id')!;
+  get name(): FormControl {
+    return this.validationForm.get('name') as FormControl;
   }
-  get name(): AbstractControl {
-    return this.validationForm.get('name')!;
+  get description(): FormControl {
+    return this.validationForm.get('description') as FormControl;
   }
-  get description(): AbstractControl {
-    return this.validationForm.get('description')!;
+  get type(): FormControl {
+    return this.validationForm.get('type') as FormControl;
   }
-  get type(): AbstractControl {
-    return this.validationForm.get('type')!;
-  }
-  get address(): AbstractControl {
-    return this.validationForm.get('address')!;
+  get address(): FormControl {
+    return this.validationForm.get('address') as FormControl;
   }
   get priority(): AbstractControl {
     return this.validationForm.get('priority')!;
-  }
-  get userId(): AbstractControl {
-    return this.validationForm.get('userId')!;
   }
 
   onSubmit(): void {

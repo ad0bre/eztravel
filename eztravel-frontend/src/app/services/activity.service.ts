@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Activity } from '../interfaces/activity';
 import { Observable } from 'rxjs';
+import { GetActivity } from '../interfaces/get-activity';
 
 @Injectable({
   providedIn: 'root'
@@ -14,5 +15,9 @@ export class ActivityService {
 
   createActivity(activity: Activity): Observable<any>{
     return this.http.post<any>(`${this.apiUrl}`, activity);
+  }
+
+  getActivities(): Observable<GetActivity[]>{
+    return this.http.get<GetActivity[]>(`${this.apiUrl}`);
   }
 }
