@@ -6,12 +6,11 @@ import { ModalComponent } from '../modal/modal.component';
 import { ModalActivityComponent } from '../modal-activity/modal-activity.component';
 import { TransportService } from '../../services/transport.service';
 import { Transport } from '../../interfaces/transport';
-import { UserService } from '../../services/user.service';
 import { UserProfileService } from '../../services/user-profile.service';
 import { GetUserProfile } from '../../interfaces/get-user-profile';
 import { CommonModule } from '@angular/common';
-import { Accomodation } from '../../interfaces/accomodation';
 import { AccomodationService } from '../../services/accomodation.service';
+import { GetAccomodation } from '../../interfaces/get-accomodation';
 
 @Component({
   selector: 'app-vendor-home',
@@ -26,7 +25,7 @@ export class VendorHomeComponent implements OnInit{
   profileId: string = '';
 
   transports: Transport[] = [];
-  accomodations: Accomodation[] = [];
+  accomodations: GetAccomodation[] = [];
 
   modalRefTransport: MdbModalRef<ModalComponent> | null = null;
   modalRefAccomodation: MdbModalRef<ModalAccomodationComponent> | null = null;
@@ -47,21 +46,24 @@ export class VendorHomeComponent implements OnInit{
     this.transportService.getTransports().subscribe(
       (transports: Transport[]) => {
         this.transports = transports.filter(transport => transport.profileId === this.profileId);
-        console.log(this.transports);
       },
       (error) =>{
         console.log(error);
       }
     )
   }
-  /*
+  
   listAccomodations(){
     this.accomodationService.getAccomodations().subscribe(
-      (accomodations: Accomodation[]) => {
-        this.accomodations = accomodations.filter(accomodation => accomodation.)
+      (accomodations: GetAccomodation[]) => {
+        this.accomodations = accomodations.filter(accomodation => accomodation.profileId === this.profileId);
+        console.log(this.accomodations);
+      },
+      (error) => {
+        console.log(error);
       }
     )
-  }*/
+  }
 
   findUserProfile(id: string | null): void {
     this.userProfileService.getUserProfiles().subscribe(
@@ -71,6 +73,7 @@ export class VendorHomeComponent implements OnInit{
           console.log('User Profile:', foundUserProfile);
           this.profileId = foundUserProfile.id;
           this.listTransports();
+          this.listAccomodations();
         } else {
           console.log('User profile not found!');
         }

@@ -4,26 +4,23 @@
         Welcome, {{username}} !
     </div>
     <div class="info_container">
-        <table>
-            <tr>
-                <th>Your transport offers</th>
-                <th>Your accommodation offers</th>
-                <th>Your activities offers</th>
-            </tr>
-            <ng-container *ngFor="let transport of transports; let i = index">
-                <tr>
-                    <td>{{ transport.name }} - {{transport.description}} ({{transport.departureLocation}} - {{transport.arrivalLocation}})</td>
-                    <td>
-                        <!-- <ng-container *ngFor="let accommodation of accommodations"> 
-                            <span *ngIf="accommodation.transportId === transport.id">
-                                {{ accommodation.name }} - {{accommodation.description}}
-                            </span>
-                        </ng-container>-->
-                    </td>
-                    <td></td>
-                </tr>
-            </ng-container>
-        </table>
+        <div class="offers_container">
+            <div class="transport_container">
+                <h2>Your transport offers</h2>
+                <div *ngFor="let transport of transports" class="transport">
+                    {{ transport.name }} - {{transport.description}} ({{transport.departureLocation}} - {{transport.arrivalLocation}})
+                </div>
+            </div>
+            <div class="accomodation_container">
+                <h2>Your accomodation offers</h2>
+                <div *ngFor="let accomodation of accomodations" class="transport">
+                    {{ accomodation.name }} - {{accomodation.description}} ({{accomodation.location}})
+                </div>
+            </div>
+            <div class="activity_container">
+                <h2>Your activity offers</h2>
+            </div>
+        </div>
         <div style="margin-top: 1rem; width: 100%; display: flex; flex-direction: row;">
             <div style="width: 33%;">
                 <button type="button" class="btn btn-primary btn-lg" mdbRipple (click)="openTransportModal()">Add transport</button>
