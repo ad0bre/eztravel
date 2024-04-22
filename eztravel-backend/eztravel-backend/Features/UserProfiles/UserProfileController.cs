@@ -24,7 +24,7 @@ public class UserProfileController(AppDbContext dbContext, UserManager<User> use
         var userProfile = new UserProfileModel
         {
             Name = request.Name,
-            Email = request.Email ?? user.Email,
+            Email = user.Email,
             Phone = request.Phone ?? user.PhoneNumber,
             UserId = user.Id,
             Type = request.Type,
