@@ -20,4 +20,8 @@ export class AccomodationService {
   getAccomodations(): Observable<GetAccomodation[]>{
     return this.http.get<GetAccomodation[]>(`${this.apiUrl}`);
   }
+
+  deleteAccomodation(id: string): Observable<any>{
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
 }

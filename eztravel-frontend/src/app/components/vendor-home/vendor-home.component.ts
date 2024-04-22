@@ -5,20 +5,19 @@ import { ModalAccomodationComponent } from '../modal-accomodation/modal-accomoda
 import { ModalComponent } from '../modal/modal.component';
 import { ModalActivityComponent } from '../modal-activity/modal-activity.component';
 import { TransportService } from '../../services/transport.service';
-import { Transport } from '../../interfaces/transport';
 import { UserProfileService } from '../../services/user-profile.service';
 import { GetUserProfile } from '../../interfaces/get-user-profile';
 import { CommonModule } from '@angular/common';
 import { AccomodationService } from '../../services/accomodation.service';
 import { GetAccomodation } from '../../interfaces/get-accomodation';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPlaneDeparture, faHotel, faCameraRetro, faC } from '@fortawesome/free-solid-svg-icons';
+import { faPlaneDeparture, faHotel, faCameraRetro, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { GetActivity } from '../../interfaces/get-activity';
 import { ActivityService } from '../../services/activity.service';
 import { OfferModalComponent } from '../offer-modal/offer-modal.component';
 import { ActivityOfferModalComponent } from '../activity-offer-modal/activity-offer-modal.component';
 import { AccomodationOfferModalComponent } from '../accomodation-offer-modal/accomodation-offer-modal.component';
-import { TransferState } from '@angular/platform-browser';
+import { GetTransport } from '../../interfaces/get-transport';
 
 @Component({
   selector: 'app-vendor-home',
@@ -31,12 +30,13 @@ export class VendorHomeComponent implements OnInit{
   faPlaneDeparture = faPlaneDeparture;
   faHotel = faHotel;
   faCameraRetro = faCameraRetro;
+  faPlus = faPlus;
 
   username: string | null;
   id: string | null;
   profileId: string = '';
 
-  transports: Transport[] = [];
+  transports: GetTransport[] = [];
   accomodations: GetAccomodation[] = [];
   activities: GetActivity[] = [];
 
@@ -60,7 +60,7 @@ export class VendorHomeComponent implements OnInit{
 
   listTransports(){
     this.transportService.getTransports().subscribe(
-      (transports: Transport[]) => {
+      (transports: GetTransport[]) => {
         this.transports = transports.filter(transport => transport.profileId === this.profileId);
       },
       (error) =>{
@@ -130,7 +130,7 @@ export class VendorHomeComponent implements OnInit{
     })
   }
 
-  openTransportOfferModal(offer: Transport){
+  openTransportOfferModal(offer: GetTransport){
     this.modalRefOffer = this.modalService.open(OfferModalComponent, {
       modalClass: 'modal-dialog-scrollable'
     });

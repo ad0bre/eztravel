@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Transport } from '../interfaces/transport';
 import { Observable } from 'rxjs';
+import { GetTransport } from '../interfaces/get-transport';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,8 @@ export class TransportService {
     return this.http.post<any>(`${this.apiUrl}`, transport);
   }
 
-  getTransports(): Observable<Transport[]>{
-    return this.http.get<Transport[]>(`${this.apiUrl}`);
+  getTransports(): Observable<GetTransport[]>{
+    return this.http.get<GetTransport[]>(`${this.apiUrl}`);
   }
 
   deleteTransport(id: string): Observable<any>{

@@ -20,4 +20,8 @@ export class ActivityService {
   getActivities(): Observable<GetActivity[]>{
     return this.http.get<GetActivity[]>(`${this.apiUrl}`);
   }
+
+  deleteActivity(id: string): Observable<any>{
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
 }

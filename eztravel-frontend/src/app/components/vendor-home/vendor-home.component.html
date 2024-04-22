@@ -22,20 +22,20 @@
             <div class="activity_container">
                 <h2>Your activity offers</h2>
                 <button *ngFor="let activity of activities" class="transport" mdbRipple (click)="openActivityOfferModal(activity)">
-                    <fa-icon [icon]="faHotel"></fa-icon>
+                    <fa-icon [icon]="faCameraRetro"></fa-icon>
                     {{ activity.name }} - {{activity.description}} ({{activity.address}})
                 </button>
             </div>
         </div>
         <div style="margin-top: 1rem; width: 100%; display: flex; flex-direction: row;">
             <div style="width: 33%;">
-                <button type="button" class="btn btn-primary btn-lg" mdbRipple (click)="openTransportModal()">Add transport</button>
+                <button type="button" class="btn btn-primary btn-lg" mdbRipple (click)="openTransportModal()">Add transport <fa-icon [icon]="faPlus"></fa-icon></button>
             </div>
             <div style="width: 33%;">
-                <button type="button" class="btn btn-primary btn-lg" mdbRipple (click)="openAccomodationModal()">Add accomodation</button>
+                <button type="button" class="btn btn-primary btn-lg" mdbRipple (click)="openAccomodationModal()">Add accomodation <fa-icon [icon]="faPlus"></fa-icon></button>
             </div>
             <div style="width: 33%;">
-                <button type="button" class="btn btn-primary btn-lg" mdbRipple (click)="openActivityModal()">Add activity</button>
+                <button type="button" class="btn btn-primary btn-lg" mdbRipple (click)="openActivityModal()">Add activity <fa-icon [icon]="faPlus"></fa-icon></button>
             </div>
         </div>
     </div>
