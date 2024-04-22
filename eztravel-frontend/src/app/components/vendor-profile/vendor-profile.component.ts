@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { Router } from '@angular/router';
-import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
-import { ModalComponent } from '../modal/modal.component';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { AbstractControl, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';

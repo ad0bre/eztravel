@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
-import { Form, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';

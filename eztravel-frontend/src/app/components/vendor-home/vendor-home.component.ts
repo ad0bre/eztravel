@@ -5,16 +5,19 @@ import { ModalAccomodationComponent } from '../modal-accomodation/modal-accomoda
 import { ModalComponent } from '../modal/modal.component';
 import { ModalActivityComponent } from '../modal-activity/modal-activity.component';
 import { TransportService } from '../../services/transport.service';
-import { Transport } from '../../interfaces/transport';
 import { UserProfileService } from '../../services/user-profile.service';
 import { GetUserProfile } from '../../interfaces/get-user-profile';
 import { CommonModule } from '@angular/common';
 import { AccomodationService } from '../../services/accomodation.service';
 import { GetAccomodation } from '../../interfaces/get-accomodation';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPlaneDeparture, faHotel, faCameraRetro, faC } from '@fortawesome/free-solid-svg-icons';
+import { faPlaneDeparture, faHotel, faCameraRetro, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { GetActivity } from '../../interfaces/get-activity';
 import { ActivityService } from '../../services/activity.service';
+import { OfferModalComponent } from '../offer-modal/offer-modal.component';
+import { ActivityOfferModalComponent } from '../activity-offer-modal/activity-offer-modal.component';
+import { AccomodationOfferModalComponent } from '../accomodation-offer-modal/accomodation-offer-modal.component';
+import { GetTransport } from '../../interfaces/get-transport';
 
 @Component({
   selector: 'app-vendor-home',
@@ -27,18 +30,22 @@ export class VendorHomeComponent implements OnInit{
   faPlaneDeparture = faPlaneDeparture;
   faHotel = faHotel;
   faCameraRetro = faCameraRetro;
+  faPlus = faPlus;
 
   username: string | null;
   id: string | null;
   profileId: string = '';
 
-  transports: Transport[] = [];
+  transports: GetTransport[] = [];
   accomodations: GetAccomodation[] = [];
   activities: GetActivity[] = [];
 
   modalRefTransport: MdbModalRef<ModalComponent> | null = null;
   modalRefAccomodation: MdbModalRef<ModalAccomodationComponent> | null = null;
   modalRefActivity: MdbModalRef<ModalActivityComponent> | null = null;
+  modalRefOffer: MdbModalRef<OfferModalComponent> | null = null;
+  modalRefAccomodationOffer: MdbModalRef<AccomodationOfferModalComponent> | null = null;
+  modalRefActivityOffer: MdbModalRef<ActivityOfferModalComponent> | null = null;
 
   constructor(private modalService: MdbModalService, private transportService: TransportService, private accomodationService: AccomodationService, private activityService: ActivityService, private userProfileService: UserProfileService) {
     this.username = null;
@@ -53,7 +60,7 @@ export class VendorHomeComponent implements OnInit{
 
   listTransports(){
     this.transportService.getTransports().subscribe(
-      (transports: Transport[]) => {
+      (transports: GetTransport[]) => {
         this.transports = transports.filter(transport => transport.profileId === this.profileId);
       },
       (error) =>{
@@ -121,5 +128,26 @@ export class VendorHomeComponent implements OnInit{
     this.modalRefActivity = this.modalService.open(ModalActivityComponent, {
       modalClass: 'modal-dialog-scrollable'
     })
+  }
+
+  openTransportOfferModal(offer: GetTransport){
+    this.modalRefOffer = this.modalService.open(OfferModalComponent, {
+      modalClass: 'modal-dialog-scrollable'
+    });
+    this.modalRefOffer.component.offer = offer;
+  }
+
+  openAccomodationOfferModal(offer: GetAccomodation){
+    this.modalRefAccomodationOffer = this.modalService.open(AccomodationOfferModalComponent, {
+      modalClass: 'modal-dialog-scrollable'
+    });
+    this.modalRefAccomodationOffer.component.offer = offer;
+  }
+
+  openActivityOfferModal(offer: GetActivity){
+    this.modalRefActivityOffer = this.modalService.open(ActivityOfferModalComponent, {
+      modalClass: 'modal-dialog-scrollable'
+    });
+    this.modalRefActivityOffer.component.offer = offer;
   }
 }
