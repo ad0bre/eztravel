@@ -18,4 +18,8 @@ export class TransportService {
   getTransports(): Observable<Transport[]>{
     return this.http.get<Transport[]>(`${this.apiUrl}`);
   }
+
+  deleteTransport(id: string): Observable<any>{
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
 }

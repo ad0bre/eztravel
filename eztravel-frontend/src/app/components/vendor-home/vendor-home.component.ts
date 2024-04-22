@@ -15,6 +15,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlaneDeparture, faHotel, faCameraRetro, faC } from '@fortawesome/free-solid-svg-icons';
 import { GetActivity } from '../../interfaces/get-activity';
 import { ActivityService } from '../../services/activity.service';
+import { OfferModalComponent } from '../offer-modal/offer-modal.component';
+import { ActivityOfferModalComponent } from '../activity-offer-modal/activity-offer-modal.component';
+import { AccomodationOfferModalComponent } from '../accomodation-offer-modal/accomodation-offer-modal.component';
+import { TransferState } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-vendor-home',
@@ -39,6 +43,9 @@ export class VendorHomeComponent implements OnInit{
   modalRefTransport: MdbModalRef<ModalComponent> | null = null;
   modalRefAccomodation: MdbModalRef<ModalAccomodationComponent> | null = null;
   modalRefActivity: MdbModalRef<ModalActivityComponent> | null = null;
+  modalRefOffer: MdbModalRef<OfferModalComponent> | null = null;
+  modalRefAccomodationOffer: MdbModalRef<AccomodationOfferModalComponent> | null = null;
+  modalRefActivityOffer: MdbModalRef<ActivityOfferModalComponent> | null = null;
 
   constructor(private modalService: MdbModalService, private transportService: TransportService, private accomodationService: AccomodationService, private activityService: ActivityService, private userProfileService: UserProfileService) {
     this.username = null;
@@ -121,5 +128,26 @@ export class VendorHomeComponent implements OnInit{
     this.modalRefActivity = this.modalService.open(ModalActivityComponent, {
       modalClass: 'modal-dialog-scrollable'
     })
+  }
+
+  openTransportOfferModal(offer: Transport){
+    this.modalRefOffer = this.modalService.open(OfferModalComponent, {
+      modalClass: 'modal-dialog-scrollable'
+    });
+    this.modalRefOffer.component.offer = offer;
+  }
+
+  openAccomodationOfferModal(offer: GetAccomodation){
+    this.modalRefAccomodationOffer = this.modalService.open(AccomodationOfferModalComponent, {
+      modalClass: 'modal-dialog-scrollable'
+    });
+    this.modalRefAccomodationOffer.component.offer = offer;
+  }
+
+  openActivityOfferModal(offer: GetActivity){
+    this.modalRefActivityOffer = this.modalService.open(ActivityOfferModalComponent, {
+      modalClass: 'modal-dialog-scrollable'
+    });
+    this.modalRefActivityOffer.component.offer = offer;
   }
 }

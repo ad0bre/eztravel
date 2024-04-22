@@ -7,24 +7,24 @@
         <div class="offers_container">
             <div class="transport_container">
                 <h2>Your transport offers</h2>
-                <div *ngFor="let transport of transports" class="transport">
+                <button *ngFor="let transport of transports" class="transport" mdbRipple (click)="openTransportOfferModal(transport)">
                     <fa-icon [icon]="faPlaneDeparture"></fa-icon>
                     {{ transport.name }} - {{transport.description}} ({{transport.departureLocation}} - {{transport.arrivalLocation}})
-                </div>
+                </button>
             </div>
             <div class="accomodation_container">
                 <h2>Your accomodation offers</h2>
-                <div *ngFor="let accomodation of accomodations" class="transport">
+                <button *ngFor="let accomodation of accomodations" class="transport" mdbRipple (click)="openAccomodationOfferModal(accomodation)">
                     <fa-icon [icon]="faHotel"></fa-icon>
                     {{ accomodation.name }} - {{accomodation.description}} ({{accomodation.location}})
-                </div>
+                </button>
             </div>
             <div class="activity_container">
                 <h2>Your activity offers</h2>
-                <div *ngFor="let activity of activities" class="transport">
+                <button *ngFor="let activity of activities" class="transport" mdbRipple (click)="openActivityOfferModal(activity)">
                     <fa-icon [icon]="faHotel"></fa-icon>
                     {{ activity.name }} - {{activity.description}} ({{activity.address}})
-                </div>
+                </button>
             </div>
         </div>
         <div style="margin-top: 1rem; width: 100%; display: flex; flex-direction: row;">
