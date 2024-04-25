@@ -6,7 +6,6 @@ import { ModalComponent } from '../modal/modal.component';
 import { ModalActivityComponent } from '../modal-activity/modal-activity.component';
 import { TransportService } from '../../services/transport.service';
 import { UserProfileService } from '../../services/user-profile.service';
-import { GetUserProfile } from '../../interfaces/get-user-profile';
 import { CommonModule } from '@angular/common';
 import { AccomodationService } from '../../services/accomodation.service';
 import { GetAccomodation } from '../../interfaces/get-accomodation';
@@ -34,7 +33,7 @@ export class VendorHomeComponent implements OnInit{
 
   username: string | null;
   id: string | null;
-  profileId: string = '';
+  profileId: string | null;
 
   transports: GetTransport[] = [];
   accomodations: GetAccomodation[] = [];
@@ -49,13 +48,17 @@ export class VendorHomeComponent implements OnInit{
 
   constructor(private modalService: MdbModalService, private transportService: TransportService, private accomodationService: AccomodationService, private activityService: ActivityService, private userProfileService: UserProfileService) {
     this.username = null;
+    this.profileId = null;
     this.id = null;
   }
 
   ngOnInit(): void {
       this.username = localStorage.getItem('username');
       this.id = localStorage.getItem('userID');
-      this.findUserProfile(this.id);
+      this.profileId = localStorage.getItem('profileID');
+      this.listTransports();
+      this.listAccomodations();
+      this.listActivities();
   }
 
   listTransports(){
@@ -90,26 +93,6 @@ export class VendorHomeComponent implements OnInit{
         console.log(error);
       }
     )
-  }
-
-  findUserProfile(id: string | null): void {
-    this.userProfileService.getUserProfiles().subscribe(
-      (userProfiles: GetUserProfile[]) => {
-        const foundUserProfile = userProfiles.find(userProfile => userProfile.userId === id);
-        if (foundUserProfile) {
-          console.log('User Profile:', foundUserProfile);
-          this.profileId = foundUserProfile.id;
-          this.listTransports();
-          this.listAccomodations();
-          this.listActivities();
-        } else {
-          console.log('User profile not found!');
-        }
-      },
-      (error) => {
-        console.error('Error fetching user profiles:', error);
-      }
-    );
   }
 
   openTransportModal(){

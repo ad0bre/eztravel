@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MdbModalRef} from 'mdb-angular-ui-kit/modal';
 import { lastValueFrom } from 'rxjs';
@@ -6,7 +6,7 @@ import { TransportService } from '../../services/transport.service';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -38,9 +38,6 @@ export class ModalComponent {
   }
 
   async createTransport() {
-    console.log("createTransport() method called");
-    console.log("Form validity:", this.validationForm.valid);
-
     this.validationForm.markAllAsTouched();
 
     if (this.validationForm.valid) {
@@ -62,6 +59,7 @@ export class ModalComponent {
         await lastValueFrom(this.transportService.createTransport(transport));
         console.log("successful!");
         this.modalRef.close();
+        window.location.reload();
       } catch (error) {
         console.log("error", error);
       }

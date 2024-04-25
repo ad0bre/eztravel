@@ -24,6 +24,7 @@ export class ActivityOfferModalComponent {
       () => {
         console.log("Activity deleted successfully!");
         this.modalRef.close();
+        window.location.reload();
       },
       (error) => {
         console.log(error);

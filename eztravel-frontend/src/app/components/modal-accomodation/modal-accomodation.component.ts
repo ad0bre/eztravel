@@ -58,6 +58,7 @@ export class ModalAccomodationComponent{
       }
   
       this.modalRef.close();
+      window.location.reload();
     }
   }
 
