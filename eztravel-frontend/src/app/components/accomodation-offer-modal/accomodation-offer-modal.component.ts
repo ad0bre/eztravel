@@ -26,6 +26,7 @@ export class AccomodationOfferModalComponent {
       () => {
         console.log("Accomodation deleted successfully!");
         this.modalRef.close();
+        window.location.reload();
       },
       (error) => {
         console.log(error);

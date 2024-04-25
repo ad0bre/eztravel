@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { Router } from '@angular/router';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
-import { AbstractControl, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { UserProfile } from '../../interfaces/user-profile';
 import { UserProfileService } from '../../services/user-profile.service';
 import { lastValueFrom } from 'rxjs';
+import { GetUserProfile } from '../../interfaces/get-user-profile';
 
 @Component({
   selector: 'app-vendor-profile',
@@ -59,7 +59,7 @@ export class VendorProfileComponent implements OnInit {
   }
 
   async loadUserProfile(){
-    this.userProfileService.getUserProfiles().subscribe((userProfiles: UserProfile[]) => {
+    this.userProfileService.getUserProfiles().subscribe((userProfiles: GetUserProfile[]) => {
       const foundUserProfile = userProfiles.find(userProfile => userProfile.userId === this.userID);
       if(foundUserProfile){
         console.log('User Profile:', foundUserProfile);

@@ -53,6 +53,7 @@ export class ModalActivityComponent {
       }
 
       this.modalRef.close();
+      window.location.reload();
     }
   }
 

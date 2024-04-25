@@ -25,6 +25,7 @@ export class OfferModalComponent {
       () => {
         console.log("Transport deleted successfully!");
         this.modalRef.close();
+        window.location.reload();
       },
       (error) => {
         console.log(error);

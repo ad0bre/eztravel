@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserProfileService } from '../../services/user-profile.service';
 import { lastValueFrom } from 'rxjs';
-import { UserProfile } from '../../interfaces/user-profile';
+import { GetUserProfile } from '../../interfaces/get-user-profile';
 
 @Component({
   selector: 'app-profile',
@@ -63,7 +63,7 @@ export class ProfileComponent implements OnInit {
   }
 
   async loadUserProfile(){
-    this.userProfileService.getUserProfiles().subscribe((userProfiles: UserProfile[]) => {
+    this.userProfileService.getUserProfiles().subscribe((userProfiles: GetUserProfile[]) => {
       const foundUserProfile = userProfiles.find(userProfile => userProfile.userId === this.userID);
       if(foundUserProfile){
         console.log('User Profile:', foundUserProfile);

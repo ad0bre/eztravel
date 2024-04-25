@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { UserGet } from '../../interfaces/user-get';
-import { UserProfile } from '../../interfaces/user-profile';
 import { UserService } from '../../services/user.service';
 import { UserProfileService } from '../../services/user-profile.service';
 
