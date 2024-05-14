@@ -3,6 +3,7 @@ using eztravel_backend.Features;
 using eztravel_backend.Features.Accomodations;
 using eztravel_backend.Features.Activities;
 using eztravel_backend.Features.Transports;
+using eztravel_backend.Features.TripForms;
 using eztravel_backend.Features.UserProfiles;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -20,4 +21,6 @@ public class AppDbContext : IdentityDbContext<User, Role, string>
     public DbSet<ActivityModel> Activities { get; set; }
     
     public DbSet<UserProfileModel> UserProfiles { get; set; }
+    
+    public DbSet<TripFormModel> TripForms { get; set; }
 }
