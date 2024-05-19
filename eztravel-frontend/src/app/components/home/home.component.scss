@@ -7,7 +7,8 @@
     align-items: center;
     justify-content: center;
 
-    background-color: #fecc56;
+    background: rgb(238,238,238);
+    background: linear-gradient(90deg, rgba(238,238,238,1) 0%, rgba(227,227,227,1) 48%, rgba(223,223,223,1) 100%);
 }
 
 .dialog_container{
@@ -37,16 +38,6 @@
     border-radius: 10%;
 
     gap: 1rem;
-}
-
-.search_fields button{
-    margin-top: 2rem;
-
-    width: 20%;
-    height: 25px;
-    background: linear-gradient(90deg, rgba(179,230,252,1) 0%, rgba(157,226,252,1) 49%, rgba(111,213,255,1) 75%, rgba(142,182,254,1) 100%);
-    font-size: small;
-    font-weight: 600;
 }
 
 .text_fields {

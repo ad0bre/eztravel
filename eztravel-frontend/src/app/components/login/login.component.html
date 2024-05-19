@@ -12,7 +12,7 @@
           <form [formGroup]="validationForm" (ngSubmit)="onSubmit()">
               <div class="column" style="align-items: center; justify-content: center;">
                 <div>
-                  <mdb-form-control>
+                  <mdb-form-control class="form-black">
                     <input mdbValidate mdbInput type="text" id="form1" class="form-control longer-input" formControlName="username" required/>
                     <label mdbLabel class="form-label" for="form1">Username</label>
                     <mdb-error *ngIf="validationForm.get('username')?.errors?.['required'] && validationForm.get('username')?.touched">
