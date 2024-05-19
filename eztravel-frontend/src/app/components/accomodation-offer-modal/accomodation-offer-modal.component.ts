@@ -4,13 +4,15 @@ import { GetAccomodation } from '../../interfaces/get-accomodation';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faArrowRight, faPerson, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { AccomodationService } from '../../services/accomodation.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-accomodation-offer-modal',
   standalone: true,
   imports: [FontAwesomeModule],
   templateUrl: './accomodation-offer-modal.component.html',
-  styleUrl: './accomodation-offer-modal.component.scss'
+  styleUrl: './accomodation-offer-modal.component.scss',
+  providers: [DatePipe]
 })
 export class AccomodationOfferModalComponent {
   offer!: GetAccomodation;
@@ -18,7 +20,7 @@ export class AccomodationOfferModalComponent {
   faPerson = faPerson;
   faTrash = faTrash;
   
-  constructor(public modalRef: MdbModalRef<AccomodationOfferModalComponent>, private accomodationService: AccomodationService) { 
+  constructor(public modalRef: MdbModalRef<AccomodationOfferModalComponent>, private accomodationService: AccomodationService, private datePipe: DatePipe) { 
   }
 
   deleteOffer(){
@@ -32,5 +34,9 @@ export class AccomodationOfferModalComponent {
         console.log(error);
       }
     );
+  }
+
+  formatDate(date: Date): string{
+    return this.datePipe.transform(date, 'dd-MM-yyyy') || '';
   }
 }

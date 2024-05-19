@@ -4,13 +4,15 @@ import { faArrowRight, faPlane, faTrash } from '@fortawesome/free-solid-svg-icon
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { GetTransport } from '../../interfaces/get-transport';
 import { TransportService } from '../../services/transport.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-offer-modal',
   standalone: true,
   imports: [FontAwesomeModule],
   templateUrl: './offer-modal.component.html',
-  styleUrl: './offer-modal.component.scss'
+  styleUrl: './offer-modal.component.scss',
+  providers: [DatePipe]
 })
 export class OfferModalComponent {
   offer!: GetTransport;
@@ -18,7 +20,7 @@ export class OfferModalComponent {
   faPlane = faPlane;
   faTrash = faTrash;
 
-  constructor(public modalRef: MdbModalRef<OfferModalComponent>, private transportService: TransportService) { }
+  constructor(public modalRef: MdbModalRef<OfferModalComponent>, private transportService: TransportService, private datePipe: DatePipe) { }
 
   deleteOffer(){
      this.transportService.deleteTransport(this.offer.id).subscribe(
@@ -31,5 +33,9 @@ export class OfferModalComponent {
         console.log(error);
       }
      );
+  }
+
+  formatDate(date: Date): string{
+    return this.datePipe.transform(date, 'dd-MM-yyyy | HH:mm:ss') || '';
   }
 }

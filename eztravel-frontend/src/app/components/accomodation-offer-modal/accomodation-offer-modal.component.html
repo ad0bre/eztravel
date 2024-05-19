@@ -10,9 +10,9 @@
                     <h2>{{offer.name}} in {{offer.location}}</h2>
                 </div>
                 <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: center;">
-                    <h3>From: {{offer.checkIn}}</h3>
+                    <h3>From: {{formatDate(offer.checkIn)}}</h3>
                     <fa-icon [icon]="faArrowRight" size="lg"></fa-icon>
-                    <h3>{{offer.checkOut}}</h3>
+                    <h3>{{formatDate(offer.checkOut)}}</h3>
                 </div>
                 <div style="display: flex; flex-direction: row; gap: 10px; align-items: baseline; justify-content: center;">
                     <h4>Accomodation for: {{offer.people}}</h4>
