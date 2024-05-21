@@ -258,7 +258,7 @@ namespace eztravel_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accomodations");
+                    b.ToTable("Accomodations", (string)null);
                 });
 
             modelBuilder.Entity("eztravel_backend.Features.Activities.ActivityModel", b =>
@@ -296,7 +296,7 @@ namespace eztravel_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Activities");
+                    b.ToTable("Activities", (string)null);
                 });
 
             modelBuilder.Entity("eztravel_backend.Features.Transports.TransportSelection", b =>
@@ -350,43 +350,7 @@ namespace eztravel_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Transports");
-                });
-
-            modelBuilder.Entity("eztravel_backend.Features.TripForms.TripFormModel", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<DateOnly>("ArrivalDay")
-                        .HasColumnType("date");
-
-                    b.Property<decimal>("Budget")
-                        .HasColumnType("numeric");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateOnly>("DepartureDay")
-                        .HasColumnType("date");
-
-                    b.Property<string>("Destination")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("NumberOfPeople")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("Updated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TripForms");
+                    b.ToTable("Transports", (string)null);
                 });
 
             modelBuilder.Entity("eztravel_backend.Features.UserProfiles.UserProfileModel", b =>
@@ -424,7 +388,7 @@ namespace eztravel_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserProfiles");
+                    b.ToTable("UserProfiles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
