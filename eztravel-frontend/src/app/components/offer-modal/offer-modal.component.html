@@ -15,9 +15,9 @@
                     <h3>{{offer.arrivalLocation}}</h3>
                 </div>
                 <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: center;">
-                    <h4>{{offer.departureTime}}</h4>
+                    <h4>{{formatDate(offer.departureTime)}}</h4>
                     <fa-icon [icon]="faArrowRight"></fa-icon>
-                    <h4>{{offer.arrivalTime}}</h4>
+                    <h4>{{formatDate(offer.arrivalTime)}}</h4>
                 </div>
                 <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
                     <h2>Price: {{offer.price}}$</h2>

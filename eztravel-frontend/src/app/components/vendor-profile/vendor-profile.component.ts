@@ -25,6 +25,8 @@ export class VendorProfileComponent implements OnInit {
   userID: string | null;
   isVerified: boolean = false;
 
+  loadProfile: boolean = true;
+
   constructor(private router: Router, private userProfileService: UserProfileService) {
     this.validationForm = new FormGroup({
       name: new FormControl(null, { validators: Validators.required, updateOn: 'submit' }),
@@ -71,8 +73,10 @@ export class VendorProfileComponent implements OnInit {
         });
         this.selectedRole = foundUserProfile.type === 1 ? 'Vendor' : 'Traveler';
         this.isVerified = foundUserProfile.isVerified;
+        this.loadProfile = false;
       } else {
         console.log('User profile not found!');
+        this.loadProfile = false;
       }
     })
   }

@@ -39,6 +39,10 @@ export class VendorHomeComponent implements OnInit{
   accomodations: GetAccomodation[] = [];
   activities: GetActivity[] = [];
 
+  loadingTransports: boolean = true;
+  loadingAccomodations: boolean = true;
+  loadingActivities: boolean = true;
+
   modalRefTransport: MdbModalRef<ModalComponent> | null = null;
   modalRefAccomodation: MdbModalRef<ModalAccomodationComponent> | null = null;
   modalRefActivity: MdbModalRef<ModalActivityComponent> | null = null;
@@ -65,9 +69,11 @@ export class VendorHomeComponent implements OnInit{
     this.transportService.getTransports().subscribe(
       (transports: GetTransport[]) => {
         this.transports = transports.filter(transport => transport.profileId === this.profileId);
+        this.loadingTransports = false;
       },
       (error) =>{
         console.log(error);
+        this.loadingTransports = false;
       }
     )
   }
@@ -76,9 +82,11 @@ export class VendorHomeComponent implements OnInit{
     this.accomodationService.getAccomodations().subscribe(
       (accomodations: GetAccomodation[]) => {
         this.accomodations = accomodations.filter(accomodation => accomodation.profileId === this.profileId);
+        this.loadingAccomodations = false;
       },
       (error) => {
         console.log(error);
+        this.loadingAccomodations = false;
       }
     )
   }
@@ -88,9 +96,11 @@ export class VendorHomeComponent implements OnInit{
       (activities: GetActivity[]) => {
         this.activities = activities.filter(activity => activity.profileId === this.profileId);
         console.log(this.activities);
+        this.loadingActivities = false;
       },
       (error) => {
         console.log(error);
+        this.loadingActivities = false;
       }
     )
   }

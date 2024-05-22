@@ -1,6 +1,6 @@
 <div class="main_container">
     <div class="container_wrapper">
-        <div class="media_container small_containers">
+        <div class="media_container small_containers" @slideIn>
             <app-image-slider [slides]="slides"></app-image-slider>
         </div>
         <div class="register_container small_containers">
@@ -8,7 +8,7 @@
                 <img class="logo" src='../assets/logo.png' alt="logo" (click)="navigateToLanding()">
                 <h1>Travel anywhere, anytime!</h1>
             </div>
-            <h1>Start traveling today!</h1>
+            <h1 style="margin-bottom: 20px;">Start traveling today!</h1>
             <form [formGroup]="validationForm" (ngSubmit)="onSubmit()">
                 <div class="column" style="align-items: center; justify-content: center;">
                     <div>

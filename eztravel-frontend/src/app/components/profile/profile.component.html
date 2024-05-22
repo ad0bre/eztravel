@@ -2,7 +2,13 @@
 <div class="main_container">
     <div class="account_info_container">
         <p>Account information</p>
-        <form [formGroup]="validationForm" (ngSubmit)="onSubmit()">
+        <div *ngIf="loadingProfile">
+          <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        <div *ngIf="!loadingProfile">
+          <form [formGroup]="validationForm" (ngSubmit)="onSubmit()">
             <div class="column" style="align-items: center; justify-content: center;">
                 <div>
                     <mdb-form-control>
@@ -43,5 +49,6 @@
               </button>
           </div>
           </form>
+        </div>
     </div>
 </div>

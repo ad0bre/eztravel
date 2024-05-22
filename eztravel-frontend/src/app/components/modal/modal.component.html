@@ -48,7 +48,7 @@
 
             <div style="margin-top: 30px; margin-bottom: 20px;">
                 <mdb-form-control>
-                  <input mdbValidate mdbInput type="date" id="form5" class="form-control" formControlName="departureTime" required/>
+                  <input mdbValidate mdbInput type="datetime-local" id="form5" class="form-control" formControlName="departureTime" required/>
                   <label mdbLabel class="form-label" for="form5">Departure time</label>
                   <mdb-error *ngIf="validationForm.get('departureTime')?.errors?.['required'] && validationForm.get('departureTime')?.touched">
                     Departure time is required
@@ -58,7 +58,7 @@
 
             <div style="margin-top: 30px; margin-bottom: 20px;">
                 <mdb-form-control>
-                  <input mdbValidate mdbInput type="date" id="form6" class="form-control" formControlName="arrivalTime" required/>
+                  <input mdbValidate mdbInput type="datetime-local" id="form6" class="form-control" formControlName="arrivalTime" required/>
                   <label mdbLabel class="form-label" for="form6">Arrival time</label>
                   <mdb-error *ngIf="validationForm.get('arrivalTime')?.errors?.['required'] && validationForm.get('arrivalTime')?.touched">
                     Arrival time is required

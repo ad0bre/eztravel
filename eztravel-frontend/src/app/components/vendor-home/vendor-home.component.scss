@@ -4,7 +4,8 @@
     padding-top: 1rem;
 
     align-items: center;
-    background-color: #fecc56;
+    background: rgb(238,238,238);
+    background: linear-gradient(90deg, rgba(238,238,238,1) 0%, rgba(227,227,227,1) 48%, rgba(223,223,223,1) 100%);
 
     display: flex;
     flex-direction: column;
@@ -36,12 +37,22 @@
     gap: 15px;
 }
 
-.transport_container,
-.accomodation_container,
-.activity_container {
+.offer_container {
     flex: 1;
     min-width: 0;
     padding: 15px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    border: #3c6cc4 solid 2px;
+}
+
+.offer{
+    height: 100%;
+    width: 95%;
 
     display: flex;
     flex-direction: column;
@@ -61,10 +72,25 @@
     border-radius: 20px;
     border: hidden;
 
-    background: linear-gradient(90deg, rgba(99,184,247,1) 0%, rgba(44,169,235,1) 48%, rgba(12,144,214,1) 100%);
-    box-shadow: 8px 4px 4px #2ca9eb;
+    background: #3c6cc4;
+    box-shadow: 8px 4px 4px #507cd4;
 
     font-size: small;
     font-weight: 700;
-    color: black;
+    color: #F9F9F9;
+}
+
+.buttons_container{
+    margin-top: 1rem;
+    width: 100%; 
+    display: flex; 
+    flex-direction: row; 
+    align-items: center;
+}
+
+.button{
+    width: 33%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

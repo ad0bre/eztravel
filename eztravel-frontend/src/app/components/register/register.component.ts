@@ -17,13 +17,23 @@ import { UserService } from '../../services/user.service';
 import { UserGet } from '../../interfaces/user-get';
 import { UserProfileService } from '../../services/user-profile.service';
 import { UserProfile } from '../../interfaces/user-profile';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [ImageSliderComponent, FontAwesomeModule, RouterOutlet, FormsModule, HttpClientModule, CommonModule, MdbFormsModule, MdbValidationModule, ReactiveFormsModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrl: './register.component.scss',
+  animations: [
+    trigger('slideIn', [
+      state('void', style({ transform: 'translateX(-100%)', opacity: 0 })),
+      state('*', style({ transform: 'translateX(0)', opacity: 1 })),
+      transition(':enter', [
+        animate('1200ms ease-in')
+      ])
+    ])
+  ]
 })
 export class RegisterComponent{
   validationForm: FormGroup;

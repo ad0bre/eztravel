@@ -16,13 +16,23 @@ import { UserService } from '../../services/user.service';
 import { UserGet } from '../../interfaces/user-get';
 import { UserProfileService } from '../../services/user-profile.service';
 import { GetUserProfile } from '../../interfaces/get-user-profile';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [ImageSliderComponent, FontAwesomeModule, RouterOutlet, FormsModule, CommonModule, MdbFormsModule, MdbValidationModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  animations: [
+    trigger('slideIn', [
+      state('void', style({ transform: 'translateX(-100%)', opacity: 0 })),
+      state('*', style({ transform: 'translateX(0)', opacity: 1 })),
+      transition(':enter', [
+        animate('1200ms ease-in')
+      ])
+    ])
+  ]
 })
 export class LoginComponent {
   validationForm: FormGroup;
@@ -66,7 +76,7 @@ export class LoginComponent {
   constructor(private router: Router, private authService: AuthService, private formBuilder: FormBuilder, private userService: UserService, private userProfileService: UserProfileService) {
     this.validationForm = this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
     this.userRole = 0;
   }

@@ -4,21 +4,56 @@
         <p>Where do you want to travel,</p> <h2> {{ ' ' + username + ' '}}</h2>?
     </div>
     <div class="search_container">
-        <div class="search_fields">
-            <label>Where do you want to go?</label>
-            <input class="text_fields">
-            <label>When do you want to go?</label>
-            <div class="date_sel">
-                <p>from</p>
-                <input type="date" class="text_fields">
-                <p>to</p>
-                <input type="date" class="text_fields">
+        <form [formGroup]="validationForm" (ngSubmit)="onSubmit()">
+            <div class="column">
+                <div style="width: 60%;">
+                    <mdb-form-control>
+                        <input mdbValidate mdbInput type="text" id="form1" class="form-control" formControlName="destination" required/>
+                        <label mdbLabel class="form-label" for="form1">Destination</label>
+                        <mdb-error *ngIf="validationForm.get('destination')?.errors?.['required'] && validationForm.get('destination')?.touched">
+                          Destination is required
+                        </mdb-error>
+                    </mdb-form-control>
+                </div>
+                <div class="date_container">
+                    <div>
+                        <mdb-form-control>
+                          <input mdbValidate mdbInput type="date" id="form2" class="form-control" formControlName="leavingDate" required/>
+                          <label mdbLabel class="form-label" for="form2">Leaving Date</label>
+                          <mdb-error *ngIf="validationForm.get('leavingDate')?.errors?.['required'] && validationForm.get('leavingDate')?.touched">
+                            Leaving date is required
+                          </mdb-error>
+                        </mdb-form-control>
+                    </div>
+                    <div>
+                        <mdb-form-control>
+                          <input mdbValidate mdbInput type="date" id="form3" class="form-control" formControlName="returnDate" required/>
+                          <label mdbLabel class="form-label" for="form3">Returning Date</label>
+                          <mdb-error *ngIf="validationForm.get('returningDate')?.errors?.['required'] && validationForm.get('returningDate')?.touched">
+                            Returning date is required
+                          </mdb-error>
+                        </mdb-form-control>
+                    </div>
+                </div>
+                <div>
+                    <mdb-form-control>
+                      <input mdbValidate mdbInput type="number" id="form4" class="form-control" formControlName="people" required/>
+                      <label mdbLabel class="form-label" for="form4">Number of people</label>
+                      <mdb-error *ngIf="validationForm.get('people')?.errors?.['required'] && validationForm.get('people')?.touched">
+                        Number of people is required
+                      </mdb-error>
+                    </mdb-form-control>
+                </div>
+                <div>
+                    <mdb-form-control>
+                      <input mdbValidate mdbInput type="number" id="form5" class="form-control" formControlName="budget" required/>
+                      <label mdbLabel class="form-label" for="form5">Your budget</label>
+                      <mdb-error *ngIf="validationForm.get('budget')?.errors?.['required'] && validationForm.get('budget')?.touched">
+                        Budget is required
+                      </mdb-error>
+                    </mdb-form-control>
+                </div>
             </div>
-            <label>How many people?</label>
-            <input class="text_fields">
-            <label>What's your budget?</label>
-            <input class="text_fields">
-            <button (click)="navigateToResult()">Plan my trip!</button>
-        </div>
+        </form>
     </div>
 </div>

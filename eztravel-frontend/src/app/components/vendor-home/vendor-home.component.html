@@ -5,36 +5,57 @@
     </div>
     <div class="info_container">
         <div class="offers_container">
-            <div class="transport_container">
+            <div class="offer_container">
                 <h2>Your transport offers</h2>
-                <button *ngFor="let transport of transports" class="transport" mdbRipple (click)="openTransportOfferModal(transport)">
-                    <fa-icon [icon]="faPlaneDeparture"></fa-icon>
-                    {{ transport.name }} - {{transport.description}} ({{transport.departureLocation}} - {{transport.arrivalLocation}})
-                </button>
+                <div *ngIf="loadingTransports">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div *ngIf="!loadingTransports" class="offer">
+                    <button *ngFor="let transport of transports" class="transport" mdbRipple (click)="openTransportOfferModal(transport)">
+                        <fa-icon [icon]="faPlaneDeparture"></fa-icon>
+                        {{ transport.name }} - {{transport.description}} ({{transport.departureLocation}} - {{transport.arrivalLocation}})
+                    </button>
+                </div>   
             </div>
-            <div class="accomodation_container">
+            <div class="offer_container">
                 <h2>Your accomodation offers</h2>
-                <button *ngFor="let accomodation of accomodations" class="transport" mdbRipple (click)="openAccomodationOfferModal(accomodation)">
-                    <fa-icon [icon]="faHotel"></fa-icon>
-                    {{ accomodation.name }} - {{accomodation.description}} ({{accomodation.location}})
-                </button>
+                <div *ngIf="loadingAccomodations">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div *ngIf="!loadingAccomodations" class="offer">
+                    <button *ngFor="let accomodation of accomodations" class="transport" mdbRipple (click)="openAccomodationOfferModal(accomodation)">
+                        <fa-icon [icon]="faHotel"></fa-icon>
+                        {{ accomodation.name }} - {{accomodation.description}} ({{accomodation.location}})
+                    </button>
+                </div>
             </div>
-            <div class="activity_container">
+            <div class="offer_container">
                 <h2>Your activity offers</h2>
-                <button *ngFor="let activity of activities" class="transport" mdbRipple (click)="openActivityOfferModal(activity)">
-                    <fa-icon [icon]="faCameraRetro"></fa-icon>
-                    {{ activity.name }} - {{activity.description}} ({{activity.address}})
-                </button>
+                <div *ngIf="loadingActivities">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div *ngIf="!loadingActivities" class="offer">
+                    <button *ngFor="let activity of activities" class="transport" mdbRipple (click)="openActivityOfferModal(activity)">
+                        <fa-icon [icon]="faCameraRetro"></fa-icon>
+                        {{ activity.name }} - {{activity.description}} ({{activity.address}})
+                    </button>
+                </div>
             </div>
         </div>
-        <div style="margin-top: 1rem; width: 100%; display: flex; flex-direction: row;">
-            <div style="width: 33%;">
+        <div class="buttons_container">
+            <div class="button">
                 <button type="button" class="btn btn-primary btn-lg" mdbRipple (click)="openTransportModal()">Add transport <fa-icon [icon]="faPlus"></fa-icon></button>
             </div>
-            <div style="width: 33%;">
+            <div class="button">
                 <button type="button" class="btn btn-primary btn-lg" mdbRipple (click)="openAccomodationModal()">Add accomodation <fa-icon [icon]="faPlus"></fa-icon></button>
             </div>
-            <div style="width: 33%;">
+            <div class="button">
                 <button type="button" class="btn btn-primary btn-lg" mdbRipple (click)="openActivityModal()">Add activity <fa-icon [icon]="faPlus"></fa-icon></button>
             </div>
         </div>

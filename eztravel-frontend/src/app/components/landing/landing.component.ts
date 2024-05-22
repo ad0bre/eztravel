@@ -5,13 +5,24 @@ import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { Router, RouterOutlet } from '@angular/router';
 import { MdbRippleModule } from 'mdb-angular-ui-kit/ripple';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [RouterOutlet, ImageSliderComponent, FontAwesomeModule, MdbRippleModule],
+  imports: [RouterOutlet, ImageSliderComponent, FontAwesomeModule, MdbRippleModule, CommonModule],
   templateUrl: './landing.component.html',
-  styleUrl: './landing.component.scss'
+  styleUrl: './landing.component.scss',
+  animations: [
+    trigger('slideIn', [
+      state('void', style({ transform: 'translateX(-100%)', opacity: 0 })),
+      state('*', style({ transform: 'translateX(0)', opacity: 1 })),
+      transition(':enter', [
+        animate('1200ms ease-in')
+      ])
+    ])
+  ]
 })
 export class LandingComponent {
   faRightToBracket = faRightToBracket;

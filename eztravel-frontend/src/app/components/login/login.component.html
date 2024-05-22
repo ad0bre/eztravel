@@ -1,6 +1,6 @@
 <div class="main_container">
   <div class="container_wrapper">
-      <div class="media_container small_containers">
+      <div class="media_container small_containers" @slideIn>
           <app-image-slider [slides]="slides"></app-image-slider>
       </div>
       <div class="login_container small_containers">
@@ -10,9 +10,9 @@
           </div>
           <h1>Welcome back!</h1>
           <form [formGroup]="validationForm" (ngSubmit)="onSubmit()">
-              <div class="column" style="align-items: center; justify-content: center;">
+              <div class="column">
                 <div>
-                  <mdb-form-control>
+                  <mdb-form-control class="form-black">
                     <input mdbValidate mdbInput type="text" id="form1" class="form-control longer-input" formControlName="username" required/>
                     <label mdbLabel class="form-label" for="form1">Username</label>
                     <mdb-error *ngIf="validationForm.get('username')?.errors?.['required'] && validationForm.get('username')?.touched">
