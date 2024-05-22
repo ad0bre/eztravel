@@ -59,8 +59,12 @@
 
 .longer-input {
     width: 100%;
-  }
+}
   
+.column{
+    align-items: center; 
+    justify-content: center;
+}
 
 .button {
     width: 150px;
