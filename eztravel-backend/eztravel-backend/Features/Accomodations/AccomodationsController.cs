@@ -21,7 +21,8 @@ public class AccomodationsController(AppDbContext dBContext) : ControllerBase
             Location = request.Location,
             People = request.People,
             Priority = request.Priority,
-            ProfileId = request.ProfileId
+            ProfileId = request.ProfileId,
+            Price = request.Price
         };
 
         var result = await dBContext.Accomodations.AddAsync(accomodation);
@@ -37,7 +38,8 @@ public class AccomodationsController(AppDbContext dBContext) : ControllerBase
             CheckOut = result.Entity.CheckOut,
             Location = result.Entity.Location,
             People = result.Entity.People,
-            ProfileId = result.Entity.ProfileId
+            ProfileId = result.Entity.ProfileId,
+            Price = result.Entity.Price
         });
     }
 
@@ -54,7 +56,8 @@ public class AccomodationsController(AppDbContext dBContext) : ControllerBase
                 CheckOut = accomodation.CheckOut,
                 Location = accomodation.Location,
                 People = accomodation.People,
-                ProfileId = accomodation.ProfileId
+                ProfileId = accomodation.ProfileId,
+                Price = accomodation.Price
             }).ToListAsync());
     }
 
@@ -77,7 +80,8 @@ public class AccomodationsController(AppDbContext dBContext) : ControllerBase
             CheckOut = accomodation.CheckOut,
             Location = accomodation.Location,
             People = accomodation.People,
-            ProfileId = accomodation.ProfileId
+            ProfileId = accomodation.ProfileId,
+            Price = accomodation.Price
         });
     }
 

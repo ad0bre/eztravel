@@ -13,4 +13,6 @@ public class ActivityRequest
     public int Priority { get; set; }
     
     public string? ProfileId { get; set; }
+    
+    public double Price { get; set; }
 }

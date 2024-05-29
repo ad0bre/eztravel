@@ -19,4 +19,6 @@ public class AccomodationModel : ModelBase
     public int Priority { get; set; }
     
     public string? ProfileId { get; set; }
+    
+    public double Price { get; set; }
 }

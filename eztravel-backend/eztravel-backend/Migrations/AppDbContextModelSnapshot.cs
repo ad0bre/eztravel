@@ -247,16 +247,24 @@ namespace eztravel_backend.Migrations
                     b.Property<int>("People")
                         .HasColumnType("integer");
 
+                    b.Property<double>("Price")
+                        .HasColumnType("double precision");
+
                     b.Property<int>("Priority")
                         .HasColumnType("integer");
 
                     b.Property<string>("ProfileId")
                         .HasColumnType("text");
 
+                    b.Property<string>("TripModelId")
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("Updated")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TripModelId");
 
                     b.ToTable("Accomodations");
                 });
@@ -281,10 +289,16 @@ namespace eztravel_backend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<double>("Price")
+                        .HasColumnType("double precision");
+
                     b.Property<int>("Priority")
                         .HasColumnType("integer");
 
                     b.Property<string>("ProfileId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TripModelId")
                         .HasColumnType("text");
 
                     b.Property<string>("Type")
@@ -295,6 +309,8 @@ namespace eztravel_backend.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TripModelId");
 
                     b.ToTable("Activities");
                 });
@@ -341,6 +357,9 @@ namespace eztravel_backend.Migrations
                     b.Property<string>("ProfileId")
                         .HasColumnType("text");
 
+                    b.Property<string>("TripModelId")
+                        .HasColumnType("text");
+
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("text");
@@ -350,25 +369,30 @@ namespace eztravel_backend.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TripModelId");
+
                     b.ToTable("Transports");
                 });
 
-            modelBuilder.Entity("eztravel_backend.Features.TripForms.TripFormModel", b =>
+            modelBuilder.Entity("eztravel_backend.Features.Trips.TripModel", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<DateOnly>("ArrivalDay")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("ArrivalDate")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<decimal>("Budget")
-                        .HasColumnType("numeric");
+                    b.Property<double>("Budget")
+                        .HasColumnType("double precision");
+
+                    b.Property<bool>("BudgetNotEnough")
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateOnly>("DepartureDay")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("DepartureDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Destination")
                         .IsRequired()
@@ -386,7 +410,7 @@ namespace eztravel_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TripForms");
+                    b.ToTable("Trips");
                 });
 
             modelBuilder.Entity("eztravel_backend.Features.UserProfiles.UserProfileModel", b =>
@@ -476,6 +500,36 @@ namespace eztravel_backend.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("eztravel_backend.Features.Accomodations.AccomodationModel", b =>
+                {
+                    b.HasOne("eztravel_backend.Features.Trips.TripModel", null)
+                        .WithMany("Accomodations")
+                        .HasForeignKey("TripModelId");
+                });
+
+            modelBuilder.Entity("eztravel_backend.Features.Activities.ActivityModel", b =>
+                {
+                    b.HasOne("eztravel_backend.Features.Trips.TripModel", null)
+                        .WithMany("Activities")
+                        .HasForeignKey("TripModelId");
+                });
+
+            modelBuilder.Entity("eztravel_backend.Features.Transports.TransportSelection", b =>
+                {
+                    b.HasOne("eztravel_backend.Features.Trips.TripModel", null)
+                        .WithMany("Transports")
+                        .HasForeignKey("TripModelId");
+                });
+
+            modelBuilder.Entity("eztravel_backend.Features.Trips.TripModel", b =>
+                {
+                    b.Navigation("Accomodations");
+
+                    b.Navigation("Activities");
+
+                    b.Navigation("Transports");
                 });
 #pragma warning restore 612, 618
         }
