@@ -12,7 +12,7 @@ public class TripRequest
     
     public int NumberOfPeople { get; set; }
     
-    public decimal Budget { get; set; }
+    public double Budget { get; set; }
     
     public string UserId { get; set; }
 }

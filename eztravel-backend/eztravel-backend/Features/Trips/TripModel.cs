@@ -15,7 +15,7 @@ public class TripModel : ModelBase
     
     public int NumberOfPeople { get; set; }
     
-    public decimal Budget { get; set; }
+    public double Budget { get; set; }
     
     public List<TransportSelection> Transports { get; set; }
     

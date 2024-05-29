@@ -19,7 +19,8 @@ public class ActivitiesController(AppDbContext dbContext) : ControllerBase
             Type = request.Type,
             Address = request.Address,
             Priority = request.Priority,
-            ProfileId = request.ProfileId
+            ProfileId = request.ProfileId,
+            Price = request.Price
         };
 
         var result = await dbContext.Activities.AddAsync(activity);
@@ -33,7 +34,8 @@ public class ActivitiesController(AppDbContext dbContext) : ControllerBase
             Description = result.Entity.Description,
             Type = result.Entity.Type,
             Address = result.Entity.Address,
-            ProfileId = result.Entity.ProfileId
+            ProfileId = result.Entity.ProfileId,
+            Price = result.Entity.Price
         });
     }
 
@@ -48,7 +50,8 @@ public class ActivitiesController(AppDbContext dbContext) : ControllerBase
                 Description = activity.Description,
                 Type = activity.Type,
                 Address = activity.Address,
-                ProfileId = activity.ProfileId
+                ProfileId = activity.ProfileId,
+                Price = activity.Price
             }).ToListAsync());
     }
 
@@ -69,7 +72,8 @@ public class ActivitiesController(AppDbContext dbContext) : ControllerBase
             Description = activity.Description,
             Type = activity.Type,
             Address = activity.Address,
-            ProfileId = activity.ProfileId
+            ProfileId = activity.ProfileId,
+            Price = activity.Price
         });
     }
 
