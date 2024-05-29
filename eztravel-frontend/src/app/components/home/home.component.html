@@ -18,18 +18,18 @@
                 <div class="date_container">
                     <div>
                         <mdb-form-control>
-                          <input mdbValidate mdbInput type="date" id="form2" class="form-control" formControlName="leavingDate" required/>
+                          <input mdbValidate mdbInput type="date" id="form2" class="form-control" formControlName="arrivalDay" required/>
                           <label mdbLabel class="form-label" for="form2">Leaving Date</label>
-                          <mdb-error *ngIf="validationForm.get('leavingDate')?.errors?.['required'] && validationForm.get('leavingDate')?.touched">
+                          <mdb-error *ngIf="validationForm.get('arrivalDay')?.errors?.['required'] && validationForm.get('arrivalDay')?.touched">
                             Leaving date is required
                           </mdb-error>
                         </mdb-form-control>
                     </div>
                     <div>
                         <mdb-form-control>
-                          <input mdbValidate mdbInput type="date" id="form3" class="form-control" formControlName="returnDate" required/>
+                          <input mdbValidate mdbInput type="date" id="form3" class="form-control" formControlName="departureDay" required/>
                           <label mdbLabel class="form-label" for="form3">Returning Date</label>
-                          <mdb-error *ngIf="validationForm.get('returningDate')?.errors?.['required'] && validationForm.get('returningDate')?.touched">
+                          <mdb-error *ngIf="validationForm.get('departureDay')?.errors?.['required'] && validationForm.get('departureDay')?.touched">
                             Returning date is required
                           </mdb-error>
                         </mdb-form-control>
@@ -37,9 +37,9 @@
                 </div>
                 <div>
                     <mdb-form-control>
-                      <input mdbValidate mdbInput type="number" id="form4" class="form-control" formControlName="people" required/>
+                      <input mdbValidate mdbInput type="number" id="form4" class="form-control" formControlName="numberOfPeople" required/>
                       <label mdbLabel class="form-label" for="form4">Number of people</label>
-                      <mdb-error *ngIf="validationForm.get('people')?.errors?.['required'] && validationForm.get('people')?.touched">
+                      <mdb-error *ngIf="validationForm.get('numberOfPeople')?.errors?.['required'] && validationForm.get('numberOfPeople')?.touched">
                         Number of people is required
                       </mdb-error>
                     </mdb-form-control>
@@ -54,6 +54,14 @@
                     </mdb-form-control>
                 </div>
             </div>
+            <div class="login_buttons">
+              <button type="submit" class="btn btn-primary btn-lg" mdbRipple (click)="search()">
+                <div style="display: flex; flex-direction: row; gap: 10px;">
+                  <fa-icon [icon]="faPlane"></fa-icon>
+                  Plan my trip!
+                </div>  
+              </button>
+          </div>
         </form>
     </div>
 </div>

@@ -25,6 +25,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "dateonly": "^1.2.0",
     "mdb-angular-ui-kit": "^6.0.0",
     "ngx-webstorage-service": "^5.0.0",
     "rxjs": "~7.8.0",
