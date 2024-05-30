@@ -7,15 +7,18 @@
         <div class="modal-body">
             <div class="offer-info">
                 <div style="align-self: center; justify-self: center; font-weight: 700; color: black;">
-                    <h2>{{offer.name}} - {{offer.type}}</h2>
+                    <h2>{{offer.name}} in {{offer.location}}</h2>
                 </div>
                 <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: center;">
-                    <h3>{{offer.description}}</h3>
+                    <h3>From: {{formatDate(offer.checkIn)}}</h3>
+                    <fa-icon [icon]="faArrowRight" size="lg"></fa-icon>
+                    <h3>{{formatDate(offer.checkOut)}}</h3>
                 </div>
-                <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: center;">
-                    <h4>Location: {{offer.address}}</h4>
+                <div style="display: flex; flex-direction: row; gap: 10px; align-items: baseline; justify-content: center;">
+                    <h4>Accomodation for: {{offer.people}}</h4>
+                    <fa-icon [icon]="faPerson" size="lg"></fa-icon>
                 </div>
-                <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: center;">
+                <div style="display: flex; flex-direction: row; gap: 10px; align-items: baseline; justify-content: center;">
                     <h4>Price: {{offer.price}} $</h4>
                 </div>
             </div>
@@ -23,7 +26,6 @@
         <div class="modal-footer">
             <div class="login_buttons" style="display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: center; margin-top: 20px;">
                 <button type="button" class="btn btn-primary btn-lg" mdbRipple (click)="modalRef.close()">Close</button>
-                <button type="button" class="btn btn-danger btn-lg" mdbRipple (click)="deleteOffer()">Delete Offer <fa-icon [icon]="faTrash"></fa-icon></button>
             </div>
         </div>
     </div>

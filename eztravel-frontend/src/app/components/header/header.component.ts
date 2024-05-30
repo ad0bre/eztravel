@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faList } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '../../services/user.service';
 import { UserProfileService } from '../../services/user-profile.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [FontAwesomeModule],
+  imports: [FontAwesomeModule, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
@@ -21,6 +22,7 @@ export class HeaderComponent {
   }
 
   faUser = faUser;
+  faList = faList;
 
   async findUserProfile(username: string): Promise<void> {
     try {
@@ -67,5 +69,8 @@ export class HeaderComponent {
     } else {
       this.router.navigate(['vendor-profile']);
     }
+  }
+  goToTrips(){
+    this.router.navigate(['trips']);
   }
 }

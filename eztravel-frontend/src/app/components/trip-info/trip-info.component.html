@@ -1,0 +1,51 @@
+<app-header></app-header>
+<div class="main_container">
+    <div class="info_container">
+        <h3 style="color: gray;">Trip summary</h3>
+        <div class="info_cells">
+            <div class="trip_info">
+                <h3>You searched for:</h3>
+                <p>Location: {{trip?.destination}}</p>
+                <div style="display: flex; flex-direction: row;">
+                    <p>From: {{trip?.arrivalDay}} to {{trip?.departureDay}}</p>
+                </div>
+                <p>Number of people: {{trip?.numberOfPeople}}</p>
+                <p>You had a budget of: {{trip?.budget}} $</p>
+            </div>
+            <div class="trip_info" (click)="openTransportOffers(trip?.transports)">
+                <h3>Transport Info</h3>
+                <ul>
+                    <li *ngFor="let transport of trip?.transports | slice:0:3">
+                        <div>
+                            <p>{{transport.departureLocation}} -> {{transport.arrivalLocation}} ({{transport.price}}$)</p>
+                        </div>
+                    </li>
+                </ul>
+                  <p>Click to show more</p>
+            </div>
+            <div class="trip_info" (click)="openAccomodationOfferModal(trip?.accomodations)">
+                <h3>Accomodation Info</h3>
+                <ul>
+                    <li *ngFor="let accomodation of trip?.accomodations | slice:0:3">
+                        <div>
+                            <p>{{accomodation.name}} ({{accomodation.price}}$)</p>
+                        </div>
+                    </li>
+                </ul>
+                <p>Click to show more</p>
+            </div>
+            <div class="trip_info" (click)="openActivityOfferModal(trip?.activities)">
+                <h3>Activities Info</h3>
+                <ul>
+                    <li *ngFor="let activity of trip?.activities | slice:0:3">
+                        <div>
+                            <p>{{activity.name}} ({{activity.price}}$)</p>
+                        </div>
+                    </li>
+                </ul>
+                <p>Click to show more</p>
+            </div>
+        </div>
+        <p style="color: gray;">Trip ID: {{trip?.id}}</p>
+    </div>
+</div>

@@ -7,4 +7,5 @@ export interface Accomodation {
     people: number,
     priority: number,
     profileId: string | null,
+    price: number
 }

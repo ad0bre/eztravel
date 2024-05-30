@@ -1,25 +1,51 @@
 <app-header></app-header>
 <div class="main_container">
-    <div class="trip_info"></div>
+    <div class="trip_info">
+        <h3>Your trip to</h3>
+        <h3 style="font-weight: 900;">{{offers.destination}}</h3>
+    </div>
     <div class="search_results">
         <div class="result_column">
-            <p class="title">Transport options</p>
-            <p>TOP OFFER</p>
-            <div class="top_offer_container"></div>
-            <p>Other suggestions</p>
+            <h2>Transport offers</h2>
+                <div *ngIf="loading">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div *ngIf="!loading" class="offer">
+                    <button *ngFor="let transport of transports" class="transport" (click)="openTransportOfferModal(transport)">
+                        <fa-icon [icon]="faPlane"></fa-icon>
+                        {{ transport.name }} - ({{transport.departureLocation}} - {{transport.arrivalLocation}})
+                    </button>
+                </div>   
         </div>
         <div class="result_column">
-            <p class="title">Accomodation options</p>
-            <p>TOP OFFER</p>
-            <div class="top_offer_container"></div>
-            <p>Other suggestions</p>
+            <h2>Accomodation offers</h2>
+                <div *ngIf="loading">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div *ngIf="!loading" class="offer">
+                    <button *ngFor="let accomodation of accomodations" class="transport" (click)="openAccomodationOfferModal(accomodation)">
+                        <fa-icon [icon]="faHotel"></fa-icon>
+                        {{ accomodation.name }} - ({{accomodation.location}})
+                    </button>
+                </div>   
         </div>
         <div class="result_column">
-            <p class="title">Activities options</p>
-            <p>TOP OFFER</p>
-            <div class="top_offer_container"></div>
-            <p>Other suggestions</p>
-            <div class="other_suggestions_container"></div>
+            <h2>Activity offers</h2>
+                <div *ngIf="loading">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div *ngIf="!loading" class="offer">
+                    <button *ngFor="let activity of activities" class="transport" (click)="openActivityOfferModal(activity)">
+                        <fa-icon [icon]="faCamera"></fa-icon>
+                        {{ activity.name }} - ({{activity.address}})
+                    </button>
+                </div>   
         </div>
     </div>
 </div>

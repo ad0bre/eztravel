@@ -5,4 +5,5 @@ export interface Activity {
     address: string,
     priority: number,
     profileId: string | null,
+    price: number
 }

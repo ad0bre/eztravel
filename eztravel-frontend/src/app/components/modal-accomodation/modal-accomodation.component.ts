@@ -31,6 +31,7 @@ export class ModalAccomodationComponent{
       people: new FormControl(null, { validators: Validators.required }),
       priority: new FormControl(null, { validators: Validators.required }),
       profileId: new FormControl(null),
+      price: new FormControl(null, { validators: Validators.required })
     });
     this.profileId = localStorage.getItem('profileID');
   }
@@ -48,6 +49,7 @@ export class ModalAccomodationComponent{
         people: this.people.value,
         priority: this.priority.value,
         profileId: this.profileId,
+        price: this.price.value
       };
   
       try {
@@ -88,6 +90,10 @@ export class ModalAccomodationComponent{
 
   get priority(): FormControl {
     return this.validationForm.get('priority') as FormControl;
+  }
+
+  get price(): FormControl {
+    return this.validationForm.get('price') as FormControl;
   }
 
   onSubmit(): void {

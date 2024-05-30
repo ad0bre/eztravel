@@ -28,6 +28,7 @@ export class ModalActivityComponent {
       address: new FormControl(null, { validators: Validators.required}),
       priority: new FormControl(null, { validators: Validators.required}),
       profileId: new FormControl(null),
+      price: new FormControl(null, { validators: Validators.required}),
     });
     this.profileId = localStorage.getItem('profileID');
   }
@@ -43,6 +44,7 @@ export class ModalActivityComponent {
         address: this.address.value,
         priority: this.priority.value,
         profileId: this.profileId,
+        price: this.price.value
       };
 
       try{
@@ -71,6 +73,9 @@ export class ModalActivityComponent {
   }
   get priority(): AbstractControl {
     return this.validationForm.get('priority')!;
+  }
+  get price(): AbstractControl {
+    return this.validationForm.get('price')!;
   }
 
   onSubmit(): void {

@@ -7,4 +7,5 @@ export interface GetAccomodation {
     checkOut: Date,
     people: number,
     profileId: string | null,
+    price: number
 }
