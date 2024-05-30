@@ -57,8 +57,10 @@ export class HomeComponent {
       try {
         const response = await lastValueFrom(this.tripformService.createTripForm(tripform));
         console.log("Success! Response:", response);
+        const tripID = response.id;
+        console.log("TripID:", tripID);
+        localStorage.setItem('tripID', tripID);
         this.navigateToResult();
-        console.log(tripform);
       } catch (error) {
         console.log("Error:", error);
       }

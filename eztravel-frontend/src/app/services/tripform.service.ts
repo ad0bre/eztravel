@@ -23,4 +23,8 @@ export class TripformService {
     return this.http.get<GetTrip[]>(`${this.apiUrl}/${userId}`);
   }
 
+  getTripByID(tripID: string | null): Observable<GetTrip>{
+    return this.http.get<GetTrip>(`${this.apiUrl}/id/${tripID}`);
+  }
+
 }

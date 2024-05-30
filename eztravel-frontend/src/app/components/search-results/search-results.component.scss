@@ -13,9 +13,44 @@
 }
 
 .trip_info{
-    border: solid 1px black;
     width: 60%;
     height: 40px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.offer{
+    height: 100%;
+    width: 95%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.transport{
+    width: 90%;
+    height: 10%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 20px;
+    border: hidden;
+
+    background: #3c6cc4;
+    box-shadow: 8px 4px 4px #507cd4;
+
+    font-size: small;
+    font-weight: 700;
+    color: #F9F9F9;
 }
 
 .search_results{
@@ -27,24 +62,15 @@
     gap: 1rem;
 }
 
-.result_column{
-    width: 33%;
-    height: 95%;
+.result_column {
+    flex: 1;
+    min-width: 0;
+    padding: 15px;
+
     display: flex;
     flex-direction: column;
-    padding-left: 0.5rem;
+    align-items: center;
+    gap: 10px;
 
-    border: solid 2px black;
-}
-
-.title{
-    align-self: center;
-    font-size: larger;
-    font-weight: 800    ;
-}
-
-.top_offer_container{
-    width: 90%;
-    height: 50px;
-    border: solid 2px black;
+    border: #3c6cc4 solid 2px;
 }
