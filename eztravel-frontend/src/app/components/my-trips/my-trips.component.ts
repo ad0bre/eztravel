@@ -7,8 +7,7 @@ import { GetActivity } from '../../interfaces/get-activity';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { animate, keyframes, style, transition, trigger, useAnimation } from '@angular/animations';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-my-trips',

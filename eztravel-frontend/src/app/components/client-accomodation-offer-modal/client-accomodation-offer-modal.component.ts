@@ -3,7 +3,6 @@ import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { GetAccomodation } from '../../interfaces/get-accomodation';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faArrowRight, faPerson, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { AccomodationService } from '../../services/accomodation.service';
 import { DatePipe } from '@angular/common';
 
 @Component({
