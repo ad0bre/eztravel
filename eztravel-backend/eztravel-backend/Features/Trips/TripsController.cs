@@ -47,6 +47,12 @@ public class TripsController : ControllerBase
             Activities = await GetActivities(request)
         };
 
+        if (trip.Transports.Count == 0) return NotFound("No transportation means found");
+        
+        if(trip.Accomodations.Count == 0) return NotFound("No accomodations found");
+        
+        if(trip.Activities.Count == 0) return NotFound("No activities found");
+        
         trip.BudgetNotEnough = !await VerifyBudget(trip.Budget, trip.Transports, trip.Accomodations, trip.Activities);
 
         if (trip.BudgetNotEnough) return BadRequest($"Budget {trip.Budget} is not enough!");
