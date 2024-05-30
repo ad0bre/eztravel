@@ -59,6 +59,8 @@ public class TripsController : ControllerBase
 
         var result = await _dbContext.Trips.AddAsync(trip);
 
+        await _dbContext.SaveChangesAsync();
+
         return Created($"trips/{trip.Id}", new TripResponse
         {
             Id = result.Entity.Id,
