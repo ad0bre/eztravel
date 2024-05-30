@@ -8,6 +8,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { VendorHomeComponent } from './components/vendor-home/vendor-home.component';
 import { VendorProfileComponent } from './components/vendor-profile/vendor-profile.component';
 import { MyTripsComponent } from './components/my-trips/my-trips.component';
+import { TripInfoComponent } from './components/trip-info/trip-info.component';
 
 export const routes: Routes = [
     {
@@ -45,5 +46,9 @@ export const routes: Routes = [
     {
         path: 'trips',
         component: MyTripsComponent
+    },
+    {
+        path: 'trip/:id',
+        component: TripInfoComponent
     }
 ];

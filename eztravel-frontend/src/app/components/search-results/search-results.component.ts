@@ -48,28 +48,6 @@ export class SearchResultsComponent implements OnInit {
   ngOnInit(): void {
     this.listOffersByTripId();
   }
-  /*
-  listOffers() {
-    if (this.userId) {
-      this.tripService.getTripsByUser(this.userId).subscribe(
-        (offers: GetTrip[]) => {
-          this.offers = offers;
-          console.log("Offers:", this.offers);
-          this.transports = this.offers.flatMap(offer => offer.transports);
-          this.accomodations = this.offers.flatMap(offer => offer.accomodations);
-          this.activities = this.offers.flatMap(offer => offer.activities);
-          this.loading = false;
-        },
-        (error) => {
-          console.error('Error fetching offers:', error);
-          this.loading = false;
-        }
-      );
-    } else {
-      console.error('No user ID found');
-    }
-  }
-  */
 
   listOffersByTripId() {
     if (this.tripId) {
