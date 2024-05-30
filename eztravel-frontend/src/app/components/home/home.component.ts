@@ -25,12 +25,13 @@ export class HomeComponent {
 
   constructor(private router: Router, private formBuilder: FormBuilder, private tripformService: TripformService) {
     this.validationForm = this.formBuilder.group({
-      userId: [null],
       destination: [null, Validators.required],
-      arrivalDay: [null, Validators.required],
-      departureDay: [null, Validators.required],
+      currentLocation: [null, Validators.required],
+      arrivalDate: [null, Validators.required],
+      departureDate: [null, Validators.required],
       numberOfPeople: [null, Validators.required],
       budget: [null, Validators.required],
+      userId: [null]
     });
     this.userId = localStorage.getItem('userID');
   }
@@ -41,39 +42,26 @@ export class HomeComponent {
   
     if (this.validationForm.valid) {
       const tripform: Tripform = {
-        userId: this.userId,
         destination: this.destination.value,
-        arrivalDay: this.formatDate(this.arrivalDay.value),
-        departureDay: this.formatDate(this.departureDay.value),
+        currentLocation: this.currentLocation.value,
+        arrivalDate: new Date(this.arrivalDate.value),
+        departureDate: new Date(this.departureDate.value),
         numberOfPeople: this.numberOfPeople.value,
         budget: this.budget.value,
+        userId: this.userId,
       };
-
-      // Log the JSON structure
-      console.log("Tripform JSON structure:", JSON.stringify(tripform, null, 2));
-      
+  
       try {
-        await lastValueFrom(this.tripformService.createTripForm(tripform));
-        console.log("Success!");
+        const response = await lastValueFrom(this.tripformService.createTripForm(tripform));
+        console.log("Success! Response:", response);
+        this.navigateToResult();
+        console.log(tripform);
       } catch (error) {
-        console.log("error", error);
+        console.log("Error:", error);
       }
     }
   }
-
-  formatDate(date: any): string {
-    const parsedDate = new Date(date);
   
-    if (!isNaN(parsedDate.getTime())) {
-      const year = parsedDate.getFullYear();
-      const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');
-      const day = parsedDate.getDate().toString().padStart(2, '0');
-      return `${year}-${month}-${day}`;
-    } else {
-      console.error("Invalid date provided:", date);
-      return '';
-    }
-  }
 
   navigateToResult(){
     this.router.navigate(['search_results']);
@@ -83,12 +71,16 @@ export class HomeComponent {
     return this.validationForm.get('destination') as FormControl;
   }
 
-  get arrivalDay(): FormControl {
-    return this.validationForm.get('arrivalDay') as FormControl;
+  get currentLocation(): FormControl {
+    return this.validationForm.get('currentLocation') as FormControl;
   }
 
-  get departureDay(): FormControl {
-    return this.validationForm.get('departureDay') as FormControl;
+  get arrivalDate(): FormControl {
+    return this.validationForm.get('arrivalDate') as FormControl;
+  }
+
+  get departureDate(): FormControl {
+    return this.validationForm.get('departureDate') as FormControl;
   }
 
   get numberOfPeople(): FormControl {

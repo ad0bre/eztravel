@@ -5,4 +5,5 @@ export interface GetActivity {
     type: string,
     address: string,
     profileId: string | null,
+    price: number
 }

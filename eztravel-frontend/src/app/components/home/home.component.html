@@ -15,21 +15,30 @@
                         </mdb-error>
                     </mdb-form-control>
                 </div>
+                <div style="width: 60%;">
+                  <mdb-form-control>
+                      <input mdbValidate mdbInput type="text" id="form2" class="form-control" formControlName="currentLocation" required/>
+                      <label mdbLabel class="form-label" for="form2">Your Location</label>
+                      <mdb-error *ngIf="validationForm.get('currentLocation')?.errors?.['required'] && validationForm.get('currentLocation')?.touched">
+                        Current location is required
+                      </mdb-error>
+                  </mdb-form-control>
+              </div>
                 <div class="date_container">
                     <div>
                         <mdb-form-control>
-                          <input mdbValidate mdbInput type="date" id="form2" class="form-control" formControlName="arrivalDay" required/>
-                          <label mdbLabel class="form-label" for="form2">Leaving Date</label>
-                          <mdb-error *ngIf="validationForm.get('arrivalDay')?.errors?.['required'] && validationForm.get('arrivalDay')?.touched">
+                          <input mdbValidate mdbInput type="date" id="form3" class="form-control" formControlName="arrivalDate" required/>
+                          <label mdbLabel class="form-label" for="form3">Leaving Date</label>
+                          <mdb-error *ngIf="validationForm.get('arrivalDate')?.errors?.['required'] && validationForm.get('arrivalDate')?.touched">
                             Leaving date is required
                           </mdb-error>
                         </mdb-form-control>
                     </div>
                     <div>
                         <mdb-form-control>
-                          <input mdbValidate mdbInput type="date" id="form3" class="form-control" formControlName="departureDay" required/>
-                          <label mdbLabel class="form-label" for="form3">Returning Date</label>
-                          <mdb-error *ngIf="validationForm.get('departureDay')?.errors?.['required'] && validationForm.get('departureDay')?.touched">
+                          <input mdbValidate mdbInput type="date" id="form4" class="form-control" formControlName="departureDate" required/>
+                          <label mdbLabel class="form-label" for="form4">Returning Date</label>
+                          <mdb-error *ngIf="validationForm.get('departureDate')?.errors?.['required'] && validationForm.get('departureDate')?.touched">
                             Returning date is required
                           </mdb-error>
                         </mdb-form-control>
@@ -37,8 +46,8 @@
                 </div>
                 <div>
                     <mdb-form-control>
-                      <input mdbValidate mdbInput type="number" id="form4" class="form-control" formControlName="numberOfPeople" required/>
-                      <label mdbLabel class="form-label" for="form4">Number of people</label>
+                      <input mdbValidate mdbInput type="number" id="form5" class="form-control" formControlName="numberOfPeople" required/>
+                      <label mdbLabel class="form-label" for="form5">Number of people</label>
                       <mdb-error *ngIf="validationForm.get('numberOfPeople')?.errors?.['required'] && validationForm.get('numberOfPeople')?.touched">
                         Number of people is required
                       </mdb-error>
@@ -46,8 +55,8 @@
                 </div>
                 <div>
                     <mdb-form-control>
-                      <input mdbValidate mdbInput type="number" id="form5" class="form-control" formControlName="budget" required/>
-                      <label mdbLabel class="form-label" for="form5">Your budget</label>
+                      <input mdbValidate mdbInput type="number" id="form6" class="form-control" formControlName="budget" required/>
+                      <label mdbLabel class="form-label" for="form6">Your budget</label>
                       <mdb-error *ngIf="validationForm.get('budget')?.errors?.['required'] && validationForm.get('budget')?.touched">
                         Budget is required
                       </mdb-error>

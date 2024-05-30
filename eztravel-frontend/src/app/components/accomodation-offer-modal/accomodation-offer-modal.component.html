@@ -6,7 +6,7 @@
         </div>
         <div class="modal-body">
             <div class="offer-info">
-                <div style="align-self: center; justify-self: center;">
+                <div style="align-self: center; justify-self: center; font-weight: 700; color: black;">
                     <h2>{{offer.name}} in {{offer.location}}</h2>
                 </div>
                 <div style="display: flex; flex-direction: row; gap: 10px; align-items: center; justify-content: center;">
@@ -17,6 +17,9 @@
                 <div style="display: flex; flex-direction: row; gap: 10px; align-items: baseline; justify-content: center;">
                     <h4>Accomodation for: {{offer.people}}</h4>
                     <fa-icon [icon]="faPerson" size="lg"></fa-icon>
+                </div>
+                <div style="display: flex; flex-direction: row; gap: 10px; align-items: baseline; justify-content: center;">
+                    <h4>Price: {{offer.price}} $</h4>
                 </div>
             </div>
         </div>

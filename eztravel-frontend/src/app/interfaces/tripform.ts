@@ -1,8 +1,9 @@
 export interface Tripform {
-  userId: string | null;
-  destination: string;
-  arrivalDay: string;
-  departureDay: string;
-  numberOfPeople: number;
-  budget: number;
+  destination: string,
+  currentLocation: string,
+  arrivalDate: Date,
+  departureDate: Date,
+  numberOfPeople: number,
+  budget: number,
+  userId: string | null
 }

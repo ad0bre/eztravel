@@ -15,7 +15,7 @@
                 <div *ngIf="!loadingTransports" class="offer">
                     <button *ngFor="let transport of transports" class="transport" mdbRipple (click)="openTransportOfferModal(transport)">
                         <fa-icon [icon]="faPlaneDeparture"></fa-icon>
-                        {{ transport.name }} - {{transport.description}} ({{transport.departureLocation}} - {{transport.arrivalLocation}})
+                        {{ transport.name }} - ({{transport.departureLocation}} - {{transport.arrivalLocation}})
                     </button>
                 </div>   
             </div>
@@ -29,7 +29,7 @@
                 <div *ngIf="!loadingAccomodations" class="offer">
                     <button *ngFor="let accomodation of accomodations" class="transport" mdbRipple (click)="openAccomodationOfferModal(accomodation)">
                         <fa-icon [icon]="faHotel"></fa-icon>
-                        {{ accomodation.name }} - {{accomodation.description}} ({{accomodation.location}})
+                        {{ accomodation.name }} - ({{accomodation.location}})
                     </button>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                 <div *ngIf="!loadingActivities" class="offer">
                     <button *ngFor="let activity of activities" class="transport" mdbRipple (click)="openActivityOfferModal(activity)">
                         <fa-icon [icon]="faCameraRetro"></fa-icon>
-                        {{ activity.name }} - {{activity.description}} ({{activity.address}})
+                        {{ activity.name }} - ({{activity.address}})
                     </button>
                 </div>
             </div>
