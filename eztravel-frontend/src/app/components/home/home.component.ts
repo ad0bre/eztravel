@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
-import { faPlane } from '@fortawesome/free-solid-svg-icons';
+import { faPlane, faLocationCrosshairs } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { lastValueFrom } from 'rxjs';
 import { TripformService } from '../../services/tripform.service';
@@ -21,7 +21,10 @@ import { Tripform } from '../../interfaces/tripform';
 export class HomeComponent {
   validationForm: FormGroup;
   faPlane = faPlane;
+  faLocation = faLocationCrosshairs;
   userId: string | null;
+  locationNotFound: boolean = false;
+  loading: boolean = false;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private tripformService: TripformService) {
     this.validationForm = this.formBuilder.group({
@@ -62,6 +65,26 @@ export class HomeComponent {
     }
   }
   
+  getUserLocation() {
+    this.loading = true;
+    this.locationNotFound = false;
+    fetch('https://ipapi.co/json/')
+      .then(response => response.json())
+      .then(jsonData => {
+        console.log(jsonData);
+        if (jsonData.city) {
+          this.currentLocation.setValue(jsonData.city);
+        } else {
+          this.locationNotFound = true;
+        }
+        this.loading = false;
+      })
+      .catch(error => {
+        console.log(error);
+        this.locationNotFound = true;
+        this.loading = false;
+      });
+  }
 
   navigateToResult(){
     this.router.navigate(['search_results']);

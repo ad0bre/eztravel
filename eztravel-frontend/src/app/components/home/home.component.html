@@ -15,15 +15,28 @@
                         </mdb-error>
                     </mdb-form-control>
                 </div>
-                <div style="width: 60%;">
-                  <mdb-form-control>
+                <div class="date_container">
+                  <div>
+                    <mdb-form-control>
                       <input mdbValidate mdbInput type="text" id="form2" class="form-control" formControlName="currentLocation" required/>
                       <label mdbLabel class="form-label" for="form2">Your Location</label>
                       <mdb-error *ngIf="validationForm.get('currentLocation')?.errors?.['required'] && validationForm.get('currentLocation')?.touched">
                         Current location is required
                       </mdb-error>
+                      <mdb-error *ngIf="locationNotFound == true">
+                        Could not find your location!
+                      </mdb-error>
                   </mdb-form-control>
-              </div>
+                  </div>
+                  <div *ngIf="loading">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-info" mdbRipple (click)="getUserLocation()">
+                    <fa-icon [icon]="faLocation" class="fa-lg"></fa-icon>
+                  </button>
+                </div>
                 <div class="date_container">
                     <div>
                         <mdb-form-control>
